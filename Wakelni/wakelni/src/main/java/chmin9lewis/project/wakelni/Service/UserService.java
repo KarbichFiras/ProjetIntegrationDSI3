@@ -23,9 +23,6 @@ public class UserService {
 	IRoleMetier roleMetier;
 	
 	@Autowired
-	// AutoWiring with the bean at WakelniApplication.java
-	private WebClient.Builder webClientBuilder;
-	
 	WebClient webClient;
 	
 	@RequestMapping(value="/addUser" , method = RequestMethod.POST)
@@ -40,8 +37,6 @@ public class UserService {
 	
 	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
 	public Flux<Restaurant> getAllRestaurants(){
-		
-		webClient = webClientBuilder.build();
 		
 		return 	webClient.get()
 				.uri("/getAllRestaurants")

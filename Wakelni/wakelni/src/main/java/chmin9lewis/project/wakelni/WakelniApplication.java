@@ -34,11 +34,12 @@ public class WakelniApplication implements CommandLineRunner{
 	}
 	
 	@Bean
-	public WebClient.Builder getWebClientBuilder(){
+	public WebClient getWebClient(){
 		
-		return WebClient.builder().baseUrl("https://localhost:8079")
-				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-		
+		return WebClient.builder()
+		        .baseUrl("https://localhost:8079")
+		        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+		        .build();
 	}
 	
 	@Override
