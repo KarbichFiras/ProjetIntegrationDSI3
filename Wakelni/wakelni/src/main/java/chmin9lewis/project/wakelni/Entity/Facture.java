@@ -22,8 +22,7 @@ public class Facture {
 	private double total;
 	private String modePaiment;
 	
-	@OneToOne
-	private Commande commande;
+	
 
 	private String restaurantAdresse;
 	private String restaurantEmail;
@@ -65,13 +64,7 @@ public class Facture {
 		this.modePaiment = modePaiment;
 	}
 
-	public Commande getCommande() {
-		return commande;
-	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
-	}
 	public String getRestaurantAdresse() {
 		return restaurantAdresse;
 	}
