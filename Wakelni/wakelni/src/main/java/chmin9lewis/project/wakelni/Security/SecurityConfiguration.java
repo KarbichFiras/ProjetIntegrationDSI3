@@ -65,6 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 			.antMatchers("/addUser").permitAll()
 			.antMatchers("/addRole").permitAll()
+			.antMatchers("/consultFacture").permitAll()
 			;
 		}catch(Exception e) {
 			System.out.println("die :"+e.getMessage());
