@@ -18,6 +18,9 @@ import chmin9lewis.project.wakelni.Repository.UserRepository;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 public class WakelniApplication implements CommandLineRunner{
 
+	// 20 days token with role thirdParty used to connect with fean's APIs : 
+	//Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJXYWthbG5pIiwiZXhwIjoxNjQyMjAzNTA5fQ.jciupFBD_F4sHq246rXSqaLI3MCSJ1zQpF_XdXwBrjuDuM551dQW1CBxMZdsAxd2tUHazXQHdPCdsvaox1praQ
+	
 	public static void main(String[] args) {
 		SpringApplication.run(WakelniApplication.class, args);
 	}
