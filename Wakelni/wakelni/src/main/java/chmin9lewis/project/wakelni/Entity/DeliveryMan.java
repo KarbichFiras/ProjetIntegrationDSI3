@@ -1,4 +1,4 @@
-package chmin9lewis.project.wakelni.Entity;
+/*package chmin9lewis.project.wakelni.Entity;
 
 import java.util.List;
 
@@ -33,4 +33,4 @@ public class DeliveryMan extends User{
 		this.commande = commande;
 	}
 	
-}
+}*/

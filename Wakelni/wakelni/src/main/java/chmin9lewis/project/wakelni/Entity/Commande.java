@@ -3,10 +3,12 @@ package chmin9lewis.project.wakelni.Entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,11 +27,12 @@ public class Commande {
 	@ManyToOne
 	private Client client;
 	
-	@ManyToOne
-	private DeliveryMan deliveryMan;
+	/*@ManyToOne
+	private DeliveryMan deliveryMan;*/
+	@OneToMany (targetEntity = Facture.class)
+	@JoinColumn(name="Commande_idFK",referencedColumnName="codeCommande")
+	private List<Facture> facture;
 	
-	@OneToOne
-	private Facture facture;
 	
 	public Commande() {
 		super();
@@ -67,21 +70,23 @@ public class Commande {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-
+/*
 	public DeliveryMan getDeliveryMan() {
 		return deliveryMan;
 	}
 
 	public void setDeliveryMan(DeliveryMan deliveryMan) {
 		this.deliveryMan = deliveryMan;
-	}
+	}*/
 
-	public Facture getFacture() {
+	public List<Facture> getFacture() {
 		return facture;
 	}
 
-	public void setFacture(Facture facture) {
+	public void setFacture(List<Facture> facture) {
 		this.facture = facture;
 	}
+
+	
 	
 }

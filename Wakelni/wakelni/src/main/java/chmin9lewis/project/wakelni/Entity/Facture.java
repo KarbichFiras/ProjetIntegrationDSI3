@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
-import chmin9lewis.project.wakelni.Models.Restaurant;
-
 @Entity
 public class Facture {
 
@@ -24,10 +22,11 @@ public class Facture {
 	
 	@OneToOne
 	private Commande commande;
+	//
+	@OneToOne
+	private Restaurant restaurant;
+	//
 
-	private String restaurantAdresse;
-	private String restaurantEmail;
-	
 	public Facture() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -72,11 +71,5 @@ public class Facture {
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
-	public String getRestaurantAdresse() {
-		return restaurantAdresse;
-	}
 
-	public void setRestaurantAdresse(String restaurantAdresse) {
-		this.restaurantAdresse = restaurantAdresse;
-	}
 }
