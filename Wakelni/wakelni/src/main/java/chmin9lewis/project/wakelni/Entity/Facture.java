@@ -72,4 +72,11 @@ public class Facture {
 	public void setRestaurantAdresse(String restaurantAdresse) {
 		this.restaurantAdresse = restaurantAdresse;
 	}
+	public String getRestaurantEmail() {
+		return restaurantEmail;
+	}
+
+	public void setRestaurantEmail(String restaurantEmail) {
+		this.restaurantEmail = restaurantEmail;
+	}
 }
