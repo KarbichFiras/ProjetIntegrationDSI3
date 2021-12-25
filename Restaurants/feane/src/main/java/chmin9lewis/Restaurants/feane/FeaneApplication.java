@@ -121,6 +121,13 @@ public class FeaneApplication implements CommandLineRunner{
 		//Adding user role into Data Base
 		roleMetier.addRole(userRole);
 		
+		//Creatin thirdParty role
+		Role thirdPartyRole = new Role();
+			//Initializin thirdParty role
+		thirdPartyRole.setName("THIRD_PARTY");
+		//Adding thirdParty role into Data Base
+		roleMetier.addRole(thirdPartyRole);
+		
 		//Creatin admin User
 		User admin = new User();
 			//Initializin admin User
@@ -153,6 +160,22 @@ public class FeaneApplication implements CommandLineRunner{
 		//Updating user Role
 		roleMetier.updateRole(userRole);
 		
+		//Creatin thirdParty User
+			User thirdPartyUser = new User();
+			//Initializin thirdParty User
+			thirdPartyUser.setNom("nom ta3 moula thirdParty fil denya");
+			thirdPartyUser.setPrenom("prenom ta3 moula thirdParty fil denya");
+			thirdPartyUser.setUserName("Wakalni");
+			thirdPartyUser.setPassword(encoder.encode("12345"));
+			//Adding this thirdParty user to the thirdPartyRole's users List
+			thirdPartyRole.getUsers().add(thirdPartyUser);
+		//Adding this thirdParty user into Data Base
+		userMetier.addUser(thirdPartyUser);
+		//Adding thirdPartyRole to this thirdParty user Role's List
+		thirdPartyUser.getRoles().add(thirdPartyRole);
+		//Updating thirdParty Role
+		roleMetier.updateRole(thirdPartyRole);
+		
 		//Creatin restaurant Object
 		Restaurant feane = new Restaurant();
 			//Initializin Restaurant
@@ -172,8 +195,8 @@ public class FeaneApplication implements CommandLineRunner{
 		
 		
 		//Creating food List
-		*/
 		
+		*/
 		
 	}
 
