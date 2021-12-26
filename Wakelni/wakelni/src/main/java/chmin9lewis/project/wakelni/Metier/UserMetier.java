@@ -25,9 +25,11 @@ public class UserMetier implements IUserMetier {
 			
 			String encodedPassword = encoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
-			Role role = roleRepository.findByName("USER");
+			
+			Role role = roleRepository.findByName("Client");
 	        user.getRoles().add(role);
 			return userRepository.save(user);
+			
 		}catch(Exception e) {
 			System.out.println("Could not add this User! ");
 			e.printStackTrace();
@@ -35,5 +37,4 @@ public class UserMetier implements IUserMetier {
 		}
 	}
 
-	
 }

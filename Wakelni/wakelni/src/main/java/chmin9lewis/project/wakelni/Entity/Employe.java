@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Employe")
-public class Employe {
+public class Employe extends User {
 
 	public Employe() {
 		super();

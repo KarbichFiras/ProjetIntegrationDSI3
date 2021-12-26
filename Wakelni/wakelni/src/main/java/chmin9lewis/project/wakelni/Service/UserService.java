@@ -31,23 +31,22 @@ public class UserService {
 	@Autowired
 	WebClient webClient;
 	
+	@RequestMapping(value="/addRole", method = RequestMethod.POST)
+	public Role addRole(@RequestBody Role role) {
+		return roleMetier.addRole(role);
+	}
+	
 	@RequestMapping(value="/addUser" , method = RequestMethod.POST)
 	public User addUser(@RequestBody User user) {
 		return userMetier.addUser(user);
 	}
 	
-	@RequestMapping(value="/addRole", method = RequestMethod.POST)
-	public Role addRole(@RequestBody Role role) {
-		return roleMetier.addRole(role);
-	}
 	
 	//get facture consult facture
 	@RequestMapping(value="/consultFacture",method = RequestMethod.GET)
 	public Facture consultFacture(@RequestParam(name="code") Long u) {
 		return factureRepository.findById(u).get();
                                                       }
-	
-	
 	
 	
 	
