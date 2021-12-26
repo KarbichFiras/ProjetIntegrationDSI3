@@ -1,6 +1,8 @@
 package chmin9lewis.project.wakelni.Metier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +27,11 @@ public class UserMetier implements IUserMetier {
 			
 			String encodedPassword = encoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
-			Role role = roleRepository.findByName("USER");
-	        user.getRoles().add(role);
+			
+			/*Role role = roleRepository.findByName("Client");
+	        user.getRoles().add(role);*/
 			return userRepository.save(user);
+			
 		}catch(Exception e) {
 			System.out.println("Could not add this User! ");
 			e.printStackTrace();
@@ -35,5 +39,22 @@ public class UserMetier implements IUserMetier {
 		}
 	}
 
-	
+	//CURRENT LOGED IN USER
+	@Override
+	public User getLoggedUser() {
+			
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String username = loggedInUser.getName(); 
+
+	    User user = new User() ;
+	    
+	    try {
+	    	user = userRepository.findByUserName(username);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }
+		    
+	  return user;
+			
+	}
 }

@@ -14,5 +14,6 @@ public interface IUserMetier {
 	public boolean deleteUserById(Long userId);
 	public boolean enableUser(Long userId);
 	public boolean desableUser(Long userId);
+	public User getLoggedUser();
 	
 }

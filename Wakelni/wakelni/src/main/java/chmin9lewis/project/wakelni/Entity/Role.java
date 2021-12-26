@@ -1,5 +1,6 @@
 package chmin9lewis.project.wakelni.Entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,11 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class Role {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames= {"name"}))
+public class Role implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +33,7 @@ public class Role {
 	private boolean isEnabled=true;
 	
 	@ManyToMany(cascade = CascadeType.ALL , fetch =FetchType.LAZY , mappedBy = "roles" )
+	@JsonIgnore
 	private Set<User> users = new HashSet<>();
 
 	public Role() {

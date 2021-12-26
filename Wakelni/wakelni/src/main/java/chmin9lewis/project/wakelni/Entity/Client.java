@@ -20,13 +20,6 @@ public class Client extends User{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Client(Long id, @NotEmpty String nom, @NotEmpty String prenom, @NotEmpty String email, @NotEmpty String tel,
-			@NotEmpty String adresse) {
-		super(id, nom, prenom, email, tel, adresse);
-		// TODO Auto-generated constructor stub
-	}
-
-
 	public List<Commande> getCommande() {
 		return commande;
 	}

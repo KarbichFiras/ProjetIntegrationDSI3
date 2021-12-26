@@ -14,8 +14,22 @@ public class RoleMetier implements IRoleMetier{
 	
 	@Override
 	public Role addRole(Role role) {
-		
-		return roleRepository.save(role);
+		try {
+			return roleRepository.save(role);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Role updateRole(Role role) {
+		try {
+			return roleRepository.save(role);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

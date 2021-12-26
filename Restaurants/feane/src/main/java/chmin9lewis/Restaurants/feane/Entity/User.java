@@ -6,11 +6,14 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,6 +25,8 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames= {"userName"}))
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="TypeUser")
 public class User implements Serializable{
 
 	@Id
@@ -40,6 +45,7 @@ public class User implements Serializable{
 	private boolean isEnabled=true;
 	
 	@ManyToOne
+	// can purchase from many restaurants (forou3 mathalan)
 	private Restaurant restaurant;
 	
 	//USER ROLE RELATION
