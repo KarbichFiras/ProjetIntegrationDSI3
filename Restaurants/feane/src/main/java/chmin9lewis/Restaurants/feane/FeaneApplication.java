@@ -19,10 +19,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import chmin9lewis.Restaurants.feane.Entity.Employe;
 import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Image;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Entity.Role;
+import chmin9lewis.Restaurants.feane.Entity.ThirdParty;
 import chmin9lewis.Restaurants.feane.Entity.User;
 import chmin9lewis.Restaurants.feane.Metier.IImageMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
@@ -103,7 +105,7 @@ public class FeaneApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		/*
+		
 		//Create encoder so we can hash the password
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -114,12 +116,12 @@ public class FeaneApplication implements CommandLineRunner{
 		//Adding admin role into Data Base
 		roleMetier.addRole(adminRole);
 		
-		//Creatin user role
-		Role userRole = new Role();
-			//Initializin user role
-			userRole.setName("USER");
-		//Adding user role into Data Base
-		roleMetier.addRole(userRole);
+		//Creatin employe role
+		Role employeRole = new Role();
+			//Initializin employe role
+		employeRole.setName("Employe");
+		//Adding employe role into Data Base
+		roleMetier.addRole(employeRole);
 		
 		//Creatin thirdParty role
 		Role thirdPartyRole = new Role();
@@ -129,7 +131,7 @@ public class FeaneApplication implements CommandLineRunner{
 		roleMetier.addRole(thirdPartyRole);
 		
 		//Creatin admin User
-		User admin = new User();
+		User admin = new Employe();
 			//Initializin admin User
 			admin.setNom("Karbich");
 			admin.setPrenom("Firas");
@@ -144,24 +146,24 @@ public class FeaneApplication implements CommandLineRunner{
 		//Updating admin Role
 		roleMetier.updateRole(adminRole);
 		
-		//Creatin normal user User
-		User user = new User();
-			//Initializin user
+		//Creatin employe  User
+		User user = new Employe();
+			//Initializin employe
 			user.setNom("Essaied");
 			user.setPrenom("Iheb");
 			user.setUserName("loco");
 			user.setPassword(encoder.encode("12345"));
-			//Adding this user to the userRole's users List
-			userRole.getUsers().add(user);
-		//Adding this user into Data Base
+			//Adding this employe to the employeRole's users List
+			employeRole.getUsers().add(user);
+		//Adding this employe into Data Base
 		userMetier.addUser(user);
-		//Adding userRole to this user Role's List
-		user.getRoles().add(userRole);
-		//Updating user Role
-		roleMetier.updateRole(userRole);
+		//Adding employeRole to this employe Role's List
+		user.getRoles().add(employeRole);
+		//Updating employe Role
+		roleMetier.updateRole(employeRole);
 		
 		//Creatin thirdParty User
-			User thirdPartyUser = new User();
+			User thirdPartyUser = new ThirdParty();
 			//Initializin thirdParty User
 			thirdPartyUser.setNom("nom ta3 moula thirdParty fil denya");
 			thirdPartyUser.setPrenom("prenom ta3 moula thirdParty fil denya");
@@ -196,7 +198,7 @@ public class FeaneApplication implements CommandLineRunner{
 		
 		//Creating food List
 		
-		*/
+		
 		
 	}
 
