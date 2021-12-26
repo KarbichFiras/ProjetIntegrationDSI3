@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Commande {
-
+/**/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codeCommande;
@@ -90,3 +90,5 @@ public class Commande {
 	
 	
 }
+//
+

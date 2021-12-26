@@ -19,14 +19,15 @@ public class Facture {
 	@NotEmpty
 	private double total;
 	private String modePaiment;
-	
+	private String restaurantAdresse;
+    private String restaurantEmail;
 	@OneToOne
 	private Commande commande;
 	//
 	@OneToOne
 	private Restaurant restaurant;
 	//
-
+	
 	public Facture() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -35,41 +36,52 @@ public class Facture {
 	public Long getCode() {
 		return code;
 	}
-
+	
 	public void setCode(Long code) {
 		this.code = code;
 	}
-
 	public Date getDateFacturation() {
 		return dateFacturation;
 	}
-
 	public void setDateFacturation(Date dateFacturation) {
 		this.dateFacturation = dateFacturation;
 	}
-
 	public double getTotal() {
 		return total;
 	}
-
 	public void setTotal(double total) {
 		this.total = total;
 	}
-
 	public String getModePaiment() {
 		return modePaiment;
 	}
-
 	public void setModePaiment(String modePaiment) {
 		this.modePaiment = modePaiment;
 	}
-
+	public String getRestaurantAdresse() {
+		return restaurantAdresse;
+	}
+	public void setRestaurantAdresse(String restaurantAdresse) {
+		this.restaurantAdresse = restaurantAdresse;
+	}
+	public String getRestaurantEmail() {
+		return restaurantEmail;
+	}
+	public void setRestaurantEmail(String restaurantEmail) {
+		this.restaurantEmail = restaurantEmail;
+	}
 	public Commande getCommande() {
 		return commande;
 	}
-
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 
+}
 }
