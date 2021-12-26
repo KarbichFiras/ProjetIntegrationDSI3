@@ -3,14 +3,11 @@ package chmin9lewis.project.wakelni.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-
-import chmin9lewis.project.wakelni.Models.Restaurant;
 
 @Entity
 public class Facture implements Serializable{
@@ -18,15 +15,14 @@ public class Facture implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long code;
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP" , insertable = false, updatable = false)
 	private Date dateFacturation;
-	@NotEmpty
 	private double total;
 	private String modePaiment;
 	
 	
 
-	private String restaurantAdresse;
-	private String restaurantEmail;
+	private String  restaurantName;
 	
 	public Facture() {
 		super();
@@ -64,20 +60,12 @@ public class Facture implements Serializable{
 	public void setModePaiment(String modePaiment) {
 		this.modePaiment = modePaiment;
 	}
-
-
-	public String getRestaurantAdresse() {
-		return restaurantAdresse;
+	
+	public String getRestaurantName() {
+		return restaurantName;
 	}
 
-	public void setRestaurantAdresse(String restaurantAdresse) {
-		this.restaurantAdresse = restaurantAdresse;
-	}
-	public String getRestaurantEmail() {
-		return restaurantEmail;
-	}
-
-	public void setRestaurantEmail(String restaurantEmail) {
-		this.restaurantEmail = restaurantEmail;
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
 	}
 }

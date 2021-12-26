@@ -7,7 +7,7 @@ public class Order {
 	private String externalClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
 	private String restaurantName;
 	private Collection<Plat> plats;
-	private float Totale;
+	private double Totale;
 	
 	public Order() {
 		super();
@@ -36,11 +36,11 @@ public class Order {
 	public void setPlats(Collection<Plat> plats) {
 		this.plats = plats;
 	}
-	public float getTotale() {
+	public double getTotale() {
 		return Totale;
 	}
 
-	public void setTotale(float totale) {
+	public void setTotale(double totale) {
 		Totale = totale;
 	}
 	
@@ -51,17 +51,14 @@ public class Order {
 	    "restaurantName": "restaurantName test :p",
 	    "plats": [
 	        {
-	            "extras": {
-	                "name": "mayonnaise"
-	            },
-	            "food": {
-	                "libelle": "mlaoui"
-	            }
-	        },
-	        {
-	            "extras": {
-	                "name": "bsal"
-	            },
+	            "extras": [
+	                {
+	                    "name": "MAYONNAISE"
+	                },
+	                {
+	                    "name": "bsal"
+	                }
+	            ],
 	            "food": {
 	                "libelle": "mlaoui"
 	            }

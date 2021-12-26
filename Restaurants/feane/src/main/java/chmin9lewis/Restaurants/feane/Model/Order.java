@@ -2,14 +2,12 @@ package chmin9lewis.Restaurants.feane.Model;
 
 import java.util.Collection;
 
-import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
-
 public class Order {
 
 	private String externalClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
 	private String restaurantName;
 	private Collection<Plat> plats;
-	private float Totale;
+	private double Totale;
 	
 	public Order() {
 		super();
@@ -38,11 +36,11 @@ public class Order {
 	public void setPlats(Collection<Plat> plats) {
 		this.plats = plats;
 	}
-	public float getTotale() {
+	public double getTotale() {
 		return Totale;
 	}
 
-	public void setTotale(float totale) {
+	public void setTotale(double totale) {
 		Totale = totale;
 	}
 }

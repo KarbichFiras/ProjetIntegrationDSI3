@@ -7,7 +7,6 @@ public class Restaurant {
 	private String name;
 	private String adresse;
 	private String email;
-	private boolean isEnabled=true;
 	
 	
 	
@@ -47,15 +46,6 @@ public class Restaurant {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public boolean isEnabled() {
-		return isEnabled;
-	}
-
-
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
 	}
 	
 }

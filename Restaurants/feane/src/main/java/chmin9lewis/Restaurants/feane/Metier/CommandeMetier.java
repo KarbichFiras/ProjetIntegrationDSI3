@@ -30,7 +30,7 @@ public class CommandeMetier implements ICommandeMetier{
 	public Order addCommande(Order order) {
 		
 		Collection<Plat> plats =  new ArrayList<Plat>();
-		float T=0;//Totalle
+		double T=0;//Totalle
 		try {
 			plats = order.getPlats();
 			for(Plat p : plats) {

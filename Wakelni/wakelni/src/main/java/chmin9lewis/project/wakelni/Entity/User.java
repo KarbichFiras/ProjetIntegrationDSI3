@@ -2,6 +2,7 @@ package chmin9lewis.project.wakelni.Entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
@@ -55,6 +57,10 @@ public class User implements Serializable{
 	@ManyToMany(cascade = CascadeType.ALL , fetch =FetchType.EAGER)
 	@JoinTable(name="users_roles" , joinColumns = @JoinColumn(name="user_id") , inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	// na3ref normalmnet fil Client , ama lmoudir ynajem y7il bil acc mte3ou wya9thi 3adi :)
+	@OneToMany(mappedBy = "client")
+	private List<Commande> commande;
 	
 	public User() {
 		super();
