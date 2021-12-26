@@ -25,8 +25,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames= {"userName"}))
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="TypeUser")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable{
 
 	@Id

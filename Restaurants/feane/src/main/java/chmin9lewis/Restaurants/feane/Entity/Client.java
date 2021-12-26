@@ -1,11 +1,11 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@DiscriminatorValue("Client")
+@PrimaryKeyJoinColumn(name = "clientId")
 public class Client extends User{
 	
 
