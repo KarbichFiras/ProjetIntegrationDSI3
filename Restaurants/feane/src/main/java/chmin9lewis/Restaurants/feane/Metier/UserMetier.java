@@ -15,6 +15,20 @@ public class UserMetier implements IUserMetier{
 
 	@Autowired
 	UserRepository userRepository;
+
+	//CURRENT LOGED IN USER
+	@Override
+	public User getLoggedUser() {
+		Authentication loggedInUser;
+	    try {
+	    	loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    	return userRepository.findByUserName(loggedInUser.getName());
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+	    
+	}
 	
 	@Override
 	public User getUserDetails(Long userId) {
@@ -104,21 +118,4 @@ public class UserMetier implements IUserMetier{
 		}
 	}
 
-	//CURRENT LOGED IN USER
-	public User getLoggedUser() {
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String username = loggedInUser.getName(); 
-
-	    System.out.println("$$ user name = " + username);
-	    User user = new User() ;
-	    try {
-	    	user = userRepository.findByUserName(username);
-	    }catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	    
-	   return user;
-		
-	}
 }

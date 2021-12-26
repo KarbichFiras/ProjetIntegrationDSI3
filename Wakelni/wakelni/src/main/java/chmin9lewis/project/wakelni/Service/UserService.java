@@ -33,6 +33,12 @@ public class UserService {
 	@Autowired
 	WebClient webClient;
 	
+	// lezmik t3adilou token fil header 5ater walina jwt ma3adech session ;p
+	@RequestMapping(value="/getLoggedInUser" , method = RequestMethod.GET)
+	public User testUser() {
+		return userMetier.getLoggedUser();
+	}
+	
 	@RequestMapping(value="/addClient" , method = RequestMethod.POST)
 	public User addClient(@RequestBody Client client) {
 		try {
