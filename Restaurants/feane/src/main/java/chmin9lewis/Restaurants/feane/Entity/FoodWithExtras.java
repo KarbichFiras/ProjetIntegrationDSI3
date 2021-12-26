@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class FoodWithExtras implements Serializable{
+	
+	// This Entity (table) lgeron mathalan y3abiha.Y7ot fiha par example lablebi w les extras ili yerkbou 3al lablebi ( bitbi3a lablbi w9odem ka3ba extras bch tkoun fil DB surplusieur lignes)
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +27,7 @@ public class FoodWithExtras implements Serializable{
 	private Extras extras;
 	@ManyToOne
 	private Food food;
-	
-	//FOOD Menu RELATION
-	@ManyToOne
-	private Menu menu;
-	
+
 	@OneToMany(mappedBy = "foodWithExtras")
 	private Collection<LigneCommande> lignes;
 	
@@ -64,13 +62,7 @@ public class FoodWithExtras implements Serializable{
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
-	}
+	
 	public Collection<LigneCommande> getLignes() {
 		return lignes;
 	}

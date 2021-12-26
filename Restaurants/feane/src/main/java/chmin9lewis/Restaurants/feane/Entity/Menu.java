@@ -30,7 +30,7 @@ public class Menu implements Serializable{
 	private boolean isEnabled = true;
 	
 	@OneToMany(mappedBy = "menu")
-	private Collection<FoodWithExtras> menuFoods;
+	private Collection<Food> menuFoods;
 
 	//Menu Restaurant RELATION
 	@ManyToOne
@@ -65,11 +65,11 @@ public class Menu implements Serializable{
 		this.createdAt = createdAt;
 	}
 
-	public Collection<FoodWithExtras> getMenuFoods() {
+	public Collection<Food> getMenuFoods() {
 		return menuFoods;
 	}
 
-	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
+	public void setMenuFoods(Collection<Food> menuFoods) {
 		this.menuFoods = menuFoods;
 	}
 	public Restaurant getRestaurant() {

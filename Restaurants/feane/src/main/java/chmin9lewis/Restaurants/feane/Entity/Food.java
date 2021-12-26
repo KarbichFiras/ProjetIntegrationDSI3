@@ -35,6 +35,10 @@ public class Food implements Serializable{
 	@JsonIgnore
 	private List<FoodWithExtras> foodWithExtras;
 	
+	//FOOD Menu RELATION
+	@ManyToOne
+	private Menu menu;
+	
 	//FOOD Categorie RELATION
 	@ManyToOne
 	private Categorie categorie;
@@ -109,7 +113,15 @@ public class Food implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	public Menu getMenu() {
+		return menu;
+	}
 
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+	
 	public Categorie getCategorie() {
 		return categorie;
 	}
