@@ -10,11 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames= {"libelle"}))
 public class Food implements Serializable{
 
 	@Id
@@ -24,7 +27,6 @@ public class Food implements Serializable{
 	private String libelle;
 	
 	private double prix;
-	private String famille;
 	@Column(name="enabled" , columnDefinition = "boolean default true")
 	private boolean isEnabled=true;
 
@@ -48,17 +50,6 @@ public class Food implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Food(@NotEmpty String libelle, double prix, String famille, boolean isEnabled, String image,
-			Restaurant restaurant, Categorie categorie) {
-		super();
-		this.libelle = libelle;
-		this.prix = prix;
-		this.famille = famille;
-		this.isEnabled = isEnabled;
-		this.image = image;
-		this.categorie = categorie;
-	}
-
 	public Long getCode() {
 		return code;
 	}
@@ -81,14 +72,6 @@ public class Food implements Serializable{
 
 	public void setPrix(double prix) {
 		this.prix = prix;
-	}
-
-	public String getFamille() {
-		return famille;
-	}
-	
-	public void setFamille(String famille) {
-		this.famille = famille;
 	}
 	
 	public boolean isEnabled() {

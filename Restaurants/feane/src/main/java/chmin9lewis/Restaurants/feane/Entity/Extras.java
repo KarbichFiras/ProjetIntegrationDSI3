@@ -21,6 +21,7 @@ public class Extras implements Serializable{
 	private Long code;
 	@NotEmpty
 	private String name;
+	private int quantite = 1;
 	private double prixUnitaire;
 	@Column(name="enabled" , columnDefinition = "boolean default true")
 	private boolean isEnabled=true;
@@ -53,6 +54,14 @@ public class Extras implements Serializable{
 		return prixUnitaire;
 	}
 
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
+	
 	public void setPrixUnitaire(double prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}

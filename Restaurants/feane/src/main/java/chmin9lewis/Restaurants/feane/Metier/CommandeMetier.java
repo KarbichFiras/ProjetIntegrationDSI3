@@ -41,7 +41,6 @@ public class CommandeMetier implements ICommandeMetier{
 				}
 				p.getFood().setPrix(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getPrix());
 				p.getFood().setCategorie(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getCategorie().getName());
-				p.getFood().setFamille(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getFamille());
 				p.getFood().setImage(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getImage());
 				T += p.getFood().getPrix() * p.getQuantiteFood();
 			}

@@ -243,7 +243,6 @@ public class FeaneApplication implements CommandLineRunner{
 			mlaoui.setCategorie(sandwitch);
 			mlaoui.setLibelle("Mlaoui");
 			mlaoui.setPrix(1000);
-			mlaoui.setFamille("mou3ajanet");
 			mlaoui.setImage("mlaoui chemin image here :p wmatorbethech bil table image 5aterha just 3andha ka3ba image khw");
 			mlaoui = foodMetier.addFood(mlaoui);
 			
@@ -251,7 +250,6 @@ public class FeaneApplication implements CommandLineRunner{
 			lablebi.setCategorie(plate);
 			lablebi.setLibelle("Sa7fa Lablebi ");
 			lablebi.setPrix(2500);
-			lablebi.setFamille("bard klena");
 			lablebi.setImage("sa7fa lablebi image");
 			lablebi = foodMetier.addFood(lablebi);
 		
@@ -259,7 +257,6 @@ public class FeaneApplication implements CommandLineRunner{
 			lablebi2.setCategorie(sandwitch);
 			lablebi2.setLibelle("Lablebi ");
 			lablebi2.setPrix(1300);
-			lablebi2.setFamille("mou3ajanet");
 			lablebi2.setImage("lablebi image");
 			lablebi2 = foodMetier.addFood(lablebi2);
 			
