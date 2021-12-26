@@ -16,9 +16,11 @@ import chmin9lewis.project.wakelni.Entity.Role;
 import chmin9lewis.project.wakelni.Entity.User;
 import chmin9lewis.project.wakelni.Metier.IRoleMetier;
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
+import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 import chmin9lewis.project.wakelni.Repository.FactureRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
 @RestController
@@ -101,5 +103,25 @@ public class UserService {
 		
 	}
 	
-	
+	@RequestMapping(value="/newOrder", method = RequestMethod.POST)
+	public Mono<Order> newOrder(@RequestBody Order order){
+		
+		try {
+			
+			order.setExternalClientUsername(userMetier.getLoggedUser().getUserName());
+			order.setRestaurantName("Feane");
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return 	webClient.post()
+				.uri("/addCommande")
+				.header("Authorization", TokensProperties.MY_TOKEN)
+				.body(Mono.just(order), Order.class)
+				.retrieve()
+				.bodyToMono(Order.class);
+		
+	}
+
 }

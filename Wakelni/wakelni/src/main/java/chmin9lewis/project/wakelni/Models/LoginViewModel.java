@@ -1,4 +1,4 @@
-package chmin9lewis.project.wakelni.Entity;
+package chmin9lewis.project.wakelni.Models;
 
 public class LoginViewModel {
 

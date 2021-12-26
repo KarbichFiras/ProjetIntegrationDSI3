@@ -8,6 +8,7 @@ public interface IExtrasMetier {
 
 	public Extras getExtrasDetails(Long extrasCode);
 	public List<Extras> getAllExtras();
+	public Extras getExtrasByName(String extrasName);
 	public Extras addExtras(Extras extras);
 	public Extras updateExtras(Extras extras);
 	public boolean deleteExtras(Extras extras);

@@ -7,6 +7,7 @@ import chmin9lewis.Restaurants.feane.Entity.Food;
 public interface IFoodMetier {
 
 	public Food getFoodDetails(Long foodCode);
+	public Food getFoodByLibelle(String libelle);
 	public List<Food> getAllFoods();
 	public Food addFood(Food food);
 	public Food updateFood(Food food);

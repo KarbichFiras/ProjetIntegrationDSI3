@@ -66,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/addUser").permitAll()
 			.antMatchers("/addRole").permitAll()
 			.antMatchers("/consultFacture").permitAll()
+			.antMatchers("/newOrder").hasAuthority("ADMIN")
 			;
 		}catch(Exception e) {
 			System.out.println("die :"+e.getMessage());

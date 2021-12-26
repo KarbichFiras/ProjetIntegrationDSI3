@@ -1,6 +1,7 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,17 +18,20 @@ public class FoodWithExtras implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long code;
+	@Column(name="enabled" , columnDefinition = "boolean default true")
+	private boolean isEnabled=true;
 	
 	@ManyToOne
 	private Extras extras;
 	@ManyToOne
 	private Food food;
-	@Column(name="enabled" , columnDefinition = "boolean default true")
-	private boolean isEnabled=true;
 	
 	//FOOD Menu RELATION
 	@ManyToOne
 	private Menu menu;
+	
+	@OneToMany(mappedBy = "foodWithExtras")
+	private Collection<LigneCommande> lignes;
 	
 	public FoodWithExtras() {
 		super();
@@ -67,5 +71,11 @@ public class FoodWithExtras implements Serializable{
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
+	public Collection<LigneCommande> getLignes() {
+		return lignes;
+	}
 
+	public void setLignes(Collection<LigneCommande> lignes) {
+		this.lignes = lignes;
+	}
 }
