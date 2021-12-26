@@ -40,6 +40,7 @@ public class User implements Serializable{
 	private boolean isEnabled=true;
 	
 	@ManyToOne
+	// can purchase from many restaurants (forou3 mathalan)
 	private Restaurant restaurant;
 	
 	//USER ROLE RELATION
