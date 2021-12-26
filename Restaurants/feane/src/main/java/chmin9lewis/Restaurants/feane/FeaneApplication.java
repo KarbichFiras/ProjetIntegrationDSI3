@@ -119,7 +119,7 @@ public class FeaneApplication implements CommandLineRunner{
 		//Creatin employe role
 		Role employeRole = new Role();
 			//Initializin employe role
-		employeRole.setName("Employe");
+		employeRole.setName("EMPLOYE");
 		//Adding employe role into Data Base
 		roleMetier.addRole(employeRole);
 		
