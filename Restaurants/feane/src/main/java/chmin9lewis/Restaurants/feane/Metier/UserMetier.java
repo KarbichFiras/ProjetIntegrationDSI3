@@ -3,6 +3,8 @@ package chmin9lewis.Restaurants.feane.Metier;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.User;
@@ -102,4 +104,21 @@ public class UserMetier implements IUserMetier{
 		}
 	}
 
+	//CURRENT LOGED IN USER
+	public User getLoggedUser() {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String username = loggedInUser.getName(); 
+
+	    System.out.println("$$ user name = " + username);
+	    User user = new User() ;
+	    try {
+	    	user = userRepository.findByUserName(username);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	   return user;
+		
+	}
 }
