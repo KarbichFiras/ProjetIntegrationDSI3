@@ -57,7 +57,7 @@ public class UserService {
 		
 		return 	webClient.get()
 				.uri("/getAllRestaurants")
-				.header("Authorization", TokenProperties.MY_TOKEN)
+				.header("Authorization", TokensProperties.MY_TOKEN)
 				.retrieve()
 				.bodyToFlux(Restaurant.class);
 		
