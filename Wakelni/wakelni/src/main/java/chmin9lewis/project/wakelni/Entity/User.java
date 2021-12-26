@@ -57,17 +57,6 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public User(Long id, @NotEmpty String nom, @NotEmpty String prenom, @NotEmpty String email,
-			@NotEmpty String tel, @NotEmpty String adresse) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.tel = tel;
-		this.adresse = adresse;
-	}
 
 	public Long getId() {
 		return id;

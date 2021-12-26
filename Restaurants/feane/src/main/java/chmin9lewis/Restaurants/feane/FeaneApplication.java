@@ -105,7 +105,7 @@ public class FeaneApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		
+		/*
 		//Create encoder so we can hash the password
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -198,7 +198,7 @@ public class FeaneApplication implements CommandLineRunner{
 		
 		//Creating food List
 		
-		
+		*/
 		
 	}
 
