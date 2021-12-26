@@ -104,10 +104,8 @@ public class FeaneApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
 		/*
-		//Create encoder so we can hash the password
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String password ="12345";
 		
 		//Creatin admin role
 		Role adminRole = new Role();
@@ -123,6 +121,13 @@ public class FeaneApplication implements CommandLineRunner{
 		//Adding employe role into Data Base
 		roleMetier.addRole(employeRole);
 		
+		//Creatin client role
+		Role clientRole = new Role();
+			//Initializin client role
+			clientRole.setName("CLIENT");
+		//Adding client role into Data Base
+		roleMetier.addRole(clientRole);
+		
 		//Creatin thirdParty role
 		Role thirdPartyRole = new Role();
 			//Initializin thirdParty role
@@ -136,7 +141,7 @@ public class FeaneApplication implements CommandLineRunner{
 			admin.setNom("Karbich");
 			admin.setPrenom("Firas");
 			admin.setUserName("zed");
-			admin.setPassword(encoder.encode("12345"));
+			admin.setPassword(password);
 			//Adding this admin user to the adminRole's users List
 			adminRole.getUsers().add(admin);
 		//Adding this admin user into Data Base
@@ -152,7 +157,7 @@ public class FeaneApplication implements CommandLineRunner{
 			user.setNom("Essaied");
 			user.setPrenom("Iheb");
 			user.setUserName("loco");
-			user.setPassword(encoder.encode("12345"));
+			user.setPassword(password);
 			//Adding this employe to the employeRole's users List
 			employeRole.getUsers().add(user);
 		//Adding this employe into Data Base
@@ -168,7 +173,7 @@ public class FeaneApplication implements CommandLineRunner{
 			thirdPartyUser.setNom("nom ta3 moula thirdParty fil denya");
 			thirdPartyUser.setPrenom("prenom ta3 moula thirdParty fil denya");
 			thirdPartyUser.setUserName("Wakalni");
-			thirdPartyUser.setPassword(encoder.encode("12345"));
+			thirdPartyUser.setPassword(password);
 			//Adding this thirdParty user to the thirdPartyRole's users List
 			thirdPartyRole.getUsers().add(thirdPartyUser);
 		//Adding this thirdParty user into Data Base

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.User;
@@ -53,6 +54,11 @@ public class UserMetier implements IUserMetier{
 	@Override
 	public User addUser(User user) {
 		try {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			
+			String encodedPassword = encoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
+			
 			return userRepository.save(user);
 		}catch(Exception e) {
 			System.out.println("Could not execute this Operation! ");

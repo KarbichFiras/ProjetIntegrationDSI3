@@ -1,5 +1,6 @@
 package chmin9lewis.project.wakelni.Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Commande {
+public class Commande implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

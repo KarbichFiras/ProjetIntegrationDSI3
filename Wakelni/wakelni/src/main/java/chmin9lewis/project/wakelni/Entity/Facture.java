@@ -1,5 +1,6 @@
 package chmin9lewis.project.wakelni.Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 
 @Entity
-public class Facture {
+public class Facture implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
