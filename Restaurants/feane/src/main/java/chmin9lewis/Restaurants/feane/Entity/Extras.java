@@ -1,8 +1,10 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +27,11 @@ public class Extras implements Serializable{
 	private double prixUnitaire;
 	@Column(name="enabled" , columnDefinition = "boolean default true")
 	private boolean isEnabled=true;
-	
-	@OneToMany(mappedBy = "extras")
-	@JsonIgnore
-	private List<FoodWithExtras> foodWithExtras;
 
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "extras")
+	@JsonIgnore
+	private Collection<FoodWithExtras> foodWithExtras = new ArrayList<FoodWithExtras>();
+	
 	public Extras() {
 		super();
 	}
@@ -66,13 +68,6 @@ public class Extras implements Serializable{
 		this.prixUnitaire = prixUnitaire;
 	}
 
-	public List<FoodWithExtras> getFoodWithExtras() {
-		return foodWithExtras;
-	}
-
-	public void setFoodWithExtras(List<FoodWithExtras> foodWithExtras) {
-		this.foodWithExtras = foodWithExtras;
-	}
 	public boolean isEnabled() {
 		return isEnabled;
 	}
@@ -80,4 +75,13 @@ public class Extras implements Serializable{
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
+
+	public Collection<FoodWithExtras> getFoodWithExtras() {
+		return foodWithExtras;
+	}
+
+	public void setFoodWithExtras(Collection<FoodWithExtras> foodWithExtras) {
+		this.foodWithExtras = foodWithExtras;
+	}
+
 }

@@ -1,9 +1,9 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
-import chmin9lewis.Restaurants.feane.Model.Order;
+import chmin9lewis.Restaurants.feane.Model.OrderModel;
 
 public interface ICommandeMetier {
 
-	public Order addCommande(Order order);
+	public OrderModel addCommande(OrderModel order);
 	
 }

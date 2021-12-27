@@ -1,12 +1,12 @@
 package chmin9lewis.Restaurants.feane.Model;
 
-public class Extras{
+public class ExtrasModel{
 
 	private String name;
 	private int quantiteExtras = 1 ;//lquantite ta3 lextra ili y7ebb 3leha lclient
 	private double prixUnitaire;
 
-	public Extras() {
+	public ExtrasModel() {
 		super();
 	}
 

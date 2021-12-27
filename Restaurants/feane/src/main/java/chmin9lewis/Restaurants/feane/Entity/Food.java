@@ -1,8 +1,10 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,9 +35,9 @@ public class Food implements Serializable{
 	private String image = "images/noFoodImage.jpg";
 	
 	//FOOD FoodWithExtras RELATION
-	@OneToMany(mappedBy = "food")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "food")
 	@JsonIgnore
-	private List<FoodWithExtras> foodWithExtras;
+	private List<FoodWithExtras> foodWithExtras = new ArrayList<FoodWithExtras>();
 	
 	//FOOD Menu RELATION
 	@ManyToOne
@@ -82,13 +84,6 @@ public class Food implements Serializable{
 		this.isEnabled = isEnabled;
 	}
 
-	public List<FoodWithExtras> getFoodWithExtras() {
-		return foodWithExtras;
-	}
-
-	public void setFoodWithExtras(List<FoodWithExtras> foodWithExtras) {
-		this.foodWithExtras = foodWithExtras;
-	}
 	public String getImage() {
 		return image;
 	}
@@ -112,5 +107,11 @@ public class Food implements Serializable{
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+	public List<FoodWithExtras> getFoodWithExtras() {
+		return foodWithExtras;
+	}
 
+	public void setFoodWithExtras(List<FoodWithExtras> foodWithExtras) {
+		this.foodWithExtras = foodWithExtras;
+	}
 }

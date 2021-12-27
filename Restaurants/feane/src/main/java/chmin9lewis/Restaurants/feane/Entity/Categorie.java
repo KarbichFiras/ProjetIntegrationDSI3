@@ -1,6 +1,7 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Categorie implements Serializable{
 	
 	//Foods that has this categorie
 	@OneToMany(mappedBy = "categorie")
-	private Collection<Food> foods;
+	private Collection<Food> foods = new ArrayList<Food>();
 
 	public Categorie() {
 		super();

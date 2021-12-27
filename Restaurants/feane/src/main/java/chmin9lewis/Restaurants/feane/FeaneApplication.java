@@ -35,6 +35,7 @@ import chmin9lewis.Restaurants.feane.Entity.User;
 import chmin9lewis.Restaurants.feane.Metier.FoodMetier;
 import chmin9lewis.Restaurants.feane.Metier.ICategorieMetier;
 import chmin9lewis.Restaurants.feane.Metier.IExtrasMetier;
+import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
 import chmin9lewis.Restaurants.feane.Metier.IFoodWithExtrasMetier;
 import chmin9lewis.Restaurants.feane.Metier.IImageMetier;
 import chmin9lewis.Restaurants.feane.Metier.IMenuMetier;
@@ -68,7 +69,7 @@ public class FeaneApplication implements CommandLineRunner{
 	IExtrasMetier extrasMetier;
 	
 	@Autowired
-	FoodMetier foodMetier;
+	IFoodMetier foodMetier;
 	
 	@Autowired
 	IMenuMetier menuMetier;
@@ -128,8 +129,8 @@ public class FeaneApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*
-		String password ="12345";
+		
+		/*String password ="12345";
 		
 		//Creatin admin role
 		Role adminRole = new Role();
@@ -261,7 +262,7 @@ public class FeaneApplication implements CommandLineRunner{
 			lablebi2 = foodMetier.addFood(lablebi2);
 			
 		Menu weekendMenu = new Menu();
-			weekendMenu.setTitre("WeekEnd Menu;");
+			weekendMenu.setTitre("WeekEnd Menu");
 				Collection<Food> foods = new ArrayList<>();
 				foods.add(mlaoui);
 				foods.add(lablebi);

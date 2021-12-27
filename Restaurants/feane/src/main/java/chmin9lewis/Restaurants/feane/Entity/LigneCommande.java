@@ -5,10 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class LigneCommande {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long code;
@@ -16,10 +17,10 @@ public class LigneCommande {
 	
 	@ManyToOne
 	private Commande commande;
-	
-	@ManyToOne
-	private FoodWithExtras foodWithExtras;
 
+	@OneToOne
+	private Food food;
+	
 	public LigneCommande() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -49,12 +50,12 @@ public class LigneCommande {
 		this.commande = commande;
 	}
 
-	public FoodWithExtras getFoodWithExtras() {
-		return foodWithExtras;
+	public Food getFood() {
+		return food;
 	}
 
-	public void setFoodWithExtras(FoodWithExtras foodWithExtras) {
-		this.foodWithExtras = foodWithExtras;
+	public void setFood(Food food) {
+		this.food = food;
 	}
 
 }

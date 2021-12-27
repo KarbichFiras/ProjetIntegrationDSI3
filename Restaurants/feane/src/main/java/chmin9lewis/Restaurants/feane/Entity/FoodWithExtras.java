@@ -28,8 +28,7 @@ public class FoodWithExtras implements Serializable{
 	@ManyToOne
 	private Food food;
 
-	@OneToMany(mappedBy = "foodWithExtras")
-	private Collection<LigneCommande> lignes;
+	
 	
 	public FoodWithExtras() {
 		super();
@@ -63,11 +62,4 @@ public class FoodWithExtras implements Serializable{
 		this.isEnabled = isEnabled;
 	}
 	
-	public Collection<LigneCommande> getLignes() {
-		return lignes;
-	}
-
-	public void setLignes(Collection<LigneCommande> lignes) {
-		this.lignes = lignes;
-	}
 }

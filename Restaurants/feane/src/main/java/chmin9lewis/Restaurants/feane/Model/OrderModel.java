@@ -2,14 +2,14 @@ package chmin9lewis.Restaurants.feane.Model;
 
 import java.util.Collection;
 
-public class Order {
+public class OrderModel {
 
 	private String externalClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
 	private String restaurantName;
-	private Collection<Plat> plats;
+	private Collection<PlatModel> plats;
 	private double Totale;
 	
-	public Order() {
+	public OrderModel() {
 		super();
 	}
 
@@ -29,11 +29,11 @@ public class Order {
 		this.restaurantName = restaurantName;
 	}
 
-	public Collection<Plat> getPlats() {
+	public Collection<PlatModel> getPlats() {
 		return plats;
 	}
 
-	public void setPlats(Collection<Plat> plats) {
+	public void setPlats(Collection<PlatModel> plats) {
 		this.plats = plats;
 	}
 	public double getTotale() {

@@ -1,6 +1,6 @@
 package chmin9lewis.Restaurants.feane.Model;
 
-public class Food {
+public class FoodModel {
 
 	private String libelle;
 	
@@ -11,7 +11,7 @@ public class Food {
 
 	private String categorie;
 	
-	public Food() {
+	public FoodModel() {
 		super();
 	}
 
