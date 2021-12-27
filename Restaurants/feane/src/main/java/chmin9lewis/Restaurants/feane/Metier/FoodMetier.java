@@ -101,6 +101,16 @@ public class FoodMetier implements IFoodMetier{
 			return false;
 		}
 	}
+
+	@Override
+	public Food getFoodByLibelle(String libelle) {
+		try {
+		return foodRepository.findByLibelle(libelle);
+		}catch(Exception e) {
+			System.out.println("Could not find any food with this libelle : " + libelle);
+			return null;
+		}
+	}
 	
 	
 	

@@ -27,9 +27,7 @@ public class Image implements Serializable{
 	
 	@Column(name="enabled" , columnDefinition = "boolean default true")
 	private boolean isEnabled=true;
-	@OneToOne
-	@JsonIgnore
-	private Restaurant restaurant;
+
 
 	public Image() {
 		super();
@@ -78,18 +76,6 @@ public class Image implements Serializable{
 
 	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;
-	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 
 	public void setEnabled(boolean isEnabled) {

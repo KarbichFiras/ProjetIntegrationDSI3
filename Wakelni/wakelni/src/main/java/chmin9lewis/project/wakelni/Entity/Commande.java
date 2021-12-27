@@ -2,14 +2,13 @@ package chmin9lewis.project.wakelni.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,12 +18,13 @@ public class Commande implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codeCommande;
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP" , insertable = false, updatable = false)
 	private Date  dateCreattion;
 	@NotEmpty
 	private String adresseLivraison;
 	
 	@ManyToOne
-	private Client client;
+	private User client;// directeur ynajim fil weekend mathalan y7el bil account mte3ou wya9thi normal sinn twali 3andou restau wyechri mil barra doesn't make sense!
 	
 	@ManyToOne
 	private DeliveryMan deliveryMan;
@@ -61,11 +61,11 @@ public class Commande implements Serializable{
 		this.adresseLivraison = adresseLivraison;
 	}
 
-	public Client getClient() {
+	public User getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(User client) {
 		this.client = client;
 	}
 

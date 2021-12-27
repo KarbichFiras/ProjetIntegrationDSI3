@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import chmin9lewis.project.wakelni.Entity.Role;
 import chmin9lewis.project.wakelni.Entity.User;
 import chmin9lewis.project.wakelni.Repository.RoleRepository;
 import chmin9lewis.project.wakelni.Repository.UserRepository;
@@ -14,6 +13,7 @@ import chmin9lewis.project.wakelni.Repository.UserRepository;
 
 @Service
 public class UserMetier implements IUserMetier {
+	
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -56,5 +56,19 @@ public class UserMetier implements IUserMetier {
 		    
 	  return user;
 			
+	}
+
+	@Override
+	public User updateUser(User user) {
+		try {
+			// ynajmou y8ouchna na3ref ama mouch wa9tou tw :/
+			
+			return userRepository.save(user);
+			
+		}catch(Exception e) {
+			System.out.println("Could not add this User! ");
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -24,13 +25,13 @@ public class Menu implements Serializable{
 	@NotEmpty
 	//Examples : valontine Menu, chrismass menu, weekend Menu, etc
 	private String titre;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP" , insertable = false, updatable = false)
 	private Date createdAt;
 	@Column(name="enabled" , columnDefinition = "boolean default true")
 	private boolean isEnabled = true;
 	
 	@OneToMany(mappedBy = "menu")
-	private Collection<FoodWithExtras> menuFoods;
+	private Collection<Food> menuFoods = new ArrayList<Food>();
 
 	//Menu Restaurant RELATION
 	@ManyToOne
@@ -65,11 +66,11 @@ public class Menu implements Serializable{
 		this.createdAt = createdAt;
 	}
 
-	public Collection<FoodWithExtras> getMenuFoods() {
+	public Collection<Food> getMenuFoods() {
 		return menuFoods;
 	}
 
-	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
+	public void setMenuFoods(Collection<Food> menuFoods) {
 		this.menuFoods = menuFoods;
 	}
 	public Restaurant getRestaurant() {

@@ -1,5 +1,7 @@
 package chmin9lewis.Restaurants.feane;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.catalina.Context;
@@ -19,14 +21,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import chmin9lewis.Restaurants.feane.Entity.Categorie;
 import chmin9lewis.Restaurants.feane.Entity.Employe;
+import chmin9lewis.Restaurants.feane.Entity.Extras;
 import chmin9lewis.Restaurants.feane.Entity.Food;
+import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
 import chmin9lewis.Restaurants.feane.Entity.Image;
+import chmin9lewis.Restaurants.feane.Entity.Menu;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Entity.Role;
 import chmin9lewis.Restaurants.feane.Entity.ThirdParty;
 import chmin9lewis.Restaurants.feane.Entity.User;
+import chmin9lewis.Restaurants.feane.Metier.FoodMetier;
+import chmin9lewis.Restaurants.feane.Metier.ICategorieMetier;
+import chmin9lewis.Restaurants.feane.Metier.IExtrasMetier;
+import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
+import chmin9lewis.Restaurants.feane.Metier.IFoodWithExtrasMetier;
 import chmin9lewis.Restaurants.feane.Metier.IImageMetier;
+import chmin9lewis.Restaurants.feane.Metier.IMenuMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRoleMetier;
 import chmin9lewis.Restaurants.feane.Metier.IUserMetier;
@@ -50,7 +62,20 @@ public class FeaneApplication implements CommandLineRunner{
 	@Autowired
 	IImageMetier imageMetier;
 	
+	@Autowired
+	ICategorieMetier categorieMetier;
 	
+	@Autowired
+	IExtrasMetier extrasMetier;
+	
+	@Autowired
+	IFoodMetier foodMetier;
+	
+	@Autowired
+	IMenuMetier menuMetier;
+	
+	@Autowired
+	IFoodWithExtrasMetier foodWithExtrasMetier;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(FeaneApplication.class, args);
@@ -104,36 +129,36 @@ public class FeaneApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*
-		String password ="12345";
+		
+		/*String password ="12345";
 		
 		//Creatin admin role
 		Role adminRole = new Role();
 		//Initializin admin role
 			adminRole.setName("ADMIN");
 		//Adding admin role into Data Base
-		roleMetier.addRole(adminRole);
+		adminRole = roleMetier.addRole(adminRole);
 		
 		//Creatin employe role
 		Role employeRole = new Role();
 			//Initializin employe role
 		employeRole.setName("EMPLOYE");
 		//Adding employe role into Data Base
-		roleMetier.addRole(employeRole);
+		employeRole = roleMetier.addRole(employeRole);
 		
 		//Creatin client role
 		Role clientRole = new Role();
 			//Initializin client role
 			clientRole.setName("CLIENT");
 		//Adding client role into Data Base
-		roleMetier.addRole(clientRole);
+		clientRole = roleMetier.addRole(clientRole);
 		
 		//Creatin thirdParty role
 		Role thirdPartyRole = new Role();
 			//Initializin thirdParty role
 		thirdPartyRole.setName("THIRD_PARTY");
 		//Adding thirdParty role into Data Base
-		roleMetier.addRole(thirdPartyRole);
+		thirdPartyRole = roleMetier.addRole(thirdPartyRole);
 		
 		//Creatin admin User
 		User admin = new Employe();
@@ -145,11 +170,11 @@ public class FeaneApplication implements CommandLineRunner{
 			//Adding this admin user to the adminRole's users List
 			adminRole.getUsers().add(admin);
 		//Adding this admin user into Data Base
-		userMetier.addUser(admin);
+		admin = userMetier.addUser(admin);
 		//Adding adminRole to this admin user Role's List
 		admin.getRoles().add(adminRole);
 		//Updating admin Role
-		roleMetier.updateRole(adminRole);
+		adminRole = roleMetier.updateRole(adminRole);
 		
 		//Creatin employe  User
 		User user = new Employe();
@@ -161,11 +186,11 @@ public class FeaneApplication implements CommandLineRunner{
 			//Adding this employe to the employeRole's users List
 			employeRole.getUsers().add(user);
 		//Adding this employe into Data Base
-		userMetier.addUser(user);
+		user = userMetier.addUser(user);
 		//Adding employeRole to this employe Role's List
 		user.getRoles().add(employeRole);
 		//Updating employe Role
-		roleMetier.updateRole(employeRole);
+		employeRole = roleMetier.updateRole(employeRole);
 		
 		//Creatin thirdParty User
 			User thirdPartyUser = new ThirdParty();
@@ -177,11 +202,11 @@ public class FeaneApplication implements CommandLineRunner{
 			//Adding this thirdParty user to the thirdPartyRole's users List
 			thirdPartyRole.getUsers().add(thirdPartyUser);
 		//Adding this thirdParty user into Data Base
-		userMetier.addUser(thirdPartyUser);
+		thirdPartyUser = userMetier.addUser(thirdPartyUser);
 		//Adding thirdPartyRole to this thirdParty user Role's List
 		thirdPartyUser.getRoles().add(thirdPartyRole);
 		//Updating thirdParty Role
-		roleMetier.updateRole(thirdPartyRole);
+		thirdPartyRole = roleMetier.updateRole(thirdPartyRole);
 		
 		//Creatin restaurant Object
 		Restaurant feane = new Restaurant();
@@ -192,19 +217,82 @@ public class FeaneApplication implements CommandLineRunner{
 			//Creatin Image object for this restaurant
 				Image image = new Image("images/modern-restaurant-menu-for-fast-food/4520928.jpg", "images/Fast_food_Hamburger_Vegetables_Fire_Two_520128_1920x1080.jpg", "images/feane_profile_picture.jpg",true);
 				//Adding this image into Data Base
-				imageMetier.addImage(image);
+				image = imageMetier.addImage(image);
 			feane.setImage(image);
 		//Adding this restaurant into Data Base
-		restaurantMetier.addRestaurant(feane);
-		//Updating image
-		image.setRestaurant(feane);
-		imageMetier.updateImage(image);
+			feane = restaurantMetier.addRestaurant(feane);		
 		
+		//Creating Categorie
+		Categorie sandwitch = new Categorie();
+			sandwitch.setName("Sandwitch");
+			sandwitch = categorieMetier.addCategorie(sandwitch);
+		Categorie plate = new Categorie();
+			plate.setName("Plate");
+			plate = categorieMetier.addCategorie(plate);
+			
+		//Creating extras
+		Extras bsal = new Extras();
+			bsal.setName("Bsal");
+			bsal.setPrixUnitaire(100);//100 frank
+			bsal = extrasMetier.addExtras(bsal);
+		Extras mayonnaise = new Extras();
+			mayonnaise.setName("Mayonnaise");
+			mayonnaise.setPrixUnitaire(100);//100 frank	
+			mayonnaise = extrasMetier.addExtras(mayonnaise);
 		
-		//Creating food List
+		Food mlaoui = new Food();
+			mlaoui.setCategorie(sandwitch);
+			mlaoui.setLibelle("Mlaoui");
+			mlaoui.setPrix(1000);
+			mlaoui.setImage("mlaoui chemin image here :p wmatorbethech bil table image 5aterha just 3andha ka3ba image khw");
+			mlaoui = foodMetier.addFood(mlaoui);
+			
+		Food lablebi = new Food();
+			lablebi.setCategorie(plate);
+			lablebi.setLibelle("Sa7fa Lablebi ");
+			lablebi.setPrix(2500);
+			lablebi.setImage("sa7fa lablebi image");
+			lablebi = foodMetier.addFood(lablebi);
 		
+		Food lablebi2 = new Food();
+			lablebi2.setCategorie(sandwitch);
+			lablebi2.setLibelle("Lablebi ");
+			lablebi2.setPrix(1300);
+			lablebi2.setImage("lablebi image");
+			lablebi2 = foodMetier.addFood(lablebi2);
+			
+		Menu weekendMenu = new Menu();
+			weekendMenu.setTitre("WeekEnd Menu");
+				Collection<Food> foods = new ArrayList<>();
+				foods.add(mlaoui);
+				foods.add(lablebi);
+				foods.add(lablebi2);
+			weekendMenu.setMenuFoods(foods);
+			weekendMenu.setRestaurant(feane);
+			weekendMenu = menuMetier.addMenu(weekendMenu);
+				mlaoui.setMenu(weekendMenu);
+				mlaoui = foodMetier.updateFood(mlaoui);
+				lablebi.setMenu(weekendMenu);
+				lablebi = foodMetier.updateFood(lablebi);
+				lablebi2.setMenu(weekendMenu);
+				lablebi2 = foodMetier.updateFood(lablebi2);
+				
+		FoodWithExtras produitFinal = new FoodWithExtras();
+			// t3abii ka3ba FoodWithExtras wtsobha fil base
+			produitFinal.setExtras(bsal);
+			produitFinal.setFood(mlaoui);
+			produitFinal = foodWithExtrasMetier.addFoodWithExtras(produitFinal);
+				// bch tasne3 list bch t7ot fiha barcha ka3bet FoodWithExtras
+				List<FoodWithExtras> listFoodWithExtras = new ArrayList<FoodWithExtras>();
+				listFoodWithExtras.add(produitFinal);
+				//kol extras w food mawjoudin fi kol ka3ba FoodWithExtras lezim tzidhom ilist wta3mlilhom update filDB
+				bsal.setFoodWithExtras(listFoodWithExtras);
+				bsal = extrasMetier.updateExtras(bsal);
+				
+				mlaoui.setFoodWithExtras(listFoodWithExtras);
+				mlaoui = foodMetier.updateFood(mlaoui);
 		*/
-		
 	}
 
 }
+

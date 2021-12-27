@@ -101,6 +101,16 @@ public class ExtrasMetier implements IExtrasMetier {
 			return false;
 		}
 	}
+
+	@Override
+	public Extras getExtrasByName(String extrasName) {
+		try {
+			return extrasRepository.findByName(extrasName);
+		}catch(Exception e) {
+			System.out.println("Could not find any extras with this name : " + extrasName);
+			return null;
+		}
+	}
 	
 	
 	

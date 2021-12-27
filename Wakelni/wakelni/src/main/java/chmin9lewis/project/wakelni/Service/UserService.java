@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import chmin9lewis.project.wakelni.Entity.Client;
+import chmin9lewis.project.wakelni.Entity.Commande;
 import chmin9lewis.project.wakelni.Entity.DeliveryMan;
 import chmin9lewis.project.wakelni.Entity.Employe;
 import chmin9lewis.project.wakelni.Entity.Facture;
 import chmin9lewis.project.wakelni.Entity.Role;
 import chmin9lewis.project.wakelni.Entity.User;
+import chmin9lewis.project.wakelni.Metier.ICommandeMetier;
+import chmin9lewis.project.wakelni.Metier.IFactureMetier;
 import chmin9lewis.project.wakelni.Metier.IRoleMetier;
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
+import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Restaurant;
-import chmin9lewis.project.wakelni.Repository.FactureRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
 @RestController
@@ -27,8 +31,12 @@ public class UserService {
 	IUserMetier userMetier;
 	@Autowired
 	IRoleMetier roleMetier;
-	@Autowired 
-	FactureRepository factureRepository;
+	
+	@Autowired
+	IFactureMetier factureMetier;
+	
+	@Autowired
+	ICommandeMetier commandeMetier;
 	
 	@Autowired
 	WebClient webClient;
@@ -83,7 +91,7 @@ public class UserService {
 	@RequestMapping(value="/consultFacture",method = RequestMethod.GET)
 	public Facture consultFacture(@RequestParam(name="code") Long u) {
 		try {
-			return factureRepository.findById(u).get();
+			return factureMetier.findById(u);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -101,5 +109,44 @@ public class UserService {
 		
 	}
 	
-	
+	@RequestMapping(value="/newOrder", method = RequestMethod.POST)
+	public Order newOrder(@RequestBody Order o){
+		User client;
+		try {
+			
+			o.setExternalClientUsername(userMetier.getLoggedUser().getUserName());
+			o.setRestaurantName("Feane");
+			
+			Order order = 	webClient.post()
+					.uri("/addCommande")
+					.header("Authorization", TokensProperties.MY_TOKEN)
+					.body(Mono.just(o), Order.class)
+					.retrieve()
+					.bodyToMono(Order.class)
+					.block();//bch yo93ed yestaneh 7atta yjewbou wba3ed ykamil yexecuti ili ta7tou :/
+			
+			Facture f= new Facture();
+				f.setModePaiment("Online");
+				f.setRestaurantName(o.getRestaurantName());
+				f.setTotal(order.getTotale());
+			f = factureMetier.addFacture(f);
+			
+			Commande c = new Commande();
+				c.setAdresseLivraison("Bizerte : mil front tit5ith linfo hethi");
+					client =  userMetier.getLoggedUser();	
+				c.setClient(client);
+				c.setFacture(f);
+			c = commandeMetier.addCommande(c);
+			userMetier.updateUser(client);
+				
+			return order;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		
+	}
+
 }

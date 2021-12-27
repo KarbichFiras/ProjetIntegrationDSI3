@@ -5,7 +5,7 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import chmin9lewis.project.wakelni.Entity.LoginViewModel;
+import chmin9lewis.project.wakelni.Models.LoginViewModel;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

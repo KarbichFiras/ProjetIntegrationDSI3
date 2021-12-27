@@ -1,10 +1,10 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@DiscriminatorValue("Third_Party")
+@PrimaryKeyJoinColumn(name = "thirdPartyId")
 public class ThirdParty extends User{
 
 	public ThirdParty() {

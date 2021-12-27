@@ -10,14 +10,38 @@ public class FactureMetier implements IFactureMetier {
 	 @Autowired 
 	 FactureRepository factureRepository;
 
+
+
 	@Override
-	public Facture consultFacture(Long u) {
-		
-		return factureRepository.findById(u).get();
+	public Facture addFacture(Facture facture) {
+		try {
+			return factureRepository.save(facture);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 
-	 
+	@Override
+	public Facture updateFacture(Facture facture) {
+		try {
+			return factureRepository.save(facture);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Facture findById(Long u) {
+		try {
+			return factureRepository.findById(u).get();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 
 

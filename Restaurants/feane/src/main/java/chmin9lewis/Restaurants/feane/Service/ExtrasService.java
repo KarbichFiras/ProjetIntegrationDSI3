@@ -18,46 +18,46 @@ import chmin9lewis.Restaurants.feane.Metier.IExtrasMetier;
 public class ExtrasService {
 
 	@Autowired
-	IExtrasMetier ExtrasMetier;
+	IExtrasMetier extrasMetier;
 	
 	@RequestMapping(value="/getExtrasDetails/{code}", method=RequestMethod.GET)
 	public Extras getExtrasDetails(@PathVariable(name="code") Long extrasCode) {
-		return ExtrasMetier.getExtrasDetails(extrasCode);
+		return extrasMetier.getExtrasDetails(extrasCode);
 	}
 
 	@RequestMapping(value="/getAllExtras", method=RequestMethod.GET)
 	public List<Extras> getAllExtras() {
-		return ExtrasMetier.getAllExtras();
+		return extrasMetier.getAllExtras();
 	}
 
 	@RequestMapping(value="/addExtras", method=RequestMethod.POST)
 	public Extras addExtras(@RequestBody Extras extras) {
-		return ExtrasMetier.addExtras(extras);
+		return extrasMetier.addExtras(extras);
 	}
 
 	@RequestMapping(value="/updateExtras", method=RequestMethod.PUT)
 	public Extras updateExtras(@RequestBody Extras extras) {
-		return ExtrasMetier.updateExtras(extras);
+		return extrasMetier.updateExtras(extras);
 	}
 	
 	@RequestMapping(value="/deleteExtras", method=RequestMethod.DELETE)
 	public boolean deleteExtras(@RequestBody Extras extras) {
-		return ExtrasMetier.deleteExtras(extras);
+		return extrasMetier.deleteExtras(extras);
 	}
 
 	@RequestMapping(value="/deleteExtrasById/{code}", method=RequestMethod.DELETE)
 	public boolean deleteExtrasById(@PathVariable(name="code") Long extrasCode) {
-		return ExtrasMetier.deleteExtrasById(extrasCode);
+		return extrasMetier.deleteExtrasById(extrasCode);
 	}
 
 	@RequestMapping(value="/enableExtras/{code}", method=RequestMethod.PUT)
 	public boolean enableExtras(@PathVariable(name="code") Long extrasCode) {
-		return ExtrasMetier.enableExtras(extrasCode);
+		return extrasMetier.enableExtras(extrasCode);
 	}
 
 	@RequestMapping(value="/desableExtras/{code}", method=RequestMethod.PUT)
 	public boolean desableExtras(@PathVariable(name="code") Long extrasCode) {
-		return ExtrasMetier.desableExtras(extrasCode);
+		return extrasMetier.desableExtras(extrasCode);
 	}
 	
 }
