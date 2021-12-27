@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames= {"name"}))
 public class Restaurant implements Serializable{
@@ -34,9 +36,11 @@ public class Restaurant implements Serializable{
 	private Image image;
 	
 	@OneToMany(mappedBy = "restaurant")
+	@JsonIgnore
 	private Collection<User> employees;
 	
 	@OneToMany(mappedBy = "restaurant")
+	@JsonIgnore
 	private Collection<Menu> menus;
 	
 	public Restaurant() {

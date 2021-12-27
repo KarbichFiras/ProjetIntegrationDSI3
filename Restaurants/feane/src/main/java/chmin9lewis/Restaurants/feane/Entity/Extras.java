@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -31,6 +32,9 @@ public class Extras implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "extras")
 	@JsonIgnore
 	private Collection<FoodWithExtras> foodWithExtras = new ArrayList<FoodWithExtras>();
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "extras")
+	private Collection<LigneCommandeExtras> ligneCommandeExtras = new ArrayList<LigneCommandeExtras>();
 	
 	public Extras() {
 		super();
@@ -82,6 +86,14 @@ public class Extras implements Serializable{
 
 	public void setFoodWithExtras(Collection<FoodWithExtras> foodWithExtras) {
 		this.foodWithExtras = foodWithExtras;
+	}
+
+	public Collection<LigneCommandeExtras> getLigneCommandeExtras() {
+		return ligneCommandeExtras;
+	}
+
+	public void setLigneCommandeExtras(Collection<LigneCommandeExtras> ligneCommandeExtras) {
+		this.ligneCommandeExtras = ligneCommandeExtras;
 	}
 
 }

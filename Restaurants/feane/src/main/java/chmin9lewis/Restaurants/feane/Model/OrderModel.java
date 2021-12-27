@@ -8,6 +8,7 @@ public class OrderModel {
 	private String restaurantName;
 	private Collection<PlatModel> plats;
 	private double Totale;
+	private Long RestaurantCommandeCode;
 	
 	public OrderModel() {
 		super();
@@ -42,5 +43,13 @@ public class OrderModel {
 
 	public void setTotale(double totale) {
 		Totale = totale;
+	}
+
+	public Long getRestaurantCommandeCode() {
+		return RestaurantCommandeCode;
+	}
+
+	public void setRestaurantCommandeCode(Long restaurantCommandeCode) {
+		RestaurantCommandeCode = restaurantCommandeCode;
 	}
 }
