@@ -127,8 +127,8 @@ public class UserService {
 			
 			Facture f= new Facture();
 				f.setModePaiment("Online");
-				f.setRestaurantName(o.getRestaurantName());
 				f.setTotal(order.getTotale());
+				f.setRestaurantCommandeCode(order.getRestaurantCommandeCode());
 			f = factureMetier.addFacture(f);
 			
 			Commande c = new Commande();

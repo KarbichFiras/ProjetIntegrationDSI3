@@ -1,10 +1,15 @@
 package chmin9lewis.Restaurants.feane.Entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,6 +25,9 @@ public class LigneCommande {
 
 	@OneToOne
 	private Food food;
+	
+	@OneToMany( mappedBy = "ligneCommande")
+	private Collection<LigneCommandeExtras> ligne_commande_extras = new ArrayList<LigneCommandeExtras>();
 	
 	public LigneCommande() {
 		super();
@@ -56,6 +64,14 @@ public class LigneCommande {
 
 	public void setFood(Food food) {
 		this.food = food;
+	}
+
+	public Collection<LigneCommandeExtras> getLigne_commande_extras() {
+		return ligne_commande_extras;
+	}
+
+	public void setLigne_commande_extras(Collection<LigneCommandeExtras> ligne_commande_extras) {
+		this.ligne_commande_extras = ligne_commande_extras;
 	}
 
 }
