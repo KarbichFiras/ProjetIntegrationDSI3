@@ -34,6 +34,7 @@ public class Extras implements Serializable{
 	private Collection<FoodWithExtras> foodWithExtras = new ArrayList<FoodWithExtras>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "extras")
+	@JsonIgnore
 	private Collection<LigneCommandeExtras> ligneCommandeExtras = new ArrayList<LigneCommandeExtras>();
 	
 	public Extras() {

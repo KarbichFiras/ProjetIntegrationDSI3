@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Categorie implements Serializable{
 
@@ -25,6 +27,7 @@ public class Categorie implements Serializable{
 	
 	//Foods that has this categorie
 	@OneToMany(mappedBy = "categorie")
+	@JsonIgnore
 	private Collection<Food> foods = new ArrayList<Food>();
 
 	public Categorie() {

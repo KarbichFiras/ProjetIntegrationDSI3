@@ -43,6 +43,8 @@ public class Food implements Serializable{
 	@ManyToOne
 	private Categorie categorie;
 	
+	
+	
 	public Food() {
 		super();
 		// TODO Auto-generated constructor stub
