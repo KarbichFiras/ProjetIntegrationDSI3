@@ -1,18 +1,26 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
+import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Repository.FoodRepository;
+import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 
 @Service
 public class FoodMetier implements IFoodMetier{
 
 	@Autowired
 	FoodRepository foodRepository;
+	@Autowired
+	RestaurantRepository restaurantRepository;
 
 	@Override
 	public Food getFoodDetails(Long foodCode) {
@@ -113,12 +121,22 @@ public class FoodMetier implements IFoodMetier{
 	}
 
 	@Override
-	public List<Food> getSpecificFood(String partLibelle) {
-			
+	public List<Restaurant> getRestaurantBySpecificFood(String partLibelle) {
+		 List<Food> Results_of_food_get  ;
+		// Collection<Restaurant> Results_of_restaurants_get = null  ;
+		 List<Restaurant> Results_of_restaurants_get = new ArrayList<>();
 		try {
-			return foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelle+"%");
+			 Results_of_food_get=foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelle+"%");
+				
+			 for (int i = 0; i < Results_of_food_get.size(); i++) {
+		 		Long code=Results_of_food_get.get(i).getCode();
+		 		Results_of_restaurants_get.addAll(restaurantRepository.findRestaurantByFood(code));
+				    
+				}
+			 
+			 return Results_of_restaurants_get;
 		}catch(Exception e) {
-			System.out.println("Could not find any food with this pasing carateters" + partLibelle);
+			System.out.println("Could not find any food with this pasing carateters  " + partLibelle);
 			return null;
 		}
 		

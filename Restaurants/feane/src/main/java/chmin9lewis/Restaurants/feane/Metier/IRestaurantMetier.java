@@ -1,5 +1,6 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
+import java.util.Collection;
 import java.util.List;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
@@ -10,6 +11,9 @@ public interface IRestaurantMetier {
 	public Restaurant getRestaurantDetails(Long restaurantCode);
 	public List<Restaurant> getAllRestaurants();
 	public List<Restaurant> getSpecificRestaurant(String partLibelleRestaurant);
+//
+	//public Collection<Restaurant> getRestaurantByFood(Long code);
+	//
 	public Restaurant addRestaurant(Restaurant restaurant);
 	public Restaurant updateRestaurant(Restaurant restaurant);
 	public boolean deleteRestaurant(Restaurant restaurant);

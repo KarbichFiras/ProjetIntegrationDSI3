@@ -1,12 +1,19 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
+import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
+import chmin9lewis.Restaurants.feane.Entity.Menu;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
+import chmin9lewis.Restaurants.feane.Repository.FoodRepository;
+import chmin9lewis.Restaurants.feane.Repository.FoodWithExtrasRepository;
+import chmin9lewis.Restaurants.feane.Repository.MenuRepository;
 import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 
 @Service
@@ -14,6 +21,12 @@ public class RestaurantMetier implements IRestaurantMetier{
 
 	@Autowired
 	RestaurantRepository restaurantRepository;
+	@Autowired
+	MenuRepository menuRepository;
+	@Autowired
+	FoodRepository foodRepository;
+	@Autowired
+	FoodWithExtrasRepository foodWithExtrasRepository;
 	
 	@Override
 	public Restaurant getRestaurantDetails(Long restaurantCode) {
@@ -102,7 +115,21 @@ public class RestaurantMetier implements IRestaurantMetier{
 			return null;
 		}
 	}
+/* NOT WORKING
+	@Override
+	public Restaurant getRestaurantByFood(Long code) {
+		Food food = foodRepository.findById(code).get();
+		ArrayList<FoodWithExtras> foodWithExtras =foodWithExtrasRepository.findByFood(food);
+		Menu menu=menuRepository.findByMenuFoods(foodWithExtras);
+		return restaurantRepository.findByMenus(menu);
+	}
+	*/
 	
+	/*WORKING BUT IT'S ONLY FOR TESTING
+	 * @Override
+	public Collection<Restaurant> getRestaurantByFood(Long code) {
+		return restaurantRepository.findRestaurantByFood(code);
+	}*/
 	
 
 

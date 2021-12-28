@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
+import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
 
 @RestController
@@ -29,11 +30,6 @@ public class FoodService {
 	@RequestMapping(value="/getAllFoods", method=RequestMethod.GET)
 	public List<Food> getAllFoods() {
 		return foodMetier.getAllFoods();
-	}
-	////////////////////////////////use in search in wakalni app
-	@RequestMapping(value="/getSpecificFood", method=RequestMethod.GET)
-	public List<Food> getSpecificFood(@RequestParam(name="partLibelleF") String partLibelleFood){
-		return foodMetier.getSpecificFood(partLibelleFood);
 	}
 	
 

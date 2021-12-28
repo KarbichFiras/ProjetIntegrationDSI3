@@ -1,5 +1,6 @@
 package chmin9lewis.Restaurants.feane.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
+import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
 public class RestaurantService {
 	@Autowired
 	IRestaurantMetier restaurantMetier;
+
 	
 	@RequestMapping(value="/getAllRestaurants" , method = RequestMethod.GET)
 	public List<Restaurant> getAllRestaurants() {
@@ -37,6 +40,12 @@ public class RestaurantService {
 		return restaurantMetier.getSpecificRestaurant(partLibelleRestaurant);
 	}
 	
+	/*WORKING BUT ITS FOR TESTING 
+	 * @RequestMapping(value="/getRestaurantByFood", method=RequestMethod.GET)
+	public Collection<Restaurant> getRestaurantByFood(@RequestParam(name="code") Long code){
+		return restaurantMetier.getRestaurantByFood(code);
+	}*/
+	//
 	@RequestMapping(value="/addRestaurant" , method = RequestMethod.POST)
 	public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
 		return restaurantMetier.addRestaurant(restaurant);
