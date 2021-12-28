@@ -16,6 +16,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Menu implements Serializable{
 
@@ -31,7 +33,7 @@ public class Menu implements Serializable{
 	private boolean isEnabled = true;
 	
 	@OneToMany(mappedBy = "menu")
-	private Collection<FoodWithExtras> menuFoods = new ArrayList<FoodWithExtras>();
+	private Collection<Food> menuFoods = new ArrayList<Food>();
 
 	//Menu Restaurant RELATION
 	@ManyToOne
@@ -81,11 +83,12 @@ public class Menu implements Serializable{
 		this.isEnabled = isEnabled;
 	}
 
-	public Collection<FoodWithExtras> getMenuFoods() {
+	public Collection<Food> getMenuFoods() {
 		return menuFoods;
 	}
 
-	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
+	public void setMenuFoods(Collection<Food> menuFoods) {
 		this.menuFoods = menuFoods;
 	}
+
 }

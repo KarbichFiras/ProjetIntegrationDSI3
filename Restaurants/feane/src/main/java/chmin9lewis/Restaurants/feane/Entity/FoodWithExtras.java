@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class FoodWithExtras implements Serializable{
 	
@@ -27,10 +29,6 @@ public class FoodWithExtras implements Serializable{
 	private Extras extras;
 	@ManyToOne
 	private Food food;
-
-	//FoodWithExtras Menu RELATION
-	@ManyToOne
-	private Menu menu;
 	
 	public FoodWithExtras() {
 		super();
@@ -62,14 +60,6 @@ public class FoodWithExtras implements Serializable{
 
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
-	}
-
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
 	}
 	
 }
