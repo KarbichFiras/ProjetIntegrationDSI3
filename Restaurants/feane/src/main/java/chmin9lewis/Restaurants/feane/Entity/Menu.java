@@ -31,7 +31,7 @@ public class Menu implements Serializable{
 	private boolean isEnabled = true;
 	
 	@OneToMany(mappedBy = "menu")
-	private Collection<Food> menuFoods = new ArrayList<Food>();
+	private Collection<FoodWithExtras> menuFoods = new ArrayList<FoodWithExtras>();
 
 	//Menu Restaurant RELATION
 	@ManyToOne
@@ -66,13 +66,6 @@ public class Menu implements Serializable{
 		this.createdAt = createdAt;
 	}
 
-	public Collection<Food> getMenuFoods() {
-		return menuFoods;
-	}
-
-	public void setMenuFoods(Collection<Food> menuFoods) {
-		this.menuFoods = menuFoods;
-	}
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}
@@ -86,5 +79,13 @@ public class Menu implements Serializable{
 
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
+	}
+
+	public Collection<FoodWithExtras> getMenuFoods() {
+		return menuFoods;
+	}
+
+	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
+		this.menuFoods = menuFoods;
 	}
 }
