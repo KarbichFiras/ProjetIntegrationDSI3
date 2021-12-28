@@ -8,6 +8,8 @@ public interface IRestaurantMetier {
 
 	public Restaurant getRestaurantDetails(Long restaurantCode);
 	public List<Restaurant> getAllRestaurants();
+	public List<Restaurant> getEnabledRestaurants();
+	public List<Restaurant> getDesaabledRestaurants();
 	public Restaurant addRestaurant(Restaurant restaurant);
 	public Restaurant updateRestaurant(Restaurant restaurant);
 	public boolean deleteRestaurant(Restaurant restaurant);

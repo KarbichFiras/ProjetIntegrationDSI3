@@ -6,13 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
+import chmin9lewis.Restaurants.feane.Entity.Role;
+import chmin9lewis.Restaurants.feane.Entity.User;
 import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
+import chmin9lewis.Restaurants.feane.Repository.RoleRepository;
 
 @Service
 public class RestaurantMetier implements IRestaurantMetier{
 
 	@Autowired
 	RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
+	
+	@Autowired
+	IUserMetier userMetier;
 	
 	@Override
 	public Restaurant getRestaurantDetails(Long restaurantCode) {
@@ -25,9 +34,38 @@ public class RestaurantMetier implements IRestaurantMetier{
 	}
 	
 	@Override
+	public List<Restaurant> getEnabledRestaurants() {
+		try {
+			return restaurantRepository.findByIsEnabled(true);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	@Override
+	public List<Restaurant> getDesaabledRestaurants() {
+		try {
+			return restaurantRepository.findByIsEnabled(false);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
 	public List<Restaurant> getAllRestaurants() {
 		try {
-			return restaurantRepository.findAll();
+			Role adminRole = roleRepository.findByName("ADMIN");
+			User user = userMetier.getLoggedUser();
+
+			// itha kenou admin nraj3oulou kol chay sinn nraj3ou ken les restau ili ye5dmou (active ya3ni mahomch msakrni yetsal7ou mathalan)
+			if( user.getRoles().contains(adminRole)  ){
+				return restaurantRepository.findAll();
+			}
+			
+			return  getEnabledRestaurants();
 		}catch(Exception e) {
 			System.out.println("Could not execute this Operation! ");
 			return null;
@@ -91,5 +129,6 @@ public class RestaurantMetier implements IRestaurantMetier{
 			return false;
 		}
 	}
+
 
 }
