@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 
 
 @RestController
-public class UserService {
+public class AppService {
 	@Autowired
 	IUserMetier userMetier;
 	@Autowired
@@ -50,6 +50,7 @@ public class UserService {
 	@RequestMapping(value="/addClient" , method = RequestMethod.POST)
 	public User addClient(@RequestBody Client client) {
 		try {
+			client.getRoles().add(roleMetier.getRoleByName("Client"));
 			return userMetier.addUser(client);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -60,6 +61,7 @@ public class UserService {
 	@RequestMapping(value="/addEmploye" , method = RequestMethod.POST)
 	public User addEmploye(@RequestBody Employe employe) {
 		try {
+			employe.getRoles().add(roleMetier.getRoleByName("Employe"));
 			return userMetier.addUser(employe);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -70,6 +72,7 @@ public class UserService {
 	@RequestMapping(value="/addDeliveryMan" , method = RequestMethod.POST)
 	public User addDeleveryMan(@RequestBody DeliveryMan deliveryMan) {
 		try {
+			deliveryMan.getRoles().add(roleMetier.getRoleByName("DeliveryMan"));
 			return userMetier.addUser(deliveryMan);
 		}catch(Exception e) {
 			e.printStackTrace();
