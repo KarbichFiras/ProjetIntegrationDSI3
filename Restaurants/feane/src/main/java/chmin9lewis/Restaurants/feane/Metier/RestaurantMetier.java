@@ -38,7 +38,7 @@ public class RestaurantMetier implements IRestaurantMetier{
 	}
 	
 	@Override
-	public Page<Restaurant> getEnabledRestaurants(boolean isEnabled, Integer page, Integer size,String sortBy, String direction) {
+	public Page<Restaurant> getEnabledRestaurants(Integer page, Integer size,String sortBy, String direction) {
 		try {
 			
 			Pageable paging;
@@ -49,7 +49,7 @@ public class RestaurantMetier implements IRestaurantMetier{
 				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
 			}
 			
-			Page<Restaurant> pageResult = restaurantRepository.getEnabledRestaurants(isEnabled, paging);
+			Page<Restaurant> pageResult = restaurantRepository.getEnabledRestaurants(true, paging);
 			
 			return pageResult;
 		}catch(Exception e) {

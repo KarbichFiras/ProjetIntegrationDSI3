@@ -11,7 +11,7 @@ public interface IRestaurantMetier {
 	public Restaurant getRestaurantDetails(Long restaurantCode);
 	public List<Restaurant> getAllRestaurants();
 	//public Page<Restaurant> getAllRestaurants(Integer page, Integer size, String sortBy, String direction);
-	public Page<Restaurant> getEnabledRestaurants(boolean isEnabled, Integer page, Integer size,String sortBy, String direction);
+	public Page<Restaurant> getEnabledRestaurants( Integer page, Integer size,String sortBy, String direction);
 	public List<Restaurant> getDesaabledRestaurants();
 	public Restaurant addRestaurant(Restaurant restaurant);
 	public Restaurant updateRestaurant(Restaurant restaurant);
