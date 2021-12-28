@@ -43,9 +43,7 @@ public class Food implements Serializable{
 	@ManyToOne
 	private Categorie categorie;
 	
-	//Food Menu RELATION
-	@ManyToOne
-	private Menu menu;
+	
 	
 	public Food() {
 		super();
@@ -105,13 +103,5 @@ public class Food implements Serializable{
 
 	public void setFoodWithExtras(List<FoodWithExtras> foodWithExtras) {
 		this.foodWithExtras = foodWithExtras;
-	}
-
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
 	}
 }

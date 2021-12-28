@@ -44,7 +44,6 @@ public class Restaurant implements Serializable{
 	private Collection<User> employees;
 	
 	@OneToMany(mappedBy = "restaurant")
-	@JsonIgnore
 	private Collection<Menu> menus = new ArrayList<Menu>();
 	
 	public Restaurant() {

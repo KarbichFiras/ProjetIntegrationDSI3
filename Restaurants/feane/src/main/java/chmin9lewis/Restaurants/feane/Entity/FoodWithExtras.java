@@ -30,6 +30,11 @@ public class FoodWithExtras implements Serializable{
 	@ManyToOne
 	private Food food;
 	
+	//Food Menu RELATION
+		@ManyToOne
+		@JsonIgnore
+		private Menu menu;
+	
 	public FoodWithExtras() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -60,6 +65,14 @@ public class FoodWithExtras implements Serializable{
 
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 	
 }

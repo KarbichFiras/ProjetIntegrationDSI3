@@ -131,7 +131,8 @@ public class FeaneApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		/*String password ="12345";
+	/*
+		String password ="12345";
 		
 		//Creatin admin role
 		Role adminRole = new Role();
@@ -237,7 +238,7 @@ public class FeaneApplication implements CommandLineRunner{
 		Food food;
 		Menu menu;
 		FoodWithExtras foodWithExtras;
-		Collection<Food> foodList = new ArrayList<Food>();
+		Collection<FoodWithExtras> produitFinalList = new ArrayList<FoodWithExtras>();
 		List<FoodWithExtras> listFoodWithExtras = new ArrayList<FoodWithExtras>();
 		String[] foodsLibelles = {"Mlaoui", "Lablebi", "Sa7fa Lablebi", "3ijja", "Ma9rouna", "Salade", "Koskssi", "S7an Tounsi", "Ma9loub", "Rokba"};
 		int k = 0;
@@ -273,7 +274,7 @@ public class FeaneApplication implements CommandLineRunner{
 				menu.setRestaurant(feane);
 					
 				
-				menu.setMenuFoods(foodList);
+				menu.setMenuFoods(listFoodWithExtras);
 				menu = menuMetier.addMenu(menu);
 				
 				for( int j = 0 ; j < 3; j ++) {
@@ -317,11 +318,12 @@ public class FeaneApplication implements CommandLineRunner{
 							
 							
 							food.setFoodWithExtras(listFoodWithExtras);
-							food.setMenu(menu);
 							food = foodMetier.updateFood(food);
-						
-						foodList.add(food);
-						
+							
+							
+						foodWithExtras.setMenu(menu);
+						foodWithExtras = foodWithExtrasMetier.updateFoodWithExtras(foodWithExtras);
+							
 						k++;	
 				}
 		}*/

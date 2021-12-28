@@ -1,5 +1,7 @@
 package chmin9lewis.project.wakelni.Models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Restaurant {
 
@@ -7,7 +9,9 @@ public class Restaurant {
 	private String name;
 	private String adresse;
 	private String email;
-	
+	private String description;
+	private Image image;
+	private Collection<Menu> menus = new ArrayList<Menu>();
 	
 	
 	public Restaurant() {
@@ -46,6 +50,36 @@ public class Restaurant {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public Image getImage() {
+		return image;
+	}
+
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+
+	public Collection<Menu> getMenus() {
+		return menus;
+	}
+
+
+	public void setMenus(Collection<Menu> menus) {
+		this.menus = menus;
 	}
 	
 }
