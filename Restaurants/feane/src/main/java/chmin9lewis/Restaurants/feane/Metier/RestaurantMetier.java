@@ -80,17 +80,31 @@ public class RestaurantMetier implements IRestaurantMetier{
 	}
 	
 	@Override
-	public List<Restaurant> getAllRestaurants() {
+	public Page<Restaurant> getAllRestaurants(Integer page, Integer size,String sortBy, String direction) {
 		try {
+			
 			Role adminRole = roleRepository.findByName("ADMIN");
-			User user = userMetier.getLoggedUser();
-
-			// itha kenou admin nraj3oulou kol chay sinn nraj3ou ken les restau ili ye5dmou (active ya3ni mahomch msakrni yetsal7ou mathalan)
-			if( user.getRoles().contains(adminRole)  ){
-				return restaurantRepository.findAll();
+			try {
+				
+				User user = userMetier.getLoggedUser();
+				
+				// itha kenou admin nraj3oulou kol chay sinn nraj3ou ken les restau ili ye5dmou (active ya3ni mahomch msakrni yetsal7ou mathalan)
+				if( user.getRoles().contains(adminRole)  ){
+					Pageable paging;
+					
+					if(direction.toUpperCase().equals("ASC")) {
+						 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+					}else {
+						 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+					}
+					return restaurantRepository.findAll(paging);
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
 			
-			return null;// getEnabledRestaurants();
+			return getEnabledRestaurants(page, size, sortBy, direction) ;
 		}catch(Exception e) {
 			System.out.println("Could not execute this Operation! ");
 			return null;
@@ -164,6 +178,5 @@ public class RestaurantMetier implements IRestaurantMetier{
 			return false;
 		}
 	}
-
 
 }

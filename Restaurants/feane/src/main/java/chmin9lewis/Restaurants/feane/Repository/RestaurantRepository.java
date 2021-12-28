@@ -21,6 +21,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 	@Query( value="SELECT * FROM restaurant  WHERE enabled=:isEnabled" , nativeQuery = true)
 	public Page<Restaurant> getDesabledRestaurants(boolean isEnabled, Pageable paging);
 	
-	//public Page<Restaurant> findAll(Pageable pageable);
+	public Page<Restaurant> findAll(Pageable pageable);
 	
 }

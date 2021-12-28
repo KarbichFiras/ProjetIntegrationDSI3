@@ -23,8 +23,8 @@ public class RestaurantService {
 	IRestaurantMetier restaurantMetier;
 	
 	@RequestMapping(value="/getAllRestaurants" , method = RequestMethod.GET)
-	public List<Restaurant> getAllRestaurants() {
-		return restaurantMetier.getAllRestaurants();
+	public Page<Restaurant> getAllRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getAllRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("code"), direction.orElse("ASC"));
 	}
 	
 	@RequestMapping(value="/getEnabledRestaurants" , method = RequestMethod.GET)
