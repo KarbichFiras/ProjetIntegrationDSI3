@@ -29,6 +29,8 @@ public class Restaurant implements Serializable{
 	private String adresse;
 	@NotEmpty
 	private String email;
+	@NotEmpty
+	private String description;
 	@Column(name="enabled", columnDefinition = "boolean default true" )
 	private boolean isEnabled=true;
 	
@@ -114,5 +116,15 @@ public class Restaurant implements Serializable{
 
 	public void setMenus(Collection<Menu> menus) {
 		this.menus = menus;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

@@ -42,6 +42,7 @@ import chmin9lewis.Restaurants.feane.Metier.IMenuMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRoleMetier;
 import chmin9lewis.Restaurants.feane.Metier.IUserMetier;
+import chmin9lewis.Restaurants.feane.Repository.FoodRepository;
 import chmin9lewis.Restaurants.feane.Repository.UserRepository;
 
 
@@ -129,8 +130,8 @@ public class FeaneApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
-		/*String password ="12345";
+		/*
+		String password ="12345";
 		
 		//Creatin admin role
 		Role adminRole = new Role();
@@ -207,21 +208,7 @@ public class FeaneApplication implements CommandLineRunner{
 		thirdPartyUser.getRoles().add(thirdPartyRole);
 		//Updating thirdParty Role
 		thirdPartyRole = roleMetier.updateRole(thirdPartyRole);
-		
-		//Creatin restaurant Object
-		Restaurant feane = new Restaurant();
-			//Initializin Restaurant
-			feane.setName("Feane");	
-			feane.setEmail("feane@gmail.com");
-			feane.setAdresse("Quai Khemais Ternane Vieux port Bizerte, 7000");
-			//Creatin Image object for this restaurant
-				Image image = new Image("images/modern-restaurant-menu-for-fast-food/4520928.jpg", "images/Fast_food_Hamburger_Vegetables_Fire_Two_520128_1920x1080.jpg", "images/feane_profile_picture.jpg",true);
-				//Adding this image into Data Base
-				image = imageMetier.addImage(image);
-			feane.setImage(image);
-		//Adding this restaurant into Data Base
-			feane = restaurantMetier.addRestaurant(feane);		
-		
+
 		//Creating Categorie
 		Categorie sandwitch = new Categorie();
 			sandwitch.setName("Sandwitch");
@@ -230,68 +217,116 @@ public class FeaneApplication implements CommandLineRunner{
 			plate.setName("Plate");
 			plate = categorieMetier.addCategorie(plate);
 			
-		//Creating extras
-		Extras bsal = new Extras();
-			bsal.setName("Bsal");
-			bsal.setPrixUnitaire(100);//100 frank
-			bsal = extrasMetier.addExtras(bsal);
-		Extras mayonnaise = new Extras();
-			mayonnaise.setName("Mayonnaise");
-			mayonnaise.setPrixUnitaire(100);//100 frank	
-			mayonnaise = extrasMetier.addExtras(mayonnaise);
-		
-		Food mlaoui = new Food();
-			mlaoui.setCategorie(sandwitch);
-			mlaoui.setLibelle("Mlaoui");
-			mlaoui.setPrix(1000);
-			mlaoui.setImage("mlaoui chemin image here :p wmatorbethech bil table image 5aterha just 3andha ka3ba image khw");
-			mlaoui = foodMetier.addFood(mlaoui);
-			
-		Food lablebi = new Food();
-			lablebi.setCategorie(plate);
-			lablebi.setLibelle("Sa7fa Lablebi ");
-			lablebi.setPrix(2500);
-			lablebi.setImage("sa7fa lablebi image");
-			lablebi = foodMetier.addFood(lablebi);
-		
-		Food lablebi2 = new Food();
-			lablebi2.setCategorie(sandwitch);
-			lablebi2.setLibelle("Lablebi ");
-			lablebi2.setPrix(1300);
-			lablebi2.setImage("lablebi image");
-			lablebi2 = foodMetier.addFood(lablebi2);
-			
-		Menu weekendMenu = new Menu();
-			weekendMenu.setTitre("WeekEnd Menu");
-				Collection<Food> foods = new ArrayList<>();
-				foods.add(mlaoui);
-				foods.add(lablebi);
-				foods.add(lablebi2);
-			weekendMenu.setMenuFoods(foods);
-			weekendMenu.setRestaurant(feane);
-			weekendMenu = menuMetier.addMenu(weekendMenu);
-				mlaoui.setMenu(weekendMenu);
-				mlaoui = foodMetier.updateFood(mlaoui);
-				lablebi.setMenu(weekendMenu);
-				lablebi = foodMetier.updateFood(lablebi);
-				lablebi2.setMenu(weekendMenu);
-				lablebi2 = foodMetier.updateFood(lablebi2);
+			//Creating extras
+			Extras bsal = new Extras();
+				bsal.setName("Bsal");
+				bsal.setPrixUnitaire(100);//100 frank
+				bsal = extrasMetier.addExtras(bsal);
+			Extras mayonnaise = new Extras();
+				mayonnaise.setName("Mayonnaise");
+				mayonnaise.setPrixUnitaire(200);//100 frank	
+				mayonnaise = extrasMetier.addExtras(mayonnaise);
+			Extras salami = new Extras();
+				salami.setName("Salami");
+				salami.setPrixUnitaire(150);//100 frank	
+				salami = extrasMetier.addExtras(salami);
 				
-		FoodWithExtras produitFinal = new FoodWithExtras();
-			// t3abii ka3ba FoodWithExtras wtsobha fil base
-			produitFinal.setExtras(bsal);
-			produitFinal.setFood(mlaoui);
-			produitFinal = foodWithExtrasMetier.addFoodWithExtras(produitFinal);
-				// bch tasne3 list bch t7ot fiha barcha ka3bet FoodWithExtras
-				List<FoodWithExtras> listFoodWithExtras = new ArrayList<FoodWithExtras>();
-				listFoodWithExtras.add(produitFinal);
-				//kol extras w food mawjoudin fi kol ka3ba FoodWithExtras lezim tzidhom ilist wta3mlilhom update filDB
-				bsal.setFoodWithExtras(listFoodWithExtras);
-				bsal = extrasMetier.updateExtras(bsal);
+		// Declarations
+		Restaurant feane;
+		Image image;
+		Food food;
+		Menu menu;
+		FoodWithExtras foodWithExtras;
+		Collection<FoodWithExtras> produitFinalList = new ArrayList<FoodWithExtras>();
+		List<FoodWithExtras> listFoodWithExtras = new ArrayList<FoodWithExtras>();
+		String[] foodsLibelles = {"Mlaoui", "Lablebi", "Sa7fa Lablebi", "3ijja", "Ma9rouna", "Salade", "Koskssi", "S7an Tounsi", "Ma9loub", "Rokba"};
+		int k = 0;
+		
+		for( int j = 1 ; j < 11; j ++) {
+			food = new Food();
+			food.setCategorie(sandwitch);
+			food.setLibelle(foodsLibelles[j-1]);
+			food.setPrix((1000 * j) );
+			food.setImage("image here");
+			food = foodMetier.addFood(food);
+		}
+		
+		for(int i = 1 ; i< 11 ; i++) {
+			
+			//Creatin restaurant Object
+			feane = new Restaurant();
+				//Initializin Restaurant
+				feane.setName("Feane" + i);	
+				feane.setEmail("feane"+ i +"@gmail.com");
+				feane.setAdresse("Quai Khemais Ternane Vieux port Bizerte, 7000");
+				feane.setDescription("Mekletna bnina barcha , wndifa juste titsamim wkhw order now fech testana");
+				//Creatin Image object for this restaurant
+					image = new Image("images/modern-restaurant-menu-for-fast-food/4520928.jpg", "images/Fast_food_Hamburger_Vegetables_Fire_Two_520128_1920x1080.jpg", "images/feane_profile_picture.jpg",true);
+					//Adding this image into Data Base
+					image = imageMetier.addImage(image);
+				feane.setImage(image);
+				//Adding this restaurant into Data Base
+				feane = restaurantMetier.addRestaurant(feane);
 				
-				mlaoui.setFoodWithExtras(listFoodWithExtras);
-				mlaoui = foodMetier.updateFood(mlaoui);
-		*/
+				menu = new Menu();
+				menu.setTitre("WeekEnd"+i+" Menu");
+				menu.setRestaurant(feane);
+					
+				
+				menu.setMenuFoods(listFoodWithExtras);
+				menu = menuMetier.addMenu(menu);
+				
+				for( int j = 0 ; j < 3; j ++) {
+					
+					if(k == foodsLibelles.length) { k=0; }
+						
+						food = foodMetier.getFoodByLibelle(foodsLibelles[k]);
+					
+						foodWithExtras = new FoodWithExtras();
+						// t3abii ka3ba FoodWithExtras wtsobha fil base
+							//combo hayka bil extras kol we7id w9asmou :p
+							if( k % 1 == 0 ) {
+								foodWithExtras.setExtras(bsal);
+							}else{
+								foodWithExtras.setExtras(salami);
+							}
+							
+							if( k % 2 == 0) {
+								foodWithExtras.setExtras(mayonnaise);
+							}
+						
+						foodWithExtras.setFood(food);
+						foodWithExtras = foodWithExtrasMetier.addFoodWithExtras(foodWithExtras);
+							// bch tasne3 list bch t7ot fiha barcha ka3bet FoodWithExtras
+							listFoodWithExtras = new ArrayList<FoodWithExtras>();
+							listFoodWithExtras.add(foodWithExtras);
+							//kol extras w food mawjoudin fi kol ka3ba FoodWithExtras lezim tzidhom ilist wta3mlilhom update filDB
+							//combo hayka bil extras kol we7id w9asmou :p
+							if( k % 1 == 0 ) {
+								bsal.setFoodWithExtras(listFoodWithExtras);
+								bsal = extrasMetier.updateExtras(bsal);
+							}else{
+								salami.setFoodWithExtras(listFoodWithExtras);
+								salami = extrasMetier.updateExtras(salami);
+							}
+							
+							if( k % 2 == 0) {
+								mayonnaise.setFoodWithExtras(listFoodWithExtras);
+								mayonnaise = extrasMetier.updateExtras(mayonnaise);
+							}
+							
+							
+							food.setFoodWithExtras(listFoodWithExtras);
+							food = foodMetier.updateFood(food);
+							
+							
+						foodWithExtras.setMenu(menu);
+						foodWithExtras = foodWithExtrasMetier.updateFoodWithExtras(foodWithExtras);
+							
+						k++;	
+				}
+		}*/
+		
 	}
 
 }
