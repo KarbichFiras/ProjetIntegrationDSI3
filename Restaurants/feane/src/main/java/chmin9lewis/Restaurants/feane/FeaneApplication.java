@@ -92,7 +92,7 @@ public class FeaneApplication implements CommandLineRunner{
 		};
 	}
 	
-	@Bean
+	/*@Bean
     public ServletWebServerFactory servletContainer() {
         // Enable SSL Trafic
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
@@ -111,21 +111,21 @@ public class FeaneApplication implements CommandLineRunner{
         tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
 
         return tomcat;
-    }
+    }*/
 
     /*
     We need to redirect from HTTP to HTTPS. Without SSL, this application used
     port 8080. With SSL it will use port 8079. So, any request for 8080 needs to be
     redirected to HTTPS on 8079.
      */
-    private Connector httpToHttpsRedirectConnector() {
+ /*   private Connector httpToHttpsRedirectConnector() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(8080);
         connector.setSecure(false);
         connector.setRedirectPort(8079);
         return connector;
-    }
+    }*/
 	
 	@Override
 	public void run(String... args) throws Exception {
