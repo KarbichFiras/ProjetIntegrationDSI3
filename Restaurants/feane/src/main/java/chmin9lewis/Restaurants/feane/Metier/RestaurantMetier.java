@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 
@@ -91,5 +92,18 @@ public class RestaurantMetier implements IRestaurantMetier{
 			return false;
 		}
 	}
+
+	@Override
+	public List<Restaurant> getSpecificRestaurant(String partLibelleRestaurant) {
+		try {
+			return restaurantRepository.findByNameLikeIgnoreCase("%"+partLibelleRestaurant+"%");
+		}catch(Exception e) {
+			System.out.println("Could not find any food with this pasing carateters" + partLibelleRestaurant);
+			return null;
+		}
+	}
+	
+	
+
 
 }

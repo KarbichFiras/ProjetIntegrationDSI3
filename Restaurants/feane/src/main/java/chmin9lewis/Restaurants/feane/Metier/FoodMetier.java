@@ -111,6 +111,20 @@ public class FoodMetier implements IFoodMetier{
 			return null;
 		}
 	}
+
+	@Override
+	public List<Food> getSpecificFood(String partLibelle) {
+			
+		try {
+			return foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelle+"%");
+		}catch(Exception e) {
+			System.out.println("Could not find any food with this pasing carateters" + partLibelle);
+			return null;
+		}
+		
+	}
+
+
 	
 	
 	

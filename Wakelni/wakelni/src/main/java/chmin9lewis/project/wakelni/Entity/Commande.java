@@ -26,8 +26,8 @@ public class Commande implements Serializable{
 	@ManyToOne
 	private User client;// directeur ynajim fil weekend mathalan y7el bil account mte3ou wya9thi normal sinn twali 3andou restau wyechri mil barra doesn't make sense!
 	
-	@ManyToOne
-	private DeliveryMan deliveryMan;
+	/*@ManyToOne
+	private DeliveryMan deliveryMan;*/
 	
 	@OneToOne
 	private Facture facture;
@@ -69,13 +69,13 @@ public class Commande implements Serializable{
 		this.client = client;
 	}
 
-	public DeliveryMan getDeliveryMan() {
+	/*public DeliveryMan getDeliveryMan() {
 		return deliveryMan;
 	}
 
 	public void setDeliveryMan(DeliveryMan deliveryMan) {
 		this.deliveryMan = deliveryMan;
-	}
+	}*/
 
 	public Facture getFacture() {
 		return facture;

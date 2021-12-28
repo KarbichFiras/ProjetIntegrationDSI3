@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import chmin9lewis.project.wakelni.Entity.Client;
 import chmin9lewis.project.wakelni.Entity.Commande;
-import chmin9lewis.project.wakelni.Entity.DeliveryMan;
 import chmin9lewis.project.wakelni.Entity.Employe;
 import chmin9lewis.project.wakelni.Entity.Facture;
 import chmin9lewis.project.wakelni.Entity.Role;
@@ -67,7 +66,7 @@ public class UserService {
 		}
 	}
 	
-	@RequestMapping(value="/addDeliveryMan" , method = RequestMethod.POST)
+/*	@RequestMapping(value="/addDeliveryMan" , method = RequestMethod.POST)
 	public User addDeleveryMan(@RequestBody DeliveryMan deliveryMan) {
 		try {
 			return userMetier.addUser(deliveryMan);
@@ -75,7 +74,7 @@ public class UserService {
 			e.printStackTrace();
 			return null;
 		}
-	}
+	}*/
 	
 	@RequestMapping(value="/addRole", method = RequestMethod.POST)
 	public Role addRole(@RequestBody Role role) {

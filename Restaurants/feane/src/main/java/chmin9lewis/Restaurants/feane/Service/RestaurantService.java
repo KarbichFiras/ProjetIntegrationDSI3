@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 
@@ -27,6 +29,12 @@ public class RestaurantService {
 	@RequestMapping(value="/getRestaurantDetails/{code}" , method = RequestMethod.GET)
 	public Restaurant getRestaurantDetails(@PathVariable(name="code") Long restaurantCode) {
 		return restaurantMetier.getRestaurantDetails(restaurantCode);
+	}
+	
+	////////////////////////use it search bar
+	@RequestMapping(value="/getSpecificRestaurant", method=RequestMethod.GET)
+	public List<Restaurant> getSpecificRestaurant(@RequestParam(name="partLibelleR") String partLibelleRestaurant){
+		return restaurantMetier.getSpecificRestaurant(partLibelleRestaurant);
 	}
 	
 	@RequestMapping(value="/addRestaurant" , method = RequestMethod.POST)

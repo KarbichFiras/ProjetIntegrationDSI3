@@ -23,7 +23,7 @@ import chmin9lewis.project.wakelni.Repository.UserRepository;
 
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = UserRepository.class)
+@EnableJpaRepositories(basePackageClasses = UserRepository.class)//?
 public class WakelniApplication implements CommandLineRunner{
 
 	// 20 days token with role thirdParty used to connect with fean's APIs : 
@@ -38,7 +38,7 @@ public class WakelniApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(WakelniApplication.class, args);
 	}
-
+// cross orogin to let other server consume this api
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -49,7 +49,7 @@ public class WakelniApplication implements CommandLineRunner{
 			}
 		};
 	}
-	
+	//web client to let api consume other api
 	@Bean
 	public WebClient getWebClient(){
 		
