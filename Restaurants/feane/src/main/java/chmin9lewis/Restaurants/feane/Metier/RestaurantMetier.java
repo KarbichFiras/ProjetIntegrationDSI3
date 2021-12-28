@@ -3,13 +3,17 @@ package chmin9lewis.Restaurants.feane.Metier;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Sort;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Entity.Role;
 import chmin9lewis.Restaurants.feane.Entity.User;
 import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 import chmin9lewis.Restaurants.feane.Repository.RoleRepository;
+
 
 @Service
 public class RestaurantMetier implements IRestaurantMetier{
@@ -34,9 +38,20 @@ public class RestaurantMetier implements IRestaurantMetier{
 	}
 	
 	@Override
-	public List<Restaurant> getEnabledRestaurants() {
+	public Page<Restaurant> getEnabledRestaurants(boolean isEnabled, Integer page, Integer size,String sortBy, String direction) {
 		try {
-			return restaurantRepository.findByIsEnabled(true);
+			
+			Pageable paging;
+			
+			if(direction.toUpperCase().equals("ASC")) {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+			}else {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+			}
+			
+			Page<Restaurant> pageResult = restaurantRepository.getEnabledRestaurants(isEnabled, paging);
+			
+			return pageResult;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -65,7 +80,7 @@ public class RestaurantMetier implements IRestaurantMetier{
 				return restaurantRepository.findAll();
 			}
 			
-			return  getEnabledRestaurants();
+			return null;// getEnabledRestaurants();
 		}catch(Exception e) {
 			System.out.println("Could not execute this Operation! ");
 			return null;
@@ -74,12 +89,22 @@ public class RestaurantMetier implements IRestaurantMetier{
 	
 	@Override
 	public Restaurant addRestaurant(Restaurant restaurant) {
-		return restaurantRepository.save(restaurant);
+		try {
+			return restaurantRepository.save(restaurant);
+		}catch(Exception e) {
+			System.out.println("Could not execute this Operation! ");
+			return null;
+		}
 	}
 
 	@Override
 	public Restaurant updateRestaurant(Restaurant restaurant) {
-		return restaurantRepository.save(restaurant);
+		try {
+			return restaurantRepository.save(restaurant);
+		}catch(Exception e) {
+			System.out.println("Could not execute this Operation! ");
+			return null;
+		}
 	}
 
 	@Override
