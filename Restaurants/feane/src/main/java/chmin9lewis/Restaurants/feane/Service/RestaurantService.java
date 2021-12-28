@@ -30,11 +30,12 @@ public class RestaurantService {
 	@RequestMapping(value="/getEnabledRestaurants" , method = RequestMethod.GET)
 	public Page<Restaurant> getEnabledRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
 		//size mil mosta7sen ta3mlou final wta3tih enti lvaleur , 5ater ynjm yjik we7id blid wy7otlk size 1 000 000 fodha m3a aka wa9tha yrazenlk serveur
-		return restaurantMetier.getEnabledRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("code"), direction.orElse("ASC"));
+		return restaurantMetier.getEnabledRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
 	}
 
-	public List<Restaurant> getDesaabledRestaurants() {
-		return restaurantMetier.getDesaabledRestaurants();
+	@RequestMapping(value="/getDesabledRestaurants" , method = RequestMethod.GET)
+	public Page<Restaurant> getDesabledRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getDesaabledRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
 	}
 	
 	@RequestMapping(value="/getRestaurantDetails/{code}" , method = RequestMethod.GET)

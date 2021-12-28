@@ -12,7 +12,7 @@ public interface IRestaurantMetier {
 	public List<Restaurant> getAllRestaurants();
 	//public Page<Restaurant> getAllRestaurants(Integer page, Integer size, String sortBy, String direction);
 	public Page<Restaurant> getEnabledRestaurants( Integer page, Integer size,String sortBy, String direction);
-	public List<Restaurant> getDesaabledRestaurants();
+	public Page<Restaurant> getDesaabledRestaurants( Integer page, Integer size,String sortBy, String direction);
 	public Restaurant addRestaurant(Restaurant restaurant);
 	public Restaurant updateRestaurant(Restaurant restaurant);
 	public boolean deleteRestaurant(Restaurant restaurant);

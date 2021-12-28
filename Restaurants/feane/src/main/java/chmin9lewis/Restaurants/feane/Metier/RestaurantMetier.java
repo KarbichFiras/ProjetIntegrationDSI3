@@ -60,9 +60,19 @@ public class RestaurantMetier implements IRestaurantMetier{
 
 
 	@Override
-	public List<Restaurant> getDesaabledRestaurants() {
+	public Page<Restaurant> getDesaabledRestaurants( Integer page, Integer size,String sortBy, String direction) {
 		try {
-			return restaurantRepository.findByIsEnabled(false);
+			Pageable paging;
+			
+			if(direction.toUpperCase().equals("ASC")) {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+			}else {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+			}
+			
+			Page<Restaurant> pageResult = restaurantRepository.getDesabledRestaurants(false, paging);
+			
+			return pageResult;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
