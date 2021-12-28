@@ -36,19 +36,19 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
-	private String userName;
-	@NotEmpty
+	private String username;
+	
 	private String nom;
-	@NotEmpty
+	
 	private String prenom;
 	@NotEmpty
 	private String email;
-	@NotEmpty
+	
 	private String tel;
 	@Column(length=64)
 	@NotEmpty
 	private String password;
-	@NotEmpty
+	
 	private String adresse;
 	@Column(name="enabled", columnDefinition = "boolean default true" )
 	private boolean isEnabled=true;
@@ -76,11 +76,11 @@ public class User implements Serializable{
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 	
 	public String getNom() {
@@ -142,5 +142,21 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<Commande> getCommande() {
+		return commande;
+	}
+
+	public void setCommande(List<Commande> commande) {
+		this.commande = commande;
 	}
 }

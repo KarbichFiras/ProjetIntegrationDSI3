@@ -49,7 +49,7 @@ public class UserMetier implements IUserMetier {
 	    User user = new User() ;
 	    
 	    try {
-	    	user = userRepository.findByUserName(username);
+	    	user = userRepository.findByUsername(username);
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    }

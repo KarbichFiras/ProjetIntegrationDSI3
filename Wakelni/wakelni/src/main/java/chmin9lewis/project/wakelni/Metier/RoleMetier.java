@@ -32,4 +32,14 @@ public class RoleMetier implements IRoleMetier{
 		}
 	}
 
+	@Override
+	public Role getRoleByName(String roleName) {
+		try {
+			return roleRepository.findByName(roleName);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

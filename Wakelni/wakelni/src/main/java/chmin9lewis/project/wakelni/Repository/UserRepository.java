@@ -8,6 +8,6 @@ import chmin9lewis.project.wakelni.Entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-public	User findByUserName(String UserName);
+public	User findByUsername(String UserName);
 	
 }
