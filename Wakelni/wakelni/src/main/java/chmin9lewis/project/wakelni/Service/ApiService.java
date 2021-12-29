@@ -1,6 +1,7 @@
 package chmin9lewis.project.wakelni.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
+@CrossOrigin
 public class ApiService {
 
 	@Autowired
@@ -48,7 +50,7 @@ public class ApiService {
 		User client;
 		try {
 			
-			o.setExternalClientUsername(userMetier.getLoggedUser().getUserName());
+			o.setExternalClientUsername(userMetier.getLoggedUser().getUsername());
 			o.setRestaurantName("Feane");
 			
 			Order order = 	webClient.post()

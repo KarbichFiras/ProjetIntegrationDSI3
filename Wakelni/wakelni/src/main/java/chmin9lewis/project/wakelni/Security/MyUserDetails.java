@@ -46,7 +46,7 @@ private User user;
 
 	@Override
 	public String getUsername() {
-		return user.getUserName();
+		return user.getUsername();
 	}
 
 	@Override
