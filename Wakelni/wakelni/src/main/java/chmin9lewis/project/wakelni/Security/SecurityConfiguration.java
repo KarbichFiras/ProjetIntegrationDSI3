@@ -46,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		try {
 			auth.authenticationProvider(authenticationProvider());
+			
 		}catch(Exception e) {
 			System.out.println("die :"+e.getMessage());
 		}
@@ -63,9 +64,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager(),  userRepository))
 			.authorizeRequests()
-			.antMatchers("/addUser").permitAll()
-			.antMatchers("/addRole").permitAll()
-			.antMatchers("/consultFacture").permitAll()
+			.antMatchers("/api/auth/**").permitAll()
+			.antMatchers("/addUser").hasAuthority("ADMIN")
+			.antMatchers("/addRole").hasAuthority("ADMIN")
+			.antMatchers("/consultFacture").authenticated()
 			.antMatchers("/newOrder").hasAuthority("ADMIN")
 			;
 		}catch(Exception e) {

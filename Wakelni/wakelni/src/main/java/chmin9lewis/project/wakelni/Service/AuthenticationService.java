@@ -37,8 +37,7 @@ public class AuthenticationService {
 		}
 		
 		// Virgin register so
-		// register the register
-		
+		// register the user
 		if(userMetier.addUser(register) != null ) {
 			return new ResponseEntity<>(new ResponseMessage("User Registred succesfully !"), HttpStatus.OK);
 		}
@@ -49,25 +48,7 @@ public class AuthenticationService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }

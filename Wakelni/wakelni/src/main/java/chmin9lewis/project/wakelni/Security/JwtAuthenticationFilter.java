@@ -1,8 +1,5 @@
 package chmin9lewis.project.wakelni.Security;
 
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-
-import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import chmin9lewis.project.wakelni.Models.LoginViewModel;
@@ -19,13 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-
-
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
+	private JwtProvider jwtProvider;
+	
 	private AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -60,14 +55,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        // Grab principal
-        MyUserDetails principal = (MyUserDetails) authResult.getPrincipal();
-
-        // Create JWT Token
-        String token = JWT.create()
-                .withSubject(principal.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
-                .sign(HMAC512(JwtProperties.SECRET.getBytes()));
+        
+    	jwtProvider = new JwtProvider();
+    	
+    	// Create token
+    	String token = jwtProvider.generateJwtToken(authResult);
 
         // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX +  token);
