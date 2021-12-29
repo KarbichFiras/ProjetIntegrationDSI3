@@ -5,6 +5,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
+import chmin9lewis.project.wakelni.Models.LoginViewModel;
 import chmin9lewis.project.wakelni.Models.Register;
 import chmin9lewis.project.wakelni.Models.ResponseMessage;
+import chmin9lewis.project.wakelni.Security.JwtProvider;
+import chmin9lewis.project.wakelni.Security.JwtResponse;
+import chmin9lewis.project.wakelni.Security.MyUserDetails;
 
 @CrossOrigin
 @RestController
@@ -22,6 +31,12 @@ public class AuthenticationService {
 
 	@Autowired
 	IUserMetier userMetier;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	JwtProvider jwtProvider;
 	
 	@RequestMapping(value="/register" , method = RequestMethod.POST)
 	public ResponseEntity<ResponseMessage> registerUser(@Valid @RequestBody Register register){
@@ -37,8 +52,7 @@ public class AuthenticationService {
 		}
 		
 		// Virgin register so
-		// register the register
-		
+		// register the user
 		if(userMetier.addUser(register) != null ) {
 			return new ResponseEntity<>(new ResponseMessage("User Registred succesfully !"), HttpStatus.OK);
 		}
@@ -46,28 +60,20 @@ public class AuthenticationService {
 		
 	}
 	
+	@RequestMapping(value="/login" , method = RequestMethod.POST)
+	public ResponseEntity<?> loginUser(@Valid @RequestBody LoginViewModel credentials){
+		
+		Authentication authentication = authenticationManager.authenticate(
+																new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword())
+																);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtProvider.generateJwtToken(authentication);
+		UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+		return ResponseEntity.ok(new JwtResponse(jwt,userPrincipal.getUsername(),userPrincipal.getAuthorities()));
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }
