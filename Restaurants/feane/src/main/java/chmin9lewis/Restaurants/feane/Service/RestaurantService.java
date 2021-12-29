@@ -1,13 +1,16 @@
 package chmin9lewis.Restaurants.feane.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
@@ -22,6 +25,32 @@ public class RestaurantService {
 	@RequestMapping(value="/getAllRestaurants" , method = RequestMethod.GET)
 	public List<Restaurant> getAllRestaurants() {
 		return restaurantMetier.getAllRestaurants();
+	}
+	
+	@RequestMapping(value="/getEnabledRestaurants" , method = RequestMethod.GET)
+	public List<Restaurant> getEnabledRestaurants() {
+		return restaurantMetier.getEnabledRestaurants();
+	}
+
+	@RequestMapping(value="/getDesabledRestaurants" , method = RequestMethod.GET)
+	public List<Restaurant> getDesabledRestaurants() {
+		return restaurantMetier.getDesabledRestaurants();
+	}
+	
+	@RequestMapping(value="/getAllRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getAllRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getAllRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("code"), direction.orElse("ASC"));
+	}
+
+	@RequestMapping(value="/getEnabledRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getEnabledRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		//size mil mosta7sen ta3mlou final wta3tih enti lvaleur , 5ater ynjm yjik we7id blid wy7otlk size 1 000 000 fodha m3a aka wa9tha yrazenlk serveur
+		return restaurantMetier.getEnabledRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
+	}
+
+	@RequestMapping(value="/getDesabledRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getDesabledRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getDesabledRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
 	}
 	
 	@RequestMapping(value="/getRestaurantDetails/{code}" , method = RequestMethod.GET)
@@ -57,6 +86,10 @@ public class RestaurantService {
 	@RequestMapping(value="/desableRestaurant/{code}" , method = RequestMethod.PUT)
 	public boolean desableRestaurant(@PathVariable(name="code") Long restaurantCode) {
 		return restaurantMetier.desableRestaurant(restaurantCode);
+	}
+
+	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size, String sortBy, String direction) {
+		return restaurantMetier.getAllRestaurantsPage(page, size, sortBy, direction);
 	}
 	
 }

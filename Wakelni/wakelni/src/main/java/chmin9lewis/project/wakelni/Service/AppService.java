@@ -38,8 +38,7 @@ public class AppService {
 	@Autowired
 	ICommandeMetier commandeMetier;
 	
-	@Autowired
-	WebClient webClient;
+	
 	
 	// lezmik t3adilou token fil header 5ater walina jwt ma3adech session ;p
 	@RequestMapping(value="/getLoggedInUser" , method = RequestMethod.GET)
@@ -100,56 +99,6 @@ public class AppService {
 			return null;
 		}
 	}
-	
-	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
-	public Flux<Restaurant> getAllRestaurants(){
-		
-		return 	webClient.get()
-				.uri("/getAllRestaurants")
-				.header("Authorization", TokensProperties.MY_TOKEN)
-				.retrieve()
-				.bodyToFlux(Restaurant.class);
-		
-	}
-	
-	@RequestMapping(value="/newOrder", method = RequestMethod.POST)
-	public Order newOrder(@RequestBody Order o){
-		User client;
-		try {
-			
-			o.setExternalClientUsername(userMetier.getLoggedUser().getUserName());
-			o.setRestaurantName("Feane");
-			
-			Order order = 	webClient.post()
-					.uri("/addCommande")
-					.header("Authorization", TokensProperties.MY_TOKEN)
-					.body(Mono.just(o), Order.class)
-					.retrieve()
-					.bodyToMono(Order.class)
-					.block();//bch yo93ed yestaneh 7atta yjewbou wba3ed ykamil yexecuti ili ta7tou :/
-			
-			Facture f= new Facture();
-				f.setModePaiment("Online");
-				f.setTotal(order.getTotale());
-				f.setRestaurantCommandeCode(order.getRestaurantCommandeCode());
-			f = factureMetier.addFacture(f);
-			
-			Commande c = new Commande();
-				c.setAdresseLivraison("Bizerte : mil front tit5ith linfo hethi");
-					client =  userMetier.getLoggedUser();	
-				c.setClient(client);
-				c.setFacture(f);
-			c = commandeMetier.addCommande(c);
-			userMetier.updateUser(client);
-				
-			return order;
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-		
-		
-		
-	}
+
 
 }

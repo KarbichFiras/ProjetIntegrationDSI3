@@ -6,4 +6,6 @@ import chmin9lewis.Restaurants.feane.Entity.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>{
 
+	Role findByName(String string);
+
 }

@@ -261,6 +261,9 @@ public class FeaneApplication implements CommandLineRunner{
 				feane.setEmail("feane"+ i +"@gmail.com");
 				feane.setAdresse("Quai Khemais Ternane Vieux port Bizerte, 7000");
 				feane.setDescription("Mekletna bnina barcha , wndifa juste titsamim wkhw order now fech testana");
+					if(i % 3 == 0) { 
+						feane.setEnabled(false);
+					}
 				//Creatin Image object for this restaurant
 					image = new Image("images/modern-restaurant-menu-for-fast-food/4520928.jpg", "images/Fast_food_Hamburger_Vegetables_Fire_Two_520128_1920x1080.jpg", "images/feane_profile_picture.jpg",true);
 					//Adding this image into Data Base
