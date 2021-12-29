@@ -111,6 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             
 			http.authorizeRequests()
 				.antMatchers("/api/auth/**").permitAll()
+				.antMatchers("/api/restaurants/**").hasAuthority("ADMIN")
 				.antMatchers("/addUser").hasAuthority("ADMIN")
 				.antMatchers("/addRole").hasAuthority("ADMIN")
 				.antMatchers("/consultFacture").authenticated()
