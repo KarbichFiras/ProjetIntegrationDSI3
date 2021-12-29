@@ -90,7 +90,7 @@ public class WakelniApplication implements CommandLineRunner{
 			//Initializin admin User
 			admin.setNom("Karbich");
 			admin.setPrenom("Firas");
-			admin.setUserName("zed");
+			admin.setUsername("zed");
 			admin.setAdresse("Bizerte");
 			admin.setTel("50262899");
 			admin.setEmail("firasKarbich@gmail.com");
@@ -109,7 +109,7 @@ public class WakelniApplication implements CommandLineRunner{
 			//Initializin employe
 			user.setNom("Essaied");
 			user.setPrenom("Iheb");
-			user.setUserName("loco");
+			user.setUsername("loco");
 			user.setPassword(password);
 			user.setAdresse("Bizerte");
 			user.setTel("32145698");

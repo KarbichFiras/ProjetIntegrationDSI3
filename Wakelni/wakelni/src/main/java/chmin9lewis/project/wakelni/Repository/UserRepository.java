@@ -8,6 +8,10 @@ import chmin9lewis.project.wakelni.Entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-public	User findByUsername(String UserName);
+	public	User findByUsername(String UserName);
+	
+	public boolean existsByUsername(String username);
+
+	public boolean existsByEmail(String email);
 	
 }

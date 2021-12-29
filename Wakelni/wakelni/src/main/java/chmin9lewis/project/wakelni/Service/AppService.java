@@ -1,6 +1,7 @@
 package chmin9lewis.project.wakelni.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +21,14 @@ import chmin9lewis.project.wakelni.Metier.IFactureMetier;
 import chmin9lewis.project.wakelni.Metier.IRoleMetier;
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
 import chmin9lewis.project.wakelni.Models.Order;
+import chmin9lewis.project.wakelni.Models.Register;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
 @RestController
+@CrossOrigin
 public class AppService {
 	@Autowired
 	IUserMetier userMetier;
@@ -47,32 +50,9 @@ public class AppService {
 	}
 	
 	@RequestMapping(value="/addClient" , method = RequestMethod.POST)
-	public User addClient(@RequestBody Client client) {
+	public User addClient(@RequestBody Register client) {
 		try {
-			client.getRoles().add(roleMetier.getRoleByName("Client"));
 			return userMetier.addUser(client);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@RequestMapping(value="/addEmploye" , method = RequestMethod.POST)
-	public User addEmploye(@RequestBody Employe employe) {
-		try {
-			employe.getRoles().add(roleMetier.getRoleByName("Employe"));
-			return userMetier.addUser(employe);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@RequestMapping(value="/addDeliveryMan" , method = RequestMethod.POST)
-	public User addDeleveryMan(@RequestBody DeliveryMan deliveryMan) {
-		try {
-			deliveryMan.getRoles().add(roleMetier.getRoleByName("DeliveryMan"));
-			return userMetier.addUser(deliveryMan);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

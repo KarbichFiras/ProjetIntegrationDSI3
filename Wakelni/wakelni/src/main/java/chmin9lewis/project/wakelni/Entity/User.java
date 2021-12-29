@@ -74,14 +74,6 @@ public class User implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getUserName() {
-		return username;
-	}
-
-	public void setUserName(String userName) {
-		this.username = userName;
-	}
 	
 	public String getNom() {
 		return nom;

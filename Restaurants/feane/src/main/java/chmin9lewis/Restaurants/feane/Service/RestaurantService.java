@@ -18,7 +18,7 @@ import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin
 public class RestaurantService {
 	@Autowired
 	IRestaurantMetier restaurantMetier;
