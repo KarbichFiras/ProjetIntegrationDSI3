@@ -1,6 +1,7 @@
 package chmin9lewis.project.wakelni.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import chmin9lewis.project.wakelni.Entity.User;
 import chmin9lewis.project.wakelni.Metier.ICommandeMetier;
 import chmin9lewis.project.wakelni.Metier.IFactureMetier;
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
+import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 import reactor.core.publisher.Flux;
@@ -56,6 +58,19 @@ public class ApiService {
 					.bodyToFlux(Restaurant.class);
 			
 		}
+	//cart
+		//one food with extra
+		@RequestMapping(value="/getFoodWithExtrasDetails", method = RequestMethod.GET)
+		public Flux<FoodWithExtras> getFoodWithExtrasDetails(@RequestParam(name="code") Long foodWithExtrasCode){
+			
+			return 	webClient.get()
+					.uri("/getFoodWithExtrasDetails/{code}")
+					.header("Authorization", TokensProperties.MY_TOKEN)
+					.retrieve()
+					.bodyToFlux(FoodWithExtras.class);
+			
+		}
+		
 	
 	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
 	public Flux<Restaurant> getAllRestaurants(){
