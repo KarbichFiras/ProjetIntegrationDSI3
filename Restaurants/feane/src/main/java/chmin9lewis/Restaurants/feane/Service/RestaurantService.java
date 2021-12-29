@@ -17,8 +17,9 @@ import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 
-@RestController
 @CrossOrigin
+@RestController
+@RequestMapping("restaurants")
 public class RestaurantService {
 	@Autowired
 	IRestaurantMetier restaurantMetier;
@@ -59,8 +60,8 @@ public class RestaurantService {
 		return restaurantMetier.getDesabledRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
 	}
 	
-	@RequestMapping(value="/getRestaurantDetails/{code}" , method = RequestMethod.GET)
-	public Restaurant getRestaurantDetails(@PathVariable(name="code") Long restaurantCode) {
+	@RequestMapping(value="/getRestaurantByCode/{code}" , method = RequestMethod.GET)
+	public Restaurant getRestaurantByCode(@PathVariable(name="code") Long restaurantCode) {
 		return restaurantMetier.getRestaurantDetails(restaurantCode);
 	}
 	
@@ -94,8 +95,4 @@ public class RestaurantService {
 		return restaurantMetier.desableRestaurant(restaurantCode);
 	}
 
-	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size, String sortBy, String direction) {
-		return restaurantMetier.getAllRestaurantsPage(page, size, sortBy, direction);
-	}
-	
 }

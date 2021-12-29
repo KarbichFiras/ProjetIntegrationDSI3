@@ -22,7 +22,6 @@ import chmin9lewis.project.wakelni.Models.Register;
 import chmin9lewis.project.wakelni.Models.ResponseMessage;
 import chmin9lewis.project.wakelni.Security.JwtProvider;
 import chmin9lewis.project.wakelni.Security.JwtResponse;
-import chmin9lewis.project.wakelni.Security.MyUserDetails;
 
 @CrossOrigin
 @RestController
