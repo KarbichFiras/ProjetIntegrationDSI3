@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 
@@ -25,6 +26,11 @@ public class RestaurantService {
 	@RequestMapping(value="/getAllRestaurants" , method = RequestMethod.GET)
 	public List<Restaurant> getAllRestaurants() {
 		return restaurantMetier.getAllRestaurants();
+	}
+	
+	@RequestMapping(value="/getSpecificRestaurant", method=RequestMethod.GET)
+	public List<Restaurant> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto) {
+		return restaurantMetier.getSpecificRestaurant(partnameResto);
 	}
 	
 	@RequestMapping(value="/getEnabledRestaurants" , method = RequestMethod.GET)

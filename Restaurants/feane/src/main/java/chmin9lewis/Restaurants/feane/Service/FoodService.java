@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
@@ -28,6 +29,11 @@ public class FoodService {
 	@RequestMapping(value="/getAllFoods", method=RequestMethod.GET)
 	public List<Food> getAllFoods() {
 		return foodMetier.getAllFoods();
+	}
+	
+	@RequestMapping(value="/getSpecificFood", method=RequestMethod.GET)
+	public List<Food> getSpecificFood(@RequestParam(name="partLibelleFood") String partLibelleFood) {
+		return foodMetier.getSpecificFood(partLibelleFood);
 	}
 
 	@RequestMapping(value="/addFood", method=RequestMethod.POST)

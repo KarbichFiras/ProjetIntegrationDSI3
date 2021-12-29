@@ -111,6 +111,12 @@ public class FoodMetier implements IFoodMetier{
 			return null;
 		}
 	}
+
+	@Override
+	public List<Food> getSpecificFood(String  partLibelleFood) {
+		return 	this.foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelleFood+"%");
+		
+	}
 	
 	
 	

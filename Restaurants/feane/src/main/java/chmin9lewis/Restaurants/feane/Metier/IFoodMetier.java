@@ -15,5 +15,6 @@ public interface IFoodMetier {
 	public boolean deleteFoodById(Long foodCode);
 	public boolean enableFood(Long foodCode);
 	public boolean desableFood(Long foodCode);
+	public List<Food> getSpecificFood(String partLibelleFood);
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
@@ -29,4 +30,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 	
 	public Page<Restaurant> findAll(Pageable pageable);
 	
+	public List<Restaurant> findByNameLikeIgnoreCase(String name);
 }
