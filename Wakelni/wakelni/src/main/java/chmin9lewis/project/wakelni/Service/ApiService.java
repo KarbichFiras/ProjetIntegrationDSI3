@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -31,6 +32,30 @@ public class ApiService {
 	ICommandeMetier commandeMetier;
 	@Autowired
 	WebClient webClient;
+	
+	//search restaurant by any caracter in food libelle
+	@RequestMapping(value="/getRestaurantByFood", method = RequestMethod.GET)
+	public Flux<Restaurant> getRestaurantByFood(@RequestParam(name="partLibelleFood") String partLibelleFood){
+		
+		return 	webClient.get()
+				.uri("/getRestaurantByFood?partLibelleFood="+partLibelleFood)
+				.header("Authorization", TokensProperties.MY_TOKEN)
+				.retrieve()
+				.bodyToFlux(Restaurant.class);
+		
+	}
+	
+	//search restaurant by any caracter in restaurant name
+		@RequestMapping(value="/getSpecificRestaurant", method = RequestMethod.GET)
+		public Flux<Restaurant> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto){
+			
+			return 	webClient.get()
+					.uri("/getSpecificRestaurant?partnameResto="+partnameResto)
+					.header("Authorization", TokensProperties.MY_TOKEN)
+					.retrieve()
+					.bodyToFlux(Restaurant.class);
+			
+		}
 	
 	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
 	public Flux<Restaurant> getAllRestaurants(){
