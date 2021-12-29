@@ -22,8 +22,9 @@ import chmin9lewis.project.wakelni.Models.Restaurant;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController
 @CrossOrigin
+@RestController
+@RequestMapping("/api/restaurants")
 public class ApiService {
 
 	@Autowired
@@ -74,14 +75,26 @@ public class ApiService {
 		}
 		
 	
+		
+		
 	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
 	public Flux<Restaurant> getAllRestaurants(){
 		
 		return 	webClient.get()
-				.uri("/getAllRestaurants")
+				.uri("/restaurants/getAllRestaurants")
 				.header("Authorization", TokensProperties.MY_TOKEN)
 				.retrieve()
 				.bodyToFlux(Restaurant.class);
+		
+	}
+	
+	@RequestMapping(value="/getRestaurantByCode/{code}", method = RequestMethod.GET)
+	public Mono<Restaurant> getRestaurantByCode(@PathVariable(name="code") Long code){
+		return 	webClient.get()
+				.uri("/restaurants/getRestaurantByCode/"+code)
+				.header("Authorization", TokensProperties.MY_TOKEN)
+				.retrieve()
+				.bodyToMono(Restaurant.class);
 		
 	}
 	
