@@ -1,19 +1,24 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
+import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Repository.FoodRepository;
+import chmin9lewis.Restaurants.feane.Repository.RestaurantRepository;
 
 @Service
 public class FoodMetier implements IFoodMetier{
 
 	@Autowired
 	FoodRepository foodRepository;
-
+	
+	@Autowired
+	RestaurantRepository restaurantRepository;
 	@Override
 	public Food getFoodDetails(Long foodCode) {
 		try {
@@ -110,6 +115,37 @@ public class FoodMetier implements IFoodMetier{
 			System.out.println("Could not find any food with this libelle : " + libelle);
 			return null;
 		}
+	}
+
+	@Override
+	public List<Food> getSpecificFood(String  partLibelleFood) {
+		return 	this.foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelleFood+"%");
+		
+	}
+
+	
+	@Override
+	public List<Restaurant> getRestaurantByFood(String partLibelleFood) {
+		
+		try {
+			List<Food> results_food;
+			List<Restaurant> results_restaurant_from_food = new ArrayList<>();
+		
+			results_food=this.foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelleFood+"%");
+			
+			for( int i = 0;i<results_food.size();i++) {
+				
+				Long code =results_food.get(i).getCode();
+				results_restaurant_from_food.addAll(this.restaurantRepository.findRestaurantByFood(code))  ;
+				
+			}
+			
+			
+			return results_restaurant_from_food;
+			}catch(Exception e) {
+				System.out.println("Could not find result for search rstaurant using food  : " + e);
+				return null;
+			}	
 	}
 	
 	

@@ -224,4 +224,10 @@ public class RestaurantMetier implements IRestaurantMetier{
 		}
 	}
 
+	@Override
+	public List<Restaurant> getSpecificRestaurant(String PartnameResto) {
+		return this.restaurantRepository.findByNameLikeIgnoreCase("%"+PartnameResto+"%");
+		 
+	}
+
 }

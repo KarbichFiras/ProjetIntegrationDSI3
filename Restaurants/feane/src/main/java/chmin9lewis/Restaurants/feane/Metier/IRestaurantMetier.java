@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
+import chmin9lewis.Restaurants.feane.Entity.Role;
 
 public interface IRestaurantMetier {
 
 	public Restaurant getRestaurantDetails(Long restaurantCode);
 	public List<Restaurant> getAllRestaurants();
+	public List<Restaurant> getSpecificRestaurant(String PartnameResto);
+
 	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size, String sortBy, String direction);
 	public List<Restaurant> getEnabledRestaurants();
 	public Page<Restaurant> getEnabledRestaurantsPage( Integer page, Integer size,String sortBy, String direction);
