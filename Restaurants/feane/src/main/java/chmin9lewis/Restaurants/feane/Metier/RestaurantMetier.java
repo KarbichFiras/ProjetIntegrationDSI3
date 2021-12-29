@@ -38,49 +38,7 @@ public class RestaurantMetier implements IRestaurantMetier{
 	}
 	
 	@Override
-	public Page<Restaurant> getEnabledRestaurants(Integer page, Integer size,String sortBy, String direction) {
-		try {
-			
-			Pageable paging;
-			
-			if(direction.toUpperCase().equals("ASC")) {
-				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
-			}else {
-				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
-			}
-			
-			Page<Restaurant> pageResult = restaurantRepository.getEnabledRestaurants(true, paging);
-			
-			return pageResult;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-
-	@Override
-	public Page<Restaurant> getDesaabledRestaurants( Integer page, Integer size,String sortBy, String direction) {
-		try {
-			Pageable paging;
-			
-			if(direction.toUpperCase().equals("ASC")) {
-				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
-			}else {
-				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
-			}
-			
-			Page<Restaurant> pageResult = restaurantRepository.getDesabledRestaurants(false, paging);
-			
-			return pageResult;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@Override
-	public Page<Restaurant> getAllRestaurants(Integer page, Integer size,String sortBy, String direction) {
+	public List<Restaurant> getAllRestaurants() {
 		try {
 			
 			Role adminRole = roleRepository.findByName("ADMIN");
@@ -90,23 +48,36 @@ public class RestaurantMetier implements IRestaurantMetier{
 				
 				// itha kenou admin nraj3oulou kol chay sinn nraj3ou ken les restau ili ye5dmou (active ya3ni mahomch msakrni yetsal7ou mathalan)
 				if( user.getRoles().contains(adminRole)  ){
-					Pageable paging;
-					
-					if(direction.toUpperCase().equals("ASC")) {
-						 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
-					}else {
-						 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
-					}
-					return restaurantRepository.findAll(paging);
+					return restaurantRepository.findAll();
 				}
 				
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 			
-			return getEnabledRestaurants(page, size, sortBy, direction) ;
+			return getEnabledRestaurants() ;
 		}catch(Exception e) {
 			System.out.println("Could not execute this Operation! ");
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Restaurant> getEnabledRestaurants() {
+		try {
+			return restaurantRepository.getEnabledRestaurants(true);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Restaurant> getDesabledRestaurants() {
+		try {
+			return restaurantRepository.getDesabledRestaurants(false);
+		}catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -176,6 +147,80 @@ public class RestaurantMetier implements IRestaurantMetier{
 		}catch(Exception e) {
 			System.out.println("Could not find any restaurant with this id : " + restaurantCode);
 			return false;
+		}
+	}
+
+	@Override
+	public Page<Restaurant> getEnabledRestaurantsPage(Integer page, Integer size,String sortBy, String direction) {
+		try {
+			
+			Pageable paging;
+			
+			if(direction.toUpperCase().equals("ASC")) {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+			}else {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+			}
+			
+			Page<Restaurant> pageResult = restaurantRepository.getEnabledRestaurantsPage(true, paging);
+			
+			return pageResult;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	@Override
+	public Page<Restaurant> getDesabledRestaurantsPage( Integer page, Integer size,String sortBy, String direction) {
+		try {
+			Pageable paging;
+			
+			if(direction.toUpperCase().equals("ASC")) {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+			}else {
+				 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+			}
+			
+			Page<Restaurant> pageResult = restaurantRepository.getDesabledRestaurantsPage(false, paging);
+			
+			return pageResult;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size,String sortBy, String direction) {
+		try {
+			
+			Role adminRole = roleRepository.findByName("ADMIN");
+			try {
+				
+				User user = userMetier.getLoggedUser();
+				
+				// itha kenou admin nraj3oulou kol chay sinn nraj3ou ken les restau ili ye5dmou (active ya3ni mahomch msakrni yetsal7ou mathalan)
+				if( user.getRoles().contains(adminRole)  ){
+					Pageable paging;
+					
+					if(direction.toUpperCase().equals("ASC")) {
+						 paging =PageRequest.of(page, size, Sort.by(sortBy).ascending());
+					}else {
+						 paging =PageRequest.of(page, size, Sort.by(sortBy).descending());
+					}
+					return restaurantRepository.findAll(paging);
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return getEnabledRestaurantsPage(page, size, sortBy, direction) ;
+		}catch(Exception e) {
+			System.out.println("Could not execute this Operation! ");
+			return null;
 		}
 	}
 

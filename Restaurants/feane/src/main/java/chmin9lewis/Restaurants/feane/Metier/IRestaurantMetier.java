@@ -9,10 +9,12 @@ import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 public interface IRestaurantMetier {
 
 	public Restaurant getRestaurantDetails(Long restaurantCode);
-	//public List<Restaurant> getAllRestaurants();
-	public Page<Restaurant> getAllRestaurants(Integer page, Integer size, String sortBy, String direction);
-	public Page<Restaurant> getEnabledRestaurants( Integer page, Integer size,String sortBy, String direction);
-	public Page<Restaurant> getDesaabledRestaurants( Integer page, Integer size,String sortBy, String direction);
+	public List<Restaurant> getAllRestaurants();
+	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size, String sortBy, String direction);
+	public List<Restaurant> getEnabledRestaurants();
+	public Page<Restaurant> getEnabledRestaurantsPage( Integer page, Integer size,String sortBy, String direction);
+	public List<Restaurant> getDesabledRestaurants();
+	public Page<Restaurant> getDesabledRestaurantsPage( Integer page, Integer size,String sortBy, String direction);
 	public Restaurant addRestaurant(Restaurant restaurant);
 	public Restaurant updateRestaurant(Restaurant restaurant);
 	public boolean deleteRestaurant(Restaurant restaurant);

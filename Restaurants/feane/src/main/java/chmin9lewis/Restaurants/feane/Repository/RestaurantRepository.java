@@ -16,10 +16,16 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 	public List<Restaurant> findByIsEnabled(boolean isEnabled);
 	 
 	@Query( value="SELECT * FROM restaurant  WHERE enabled=:isEnabled" , nativeQuery = true)
-	public Page<Restaurant> getEnabledRestaurants(boolean isEnabled, Pageable paging);
+	public Page<Restaurant> getEnabledRestaurantsPage(boolean isEnabled, Pageable paging);
 	
 	@Query( value="SELECT * FROM restaurant  WHERE enabled=:isEnabled" , nativeQuery = true)
-	public Page<Restaurant> getDesabledRestaurants(boolean isEnabled, Pageable paging);
+	public List<Restaurant> getEnabledRestaurants(boolean isEnabled);
+	
+	@Query( value="SELECT * FROM restaurant  WHERE enabled=:isEnabled" , nativeQuery = true)
+	public Page<Restaurant> getDesabledRestaurantsPage(boolean isEnabled, Pageable paging);
+	
+	@Query( value="SELECT * FROM restaurant  WHERE enabled=:isEnabled" , nativeQuery = true)
+	public List<Restaurant> getDesabledRestaurants(boolean isEnabled);
 	
 	public Page<Restaurant> findAll(Pageable pageable);
 	

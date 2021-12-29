@@ -23,19 +23,34 @@ public class RestaurantService {
 	IRestaurantMetier restaurantMetier;
 	
 	@RequestMapping(value="/getAllRestaurants" , method = RequestMethod.GET)
-	public Page<Restaurant> getAllRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
-		return restaurantMetier.getAllRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("code"), direction.orElse("ASC"));
+	public List<Restaurant> getAllRestaurants() {
+		return restaurantMetier.getAllRestaurants();
 	}
 	
 	@RequestMapping(value="/getEnabledRestaurants" , method = RequestMethod.GET)
-	public Page<Restaurant> getEnabledRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
-		//size mil mosta7sen ta3mlou final wta3tih enti lvaleur , 5ater ynjm yjik we7id blid wy7otlk size 1 000 000 fodha m3a aka wa9tha yrazenlk serveur
-		return restaurantMetier.getEnabledRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
+	public List<Restaurant> getEnabledRestaurants() {
+		return restaurantMetier.getEnabledRestaurants();
 	}
 
 	@RequestMapping(value="/getDesabledRestaurants" , method = RequestMethod.GET)
-	public Page<Restaurant> getDesabledRestaurants(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
-		return restaurantMetier.getDesaabledRestaurants(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
+	public List<Restaurant> getDesabledRestaurants() {
+		return restaurantMetier.getDesabledRestaurants();
+	}
+	
+	@RequestMapping(value="/getAllRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getAllRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getAllRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("code"), direction.orElse("ASC"));
+	}
+
+	@RequestMapping(value="/getEnabledRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getEnabledRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		//size mil mosta7sen ta3mlou final wta3tih enti lvaleur , 5ater ynjm yjik we7id blid wy7otlk size 1 000 000 fodha m3a aka wa9tha yrazenlk serveur
+		return restaurantMetier.getEnabledRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
+	}
+
+	@RequestMapping(value="/getDesabledRestaurantsPage" , method = RequestMethod.GET)
+	public Page<Restaurant> getDesabledRestaurantsPage(Optional<Integer> page, Optional<Integer> size, Optional<String> sortBy, Optional<String> direction) {
+		return restaurantMetier.getDesabledRestaurantsPage(page.orElse(0), size.orElse(5), sortBy.orElse("name"), direction.orElse("ASC"));
 	}
 	
 	@RequestMapping(value="/getRestaurantDetails/{code}" , method = RequestMethod.GET)
@@ -73,5 +88,8 @@ public class RestaurantService {
 		return restaurantMetier.desableRestaurant(restaurantCode);
 	}
 
+	public Page<Restaurant> getAllRestaurantsPage(Integer page, Integer size, String sortBy, String direction) {
+		return restaurantMetier.getAllRestaurantsPage(page, size, sortBy, direction);
+	}
 	
 }
