@@ -8,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import chmin9lewis.project.wakelni.Entity.User;
+
 public class Register {
 	
 	private Long id;
@@ -21,6 +23,8 @@ public class Register {
 	@Email
 	private String email;
 	
+	private String adresse;
+	
 	private String tel;
 
 	private String password;
@@ -32,6 +36,19 @@ public class Register {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Register(User user) {
+		super();
+		this.id=user.getId();
+		this.username=user.getUsername();
+		this.nom=user.getNom();
+		this.prenom=user.getPrenom();
+		this.email=user.getEmail();
+		this.adresse=user.getAdresse();
+		this.tel=user.getTel();
+		this.password=user.getPassword();
+		//this.roles.add("CLIENT");
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -94,6 +111,14 @@ public class Register {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
 	}
 	
 }
