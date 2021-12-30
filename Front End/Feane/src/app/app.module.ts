@@ -6,15 +6,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { AppRoutingModule } from './app-routing.module';
+import { FoodlayoutComponent } from './foodlayout/foodlayout.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    FoodlayoutComponent,
+    
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
