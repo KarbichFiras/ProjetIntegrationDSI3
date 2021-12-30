@@ -111,11 +111,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             
 			http.authorizeRequests()
 				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers("/api/restaurants/**").hasAuthority("ADMIN")
-				.antMatchers("/addUser").hasAuthority("ADMIN")
-				.antMatchers("/addRole").hasAuthority("ADMIN")
-				.antMatchers("/consultFacture").authenticated()
-				.antMatchers("/newOrder").hasAuthority("ADMIN")
+				.antMatchers("/api/restaurants/**").permitAll()
+				.antMatchers("/addUser").permitAll()
+				.antMatchers("/addRole").permitAll()
+				.antMatchers("/consultFacture").permitAll()
+				.antMatchers("/newOrder").permitAll()
 				;
 			
 		}catch(Exception e) {
