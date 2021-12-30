@@ -3,19 +3,19 @@ package firas.karbich.com.wakalni.Models;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class LoginResponse {
+public class JwtResponse {
 
     private String jwt;
     private String username;
-    private Collection<String> roles = new ArrayList<String>();
+    private Collection<String> authorities = new ArrayList<String>();
 
-    public LoginResponse() {
+    public JwtResponse() {
     }
 
-    public LoginResponse(String jwt, String username, Collection<String> roles) {
+    public JwtResponse(String jwt, String username, Collection<String> roles) {
         this.jwt = jwt;
         this.username = username;
-        this.roles = roles;
+        this.authorities = roles;
     }
 
     public String getJwt() {
@@ -34,11 +34,11 @@ public class LoginResponse {
         this.username = username;
     }
 
-    public Collection<String> getRoles() {
-        return roles;
+    public Collection<String> getAuthorities() {
+        return authorities;
     }
 
-    public void setRoles(Collection<String> roles) {
-        this.roles = roles;
+    public void setAuthorities(Collection<String> authorities) {
+        this.authorities = authorities;
     }
 }
