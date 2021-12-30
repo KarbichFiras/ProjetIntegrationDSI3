@@ -261,7 +261,9 @@
     transition: all 0.3s;
     border: none;
   }
-  
+  .order_online{
+    background-color: #e69c00;
+  }
   .user_option .order_online:hover {
     background-color: #e69c00;
   }
