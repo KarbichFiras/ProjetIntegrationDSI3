@@ -68,14 +68,12 @@ public class LoginActivity extends AppCompatActivity {
                 if( !pass.getText().toString().isEmpty() && ! login.getText().toString().isEmpty()){
                     // log in the user
                     loginUser();
-                    try {
-                        // bil3annit bch lmethod saveJwtResponse ta5let tsajel fil sharedPreferences wta3mil commit
-                        TimeUnit.SECONDS.sleep(2);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                     JwtResponse jwtResponse = loadJwtResponse();
-                    Toast.makeText(context, "username : " + jwtResponse.getUsername(), Toast.LENGTH_SHORT).show();
+                    if(jwtResponse != null){
+                        Toast.makeText(context, "username : " + jwtResponse.getUsername(), Toast.LENGTH_SHORT).show();
+                    }
+
                 }else{
                     openAlertDialog("Alert","Bad credentials ! ");
                 }
@@ -106,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("JSONPost", response.toString());
+                           // Log.d("JSONPost", response.toString());
                             // stock the response dans sharedPreferences
                             try {
                                 jwtResponse = new JwtResponse();
@@ -144,6 +142,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
 
+    }
+
+    public void openSharedPreferences() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE);
+    }
+
+    public void closeSharedPreferences(){
+        sharedPreferences = null;
     }
 
     private void openAlertDialog(String title, String message) {
@@ -185,26 +191,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void saveJwtResponse(JwtResponse jwtResponse){
-        sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        openSharedPreferences();
         editor = sharedPreferences.edit();
 
+        // kenou fih 7ajja min 9bal nfar8ouh
+        if((sharedPreferences.getString(JWT,"").isEmpty()) || (sharedPreferences.getString(USERNAME,"").isEmpty()) || (sharedPreferences.getStringSet(AUTHORITIES, null).isEmpty())){
+            editor.remove(JWT);
+            editor.remove(USERNAME);
+            editor.remove(AUTHORITIES);
+            editor.apply();
+            closeSharedPreferences();
+        }
+        // wba3ed n3abiw fih min jdid
+        openSharedPreferences();
         editor.putString(JWT, jwtResponse.getJwt());
         editor.putString(USERNAME, jwtResponse.getUsername());
         editor.putStringSet(AUTHORITIES, (Set<String>) jwtResponse.getAuthorities());
 
-        editor.commit();
+        editor.apply();
+        closeSharedPreferences();
     }
 
     public JwtResponse loadJwtResponse(){
-        sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        openSharedPreferences();
             jwtResponse = new JwtResponse();
                 String jwt = sharedPreferences.getString(JWT,"");
                 String username = sharedPreferences.getString(USERNAME,"");
-                Set<String> authorities = sharedPreferences.getStringSet(AUTHORITIES, Collections.singleton(""));
-            jwtResponse.setJwt(jwt);
-            jwtResponse.setUsername(username);
-            jwtResponse.setAuthorities(authorities);
-        return jwtResponse;
+                Set<String> authorities = sharedPreferences.getStringSet(AUTHORITIES, null);
+
+                if(jwt!="" && username!="" && authorities!=null){
+                    jwtResponse.setJwt(jwt);
+                    jwtResponse.setUsername(username);
+                    jwtResponse.setAuthorities(authorities);
+                    return jwtResponse;
+                }
+        closeSharedPreferences();
+        return null;
     }
 
 
