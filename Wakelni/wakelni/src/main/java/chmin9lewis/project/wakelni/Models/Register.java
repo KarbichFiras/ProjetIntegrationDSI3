@@ -1,18 +1,17 @@
 package chmin9lewis.project.wakelni.Models;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import chmin9lewis.project.wakelni.Entity.User;
 
-public class Register {
+public class Register implements Serializable{
 	
-	private Long id;
 	@NotBlank
 	@Size(min=3, max=50 )
 	private String username;
@@ -26,7 +25,8 @@ public class Register {
 	private String adresse;
 	
 	private String tel;
-
+	@Column(length=64)
+	@NotBlank
 	private String password;
 	
 	private Set<String> roles;
@@ -38,7 +38,6 @@ public class Register {
 
 	public Register(User user) {
 		super();
-		this.id=user.getId();
 		this.username=user.getUsername();
 		this.nom=user.getNom();
 		this.prenom=user.getPrenom();
@@ -49,13 +48,6 @@ public class Register {
 		//this.roles.add("CLIENT");
 	}
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
