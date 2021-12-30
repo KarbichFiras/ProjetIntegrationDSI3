@@ -5,7 +5,7 @@ public class FoodModel {
 	private String libelle;
 	
 	private double prix;
-	private String famille;
+	//private String famille;
 
 	private String image = "images/noFoodImage.jpg";
 
@@ -31,13 +31,13 @@ public class FoodModel {
 		this.prix = prix;
 	}
 
-	public String getFamille() {
+	/*public String getFamille() {
 		return famille;
 	}
-	
-	public void setFamille(String famille) {
+	*/
+	/*public void setFamille(String famille) {
 		this.famille = famille;
-	}
+	}*/
 
 	public String getImage() {
 		return image;
