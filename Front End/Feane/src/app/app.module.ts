@@ -8,6 +8,7 @@ import { AddMenuComponent } from './add-menu/add-menu.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HomepageComponent } from './homepage/homepage.component';
+import { RestoprofileComponent } from './restoprofile/restoprofile.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     
     AddMenuComponent,
     HomepageComponent,
+    RestoprofileComponent,
     
   ],
   imports: [
