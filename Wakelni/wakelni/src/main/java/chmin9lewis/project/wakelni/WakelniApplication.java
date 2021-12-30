@@ -52,7 +52,7 @@ public class WakelniApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		/*String password ="12345";
+		String password ="12345";
 			
 			//Creatin admin role
 			Role adminRole = new Role();
@@ -95,7 +95,7 @@ public class WakelniApplication implements CommandLineRunner{
 			//Updating admin Role
 			roleMetier.updateRole(adminRole);
 			
-			//Creatin employe  User
+			//Creatin employe  User 
 			User user = new Employe();
 				//Initializin employe
 				user.setNom("Essaied");
@@ -114,6 +114,6 @@ public class WakelniApplication implements CommandLineRunner{
 			//Updating employe Role
 			roleMetier.updateRole(employeRole);
 			
-		*/
+		
 	}
 }
