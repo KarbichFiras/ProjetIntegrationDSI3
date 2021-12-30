@@ -51,7 +51,7 @@ public class WakelniApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
+		/*
 		String password ="12345";
 			
 			//Creatin admin role
@@ -113,7 +113,7 @@ public class WakelniApplication implements CommandLineRunner{
 			user.getRoles().add(employeRole);
 			//Updating employe Role
 			roleMetier.updateRole(employeRole);
-			
+			*/
 		
 	}
 }
