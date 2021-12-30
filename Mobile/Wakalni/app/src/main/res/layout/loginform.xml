@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -25,6 +26,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             />
+
         <Button
             android:id="@+id/btnlogin"
             android:textAllCaps="false"
@@ -34,12 +36,13 @@
             android:text="Log In"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/createnewac"
             android:layout_marginTop="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryRed"
             android:layout_gravity="center"
             android:text="Create a new Acount!"
             android:layout_width="wrap_content"
