@@ -112,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
         builder.setTitle(title)
                 .setMessage(message)
                 .setIcon(android.R.drawable.alert_light_frame)
-                .setPositiveButton("Yes", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
         ;
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

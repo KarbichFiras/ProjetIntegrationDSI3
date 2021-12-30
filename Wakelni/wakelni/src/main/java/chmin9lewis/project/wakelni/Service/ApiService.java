@@ -44,7 +44,7 @@ public class ApiService {
 		
 		return 	webClient.get()
 				.uri("/getRestaurantByFood?partLibelleFood="+partLibelleFood)
-				.header("Authorization", TokensProperties.MY_TOKEN)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToFlux(Restaurant.class);
 		
@@ -56,7 +56,7 @@ public class ApiService {
 			
 			return 	webClient.get()
 					.uri("/getSpecificRestaurant?partnameResto="+partnameResto)
-					.header("Authorization", TokensProperties.MY_TOKEN)
+					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.retrieve()
 					.bodyToFlux(Restaurant.class);
 			
@@ -68,7 +68,7 @@ public class ApiService {
 			
 			return 	webClient.get()
 					.uri("/getFoodWithExtrasDetails/{code}")
-					.header("Authorization", TokensProperties.MY_TOKEN)
+					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.retrieve()
 					.bodyToFlux(FoodWithExtras.class);
 			
@@ -82,7 +82,7 @@ public class ApiService {
 		
 		return 	webClient.get()
 				.uri("/restaurants/getAllRestaurants")
-				.header("Authorization", TokensProperties.MY_TOKEN)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToFlux(Restaurant.class);
 		
@@ -92,7 +92,7 @@ public class ApiService {
 	public Mono<Restaurant> getRestaurantByCode(@PathVariable(name="code") Long code){
 		return 	webClient.get()
 				.uri("/restaurants/getRestaurantByCode/"+code)
-				.header("Authorization", TokensProperties.MY_TOKEN)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToMono(Restaurant.class);
 		
@@ -108,7 +108,7 @@ public class ApiService {
 			
 			Order order = 	webClient.post()
 					.uri("/addCommande")
-					.header("Authorization", TokensProperties.MY_TOKEN)
+					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.body(Mono.just(o), Order.class)
 					.retrieve()
 					.bodyToMono(Order.class)

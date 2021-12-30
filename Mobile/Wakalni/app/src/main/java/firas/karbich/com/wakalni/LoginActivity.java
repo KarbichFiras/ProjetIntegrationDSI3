@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,23 +23,36 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import firas.karbich.com.wakalni.Models.JwtResponse;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://10.0.2.2:8081/api/auth/login";
     private final Context context = LoginActivity.this;
+    public static final String SHARED_PREFS= "loginInfo";
+    public static final String JWT= "jwt";
+    public static final String USERNAME= "username";
+    public static final String AUTHORITIES = "authorities";
 
     EditText login, pass;
     Button loginbtn;
     TextView registerText;
-    String usernameErrorMessage ;
-    String emailErrorMessage ;
-    String passwordErrorMessage ;
     RequestQueue requestQueue;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private JwtResponse jwtResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +66,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if( !pass.getText().toString().isEmpty() && ! login.getText().toString().isEmpty()){
-                    // Register the user
-                    boolean logedIn = loginUser();
+                    // log in the user
+                    loginUser();
 
-                    if(logedIn){
-                        Toast.makeText(context, "Successfully loged in :p ", Toast.LENGTH_SHORT).show();
+                    JwtResponse jwtResponse = loadJwtResponse();
+                    if(jwtResponse != null){
+                        Toast.makeText(context, "username : " + jwtResponse.getUsername(), Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
@@ -78,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean loginUser() {
-
         requestQueue = Volley.newRequestQueue(context);
         try{
             Map<String, String> params = new HashMap<String, String>();
@@ -90,7 +104,20 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("JSONPost", response.toString());
+                           // Log.d("JSONPost", response.toString());
+                            // stock the response dans sharedPreferences
+                            try {
+                                jwtResponse = new JwtResponse();
+                                jwtResponse.setJwt(response.getString("jwt"));
+                                jwtResponse.setUsername(response.getString("username"));
+                                jwtResponse.setAuthorities(getAuthoritiesCollection(response.getString("authorities")));//ism lcollection lkol ism item => authority
+
+                                // Save data in SharedPreferences
+                                saveJwtResponse(jwtResponse);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
 
@@ -117,16 +144,91 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void openSharedPreferences() {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE);
+    }
+
+    public void closeSharedPreferences(){
+        sharedPreferences = null;
+    }
+
     private void openAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle(title)
                 .setMessage(message)
                 .setIcon(android.R.drawable.alert_light_frame)
-                .setPositiveButton("Yes", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
         ;
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    private Collection<String> getAuthoritiesCollection(String roles){
+        try{
+            JSONArray jsonArray = new JSONArray(roles);
+            Collection<String> authorities = new HashSet<>();
+
+            for ( int i=0 ; i < jsonArray.length() ; i++) {
+                JSONObject object = null;
+                try {
+                    object = jsonArray.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try{
+                    authorities.add(object.getString("authority"));// ism one object mil collection lkol !
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            return authorities;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void saveJwtResponse(JwtResponse jwtResponse){
+        openSharedPreferences();
+        editor = sharedPreferences.edit();
+
+        // kenou fih 7ajja min 9bal nfar8ouh
+        if((sharedPreferences.getString(JWT,"").isEmpty()) || (sharedPreferences.getString(USERNAME,"").isEmpty()) || (sharedPreferences.getStringSet(AUTHORITIES, null).isEmpty())){
+            editor.remove(JWT);
+            editor.remove(USERNAME);
+            editor.remove(AUTHORITIES);
+            editor.apply();
+            closeSharedPreferences();
+        }
+        // wba3ed n3abiw fih min jdid
+        openSharedPreferences();
+        editor.putString(JWT, jwtResponse.getJwt());
+        editor.putString(USERNAME, jwtResponse.getUsername());
+        editor.putStringSet(AUTHORITIES, (Set<String>) jwtResponse.getAuthorities());
+
+        editor.apply();
+        closeSharedPreferences();
+    }
+
+    public JwtResponse loadJwtResponse(){
+        openSharedPreferences();
+            jwtResponse = new JwtResponse();
+                String jwt = sharedPreferences.getString(JWT,"");
+                String username = sharedPreferences.getString(USERNAME,"");
+                Set<String> authorities = sharedPreferences.getStringSet(AUTHORITIES, null);
+
+                if(jwt!="" && username!="" && authorities!=null){
+                    jwtResponse.setJwt(jwt);
+                    jwtResponse.setUsername(username);
+                    jwtResponse.setAuthorities(authorities);
+                    return jwtResponse;
+                }
+        closeSharedPreferences();
+        return null;
+    }
+
+
 
 }

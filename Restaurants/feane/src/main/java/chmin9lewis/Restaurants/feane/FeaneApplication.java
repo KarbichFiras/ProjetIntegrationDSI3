@@ -131,7 +131,7 @@ public class FeaneApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-	
+	/*
 		String password ="12345";
 		
 		//Creatin admin role
@@ -330,7 +330,7 @@ public class FeaneApplication implements CommandLineRunner{
 						k++;	
 				}
 		}
-		
+		*/
 	}
 
 }
