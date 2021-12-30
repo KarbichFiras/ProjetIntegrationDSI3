@@ -1,0 +1,15 @@
+.getstarted,.getstarted:focus {
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 14px;
+    border: 2px solid black;
+    font-weight: 600;
+    background-color:#e04545 ;
+  }
+.getstarted:hover, .getstarted:focus:hover {
+    color: #fff;
+    background: red;
+  }
+
