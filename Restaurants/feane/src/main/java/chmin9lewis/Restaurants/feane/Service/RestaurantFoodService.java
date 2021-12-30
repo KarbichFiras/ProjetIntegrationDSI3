@@ -14,6 +14,7 @@ import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
 
 @RestController
 @CrossOrigin
+@RequestMapping("RestaurantFoodService")
 public class RestaurantFoodService {
 
 	@Autowired
