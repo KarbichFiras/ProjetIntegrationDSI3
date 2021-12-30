@@ -43,7 +43,7 @@ public class ApiService {
 	public Flux<Restaurant> getRestaurantByFood(@RequestParam(name="partLibelleFood") String partLibelleFood){
 		
 		return 	webClient.get()
-				.uri("/getRestaurantByFood?partLibelleFood="+partLibelleFood)
+				.uri("/RestaurantFoodService/getRestaurantByFood?partLibelleFood="+partLibelleFood)
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToFlux(Restaurant.class);
@@ -55,7 +55,7 @@ public class ApiService {
 		public Flux<Restaurant> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto){
 			
 			return 	webClient.get()
-					.uri("/getSpecificRestaurant?partnameResto="+partnameResto)
+					.uri("/restaurants/getSpecificRestaurant?partnameResto="+partnameResto)
 					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.retrieve()
 					.bodyToFlux(Restaurant.class);
@@ -67,7 +67,7 @@ public class ApiService {
 		public Flux<FoodWithExtras> getFoodWithExtrasDetails(@RequestParam(name="code") Long foodWithExtrasCode){
 			
 			return 	webClient.get()
-					.uri("/getFoodWithExtrasDetails/{code}")
+					.uri("/getFoodWithExtrasDetails/"+foodWithExtrasCode)
 					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.retrieve()
 					.bodyToFlux(FoodWithExtras.class);
