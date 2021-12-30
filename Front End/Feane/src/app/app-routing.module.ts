@@ -4,6 +4,7 @@ import { RouterModule , Routes } from '@angular/router';
 import { AddMenuComponent } from './add-menu/add-menu.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RestoprofileComponent } from './restoprofile/restoprofile.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
 
 const routes : Routes =[
 
@@ -11,6 +12,7 @@ const routes : Routes =[
   {path :"addmenu" , component : AddMenuComponent },
   {path :"homepage" , component : HomepageComponent },
   {path :"restoprofile" , component : RestoprofileComponent },
+  {path :"editprofile" , component : EditprofileComponent },
 ];
 
 @NgModule({
