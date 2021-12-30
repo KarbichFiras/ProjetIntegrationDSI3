@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +39,6 @@ public class SignupActivity extends AppCompatActivity {
     String emailErrorMessage ;
     String passwordErrorMessage ;
     RequestQueue requestQueue;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,24 +55,26 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validForm()){
                     // Register the user
-                    user = new User();
-                        user.setUsername(username.getText().toString().trim());
-                        user.setEmail(email.getText().toString().trim());
-                        user.setPassword(password.getText().toString());
-                    registerUser();
+                    boolean registred = registerUser();
+
+                    if(registred){
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
             }
         });
     }
 
-    private void registerUser(){
+    private boolean registerUser(){
         requestQueue = Volley.newRequestQueue(context);
         try{
             Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username.getText().toString());
                 params.put("email", email.getText().toString());
                 params.put("password" , password.getText().toString());
-
+            // JSONOBJECT 5ATER BCH NAB3THOU LES DONNE FIL BODY TA3 REQUEST SOUS FORMAT JSON
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                     SUGNUP_URL, new JSONObject(params),
                     new Response.Listener<JSONObject>() {
@@ -95,11 +97,13 @@ public class SignupActivity extends AppCompatActivity {
                 }
             };
 
-            requestQueue.add(jsonObjReq);
+            if(requestQueue.add(jsonObjReq) != null){
+                return true;
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-
+        return false;
     }
 
     private void openAlertDialog(String title, String message) {
