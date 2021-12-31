@@ -1,5 +1,7 @@
 package chmin9lewis.project.wakelni.Service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
+
 import chmin9lewis.project.wakelni.Entity.Commande;
 import chmin9lewis.project.wakelni.Entity.Facture;
 import chmin9lewis.project.wakelni.Entity.User;
 import chmin9lewis.project.wakelni.Metier.ICommandeMetier;
 import chmin9lewis.project.wakelni.Metier.IFactureMetier;
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
+import chmin9lewis.project.wakelni.Models.FoodExtrasCategorieModel;
 import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Restaurant;
@@ -37,6 +41,19 @@ public class ApiService {
 	ICommandeMetier commandeMetier;
 	@Autowired
 	WebClient webClient;
+	
+	@RequestMapping(value="/getFooddeatildByRestaurant", method=RequestMethod.GET)
+	public Flux<FoodExtrasCategorieModel> getFooddeatildByRestaurant(@RequestParam(name="code") Long code) {
+		return webClient.get()
+				.uri("/getFooddeatildByRestaurant?code="+code)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
+				.retrieve()
+				.bodyToFlux(FoodExtrasCategorieModel.class);
+		
+			 
+		
+	
+	}
 	
 	//search restaurant by any caracter in food libelle
 	@RequestMapping(value="/getRestaurantByFood", method = RequestMethod.GET)
