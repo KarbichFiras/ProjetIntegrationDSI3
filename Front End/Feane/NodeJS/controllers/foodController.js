@@ -14,8 +14,18 @@ router.get('/', (req, res) => {
    });
 });
 
-router.get('/', (req, res) => {
-    
+router.post('/', (req, res) => {
+    var food = new Food ({
+        code : req.body.code,
+        libelle : req.body.libelle  ,
+        prix :req.body.prix,
+        image : req.body.image,
+        
+    });
+    food.save((err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in saving food :' + JSON.stringify(err, undefined, 2)); }
+    });
 });
 
 module.exports = router;
