@@ -9,7 +9,7 @@ public class Employe extends User{
 
 	public Employe() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor st
 	}
 
 }
