@@ -15,7 +15,7 @@ export class FoodService {
     return this.http.post(this.baseURL, food);
    }
 
-   getaddFoodList(){
+   getFoodList(){
     return this.http.get(this.baseURL);
   }
   updateFood(foodd : Food) {
