@@ -2,8 +2,6 @@ package chmin9lewis.project.wakelni.Models;
 
 public class Extras{
 
-
-
 	private String name;
 	private int quantiteExtras = 1;//lquantite ta3 lextra ili y7ebb 3leha lclient
 	private double prixUnitaire;

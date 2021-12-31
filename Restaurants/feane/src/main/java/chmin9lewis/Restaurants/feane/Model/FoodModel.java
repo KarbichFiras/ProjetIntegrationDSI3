@@ -1,11 +1,12 @@
 package chmin9lewis.Restaurants.feane.Model;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
+
 public class FoodModel {
 
 	private String libelle;
 	
 	private double prix;
-	//private String famille;
 
 	private String image = "images/noFoodImage.jpg";
 
@@ -15,6 +16,14 @@ public class FoodModel {
 		super();
 	}
 
+	// create un oobjet de type FoodModel from un objet Food ( Food ili houwa lentity)
+	public FoodModel(Food food) {
+		this.libelle = food.getLibelle();
+		this.prix = food.getPrix();
+		this.image = food.getImage();
+		this.categorie = food.getCategorie().getName();
+	}
+	
 	public String getLibelle() {
 		return libelle;
 	}
@@ -30,14 +39,6 @@ public class FoodModel {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
-
-	/*public String getFamille() {
-		return famille;
-	}
-	*/
-	/*public void setFamille(String famille) {
-		this.famille = famille;
-	}*/
 
 	public String getImage() {
 		return image;
