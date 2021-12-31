@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 //ch9af bich nista3mlouh wa9t t3adi id ta3  restaurant bich yjib les food ili teb3ino
 public interface FoodExtrasCategorieModel {
 
-	 Long getCodef();
+	 String getnamer();
 	 String getlibelle();
 	 double getprix();
 	 String getimage() ;
 	 @JsonAlias("Foodcategorie")
 	 String getnamec();
 
-	 Long getcodeex();
+	
 	 @JsonAlias("Foodextra")
 	 String getnameex();
 	 Long getquantite();
