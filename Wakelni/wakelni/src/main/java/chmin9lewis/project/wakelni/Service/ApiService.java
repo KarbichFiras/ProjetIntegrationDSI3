@@ -22,6 +22,7 @@ import chmin9lewis.project.wakelni.Metier.IUserMetier;
 import chmin9lewis.project.wakelni.Models.FoodExtrasCategorieModel;
 import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
+import chmin9lewis.project.wakelni.Models.Product;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -42,6 +43,17 @@ public class ApiService {
 	@Autowired
 	WebClient webClient;
 	
+	
+	@RequestMapping(value="/getProduct", method=RequestMethod.GET)
+	public Mono<Product> getProduct(@RequestParam(name="libelle") String libelle) {
+		return webClient.get()
+				.uri("/product/getProduct?libelle="+libelle)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
+				.retrieve()
+				.bodyToMono(Product.class);
+	
+	}
+	
 	@RequestMapping(value="/getFooddeatildByRestaurant", method=RequestMethod.GET)
 	public Flux<FoodExtrasCategorieModel> getFooddeatildByRestaurant(@RequestParam(name="code") Long code) {
 		return webClient.get()
@@ -49,9 +61,6 @@ public class ApiService {
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToFlux(FoodExtrasCategorieModel.class);
-		
-			 
-		
 	
 	}
 	

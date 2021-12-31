@@ -1,10 +1,12 @@
 package chmin9lewis.Restaurants.feane.Metier;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
 import chmin9lewis.Restaurants.feane.Repository.FoodWithExtrasRepository;
 
@@ -14,6 +16,17 @@ public class FoodWithExtrasMetier implements IFoodWithExtrasMetier{
 	@Autowired
 	FoodWithExtrasRepository foodWithExtrasRepository;
 
+	
+	@Override
+	public Collection<FoodWithExtras> getFoodWithExtrasByFood(Food food) {
+		try {
+			return foodWithExtrasRepository.findByFood(food);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@Override
 	public FoodWithExtras getFoodWithExtrasDetails(Long foodWithExtrasCode) {
 		try {
@@ -101,7 +114,5 @@ public class FoodWithExtrasMetier implements IFoodWithExtrasMetier{
 			return false;
 		}
 	}
-	
-	
 	
 }
