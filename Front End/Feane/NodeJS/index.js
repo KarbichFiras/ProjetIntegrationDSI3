@@ -8,7 +8,7 @@ var menuController = require('./controllers/menuController');
 
 var app = express();
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://localhost:54028' }));
+app.use(cors({ origin: 'http://localhost:62667' }));
 
 app.listen(3000, () => console.log('Server started at port : 3000'));
 
