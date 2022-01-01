@@ -115,7 +115,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers("/addUser").permitAll()
 				.antMatchers("/addRole").permitAll()
 				.antMatchers("/consultFacture").permitAll()
-				.antMatchers("/newOrder").permitAll()
 				;
 			
 		}catch(Exception e) {

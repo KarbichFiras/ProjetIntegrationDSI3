@@ -81,17 +81,6 @@ public class FeaneApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(FeaneApplication.class, args);
 	}
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedHeaders("*").allowedOrigins("http://localhost:4200").allowedMethods("*")
-				.allowCredentials(true);
-			}
-		};
-	}
 	
 	/*@Bean
     public ServletWebServerFactory servletContainer() {

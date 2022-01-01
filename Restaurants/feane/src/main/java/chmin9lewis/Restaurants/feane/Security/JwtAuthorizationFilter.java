@@ -22,6 +22,8 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
 	private UserRepository userRepository;
+	
+	private JwtProvider jwtProvider = new JwtProvider();
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
@@ -53,10 +55,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
         if (token != null) {
             // parse the token and validate it
-            String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
-                    .build()
-                    .verify(token)
-                    .getSubject();
+        	String userName = jwtProvider.getUserNameFromJwtToken(token);
 
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
