@@ -14,6 +14,8 @@ import { FoodsComponent } from './foods/foods.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserService } from './shared/user.service';
+import { HomeuserComponent } from './homeuser/homeuser.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { UserService } from './shared/user.service';
     FoodsComponent,
     LoginComponent,
     RegisterComponent,
+    HomeuserComponent,
+
     
   ],
   imports: [
