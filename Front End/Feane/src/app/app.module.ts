@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RestoprofileComponent } from './restoprofile/restoprofile.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
+import { FoodsComponent } from './foods/foods.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EditprofileComponent } from './editprofile/editprofile.component';
     HomepageComponent,
     RestoprofileComponent,
     EditprofileComponent,
+    FoodsComponent,
     
   ],
   imports: [
