@@ -6,7 +6,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RestoprofileComponent } from './restoprofile/restoprofile.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
 import { FoodsComponent } from './foods/foods.component';
-
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 const routes : Routes =[
 
   { path: '',   redirectTo: 'homepage', pathMatch: 'full' },
@@ -15,6 +16,8 @@ const routes : Routes =[
   {path :"homepage" , component : HomepageComponent },
   {path :"restoprofile" , component : RestoprofileComponent },
   {path :"editprofile" , component : EditprofileComponent },
+  {path :"login" , component : LoginComponent },
+  {path :"register" , component : RegisterComponent },
 ];
 
 @NgModule({

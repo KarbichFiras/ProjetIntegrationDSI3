@@ -11,6 +11,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RestoprofileComponent } from './restoprofile/restoprofile.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
 import { FoodsComponent } from './foods/foods.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { FoodsComponent } from './foods/foods.component';
     RestoprofileComponent,
     EditprofileComponent,
     FoodsComponent,
+    LoginComponent,
+    RegisterComponent,
     
   ],
   imports: [
