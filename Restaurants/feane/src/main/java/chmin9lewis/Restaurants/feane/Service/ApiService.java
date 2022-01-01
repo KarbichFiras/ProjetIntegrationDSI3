@@ -47,6 +47,7 @@ public class ApiService {
 				// on create un instance du FoodModel a partir du food
 				foodModel = new FoodModel(f.getFood());
 				product.setFood(foodModel);
+				i++;
 			}
 			
 			extrasModel = new ExtrasModel(f.getExtras());
