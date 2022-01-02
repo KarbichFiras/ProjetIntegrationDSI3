@@ -9,13 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
+import chmin9lewis.Restaurants.feane.Entity.Menu;
+import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
 import chmin9lewis.Restaurants.feane.Metier.IFoodWithExtrasMetier;
+import chmin9lewis.Restaurants.feane.Metier.IMenuMetier;
+import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 import chmin9lewis.Restaurants.feane.Model.ExtrasModel;
 import chmin9lewis.Restaurants.feane.Model.FoodModel;
+import chmin9lewis.Restaurants.feane.Model.FoodWithExtrasModel;
 import chmin9lewis.Restaurants.feane.Model.Product;
 
 @CrossOrigin
@@ -29,12 +35,24 @@ public class ApiService {
 	@Autowired
 	IFoodWithExtrasMetier foodWithExtrasMetier;
 	
+	@Autowired
+	IRestaurantMetier restaurantMetier;
+	
+	@Autowired
+	IMenuMetier menuMetier;
+	
+	@Autowired
+	WebClient webClient;
+	
+	private static final String PRODUCT_CODE_SEPARATOR = ".";
+	
 	// method qui return un product a partir du nom "libelle" d'un food 
 	@RequestMapping(value="/getProduct",method=RequestMethod.GET)
 	public Product getProduct(@RequestParam(name="libelle") String libelle){
 		Product product = new Product();
 		FoodModel foodModel ;
 		ExtrasModel extrasModel;
+		FoodWithExtrasModel foodWithExtrasModel = new FoodWithExtrasModel();; 
 		
 		Food food = foodMetier.getFoodByLibelle(libelle);
 		Collection<FoodWithExtras> res= new ArrayList<FoodWithExtras>();
@@ -45,17 +63,94 @@ public class ApiService {
 		for(FoodWithExtras f : res) {
 			if(i==0) {
 				// on create un instance du FoodModel a partir du food
-				foodModel = new FoodModel(f.getFood());
-				product.setFood(foodModel);
-				i++;
+					foodModel = new FoodModel(f.getFood());
+				foodWithExtrasModel.setFood(foodModel);
+				
+				foodWithExtrasModel.setCode(f.getCode());
+				i=1;// bl3anni bch y3abi lfood marra bark ( perfermonce :p )
 			}
 			
 			extrasModel = new ExtrasModel(f.getExtras());
 			
-			product.getExtras().add(extrasModel);
+			foodWithExtrasModel.getExtras().add(extrasModel);
 		}
+		
+		Restaurant restaurant = webClient.get()
+						.uri("/product/getRestaurantByFoodWithExtrasCode?code="+foodWithExtrasModel.getCode())
+						.retrieve()
+						.bodyToMono(Restaurant.class)
+						.block();
+		
+		product.setRestaurantName(restaurant.getName());
+		product.setFoodWithExtras(foodWithExtrasModel);
+		product.setCode(restaurant.getName()+ PRODUCT_CODE_SEPARATOR + libelle);
 		
 		return product;
 	}
 	
+	@RequestMapping(value="/getRestaurantByFoodWithExtrasCode",method=RequestMethod.GET)
+	public Restaurant getRestaurantByFoodWithExtrasCode(@RequestParam(name="code") Long code){
+		
+		FoodWithExtras foodWithExtras = foodWithExtrasMetier.getFoodWithExtrasDetails(code);
+		
+		// code 3omrou mehou bch ykoun null ==> 5ater every single foodWithExtras marbout bMenu kbir fil DB nsamiweh catalogue .
+		Menu menu = menuMetier.getMenuDetails(foodWithExtras.getMenu().getCode());
+		
+		return menu.getRestaurant();
+	}
+	
+	
+	@RequestMapping(value="/getFoods",method=RequestMethod.GET)
+	public Collection<Product> getFoods(@RequestParam(name="restaurantName") String restaurantName){
+		Product product = new Product();
+		FoodModel foodModel ;
+		ExtrasModel extrasModel;
+		
+		Restaurant restaurant = restaurantMetier.getRestaurantByName(restaurantName);
+		
+		Collection<Menu> menus = restaurant.getMenus();
+		
+		for ( Menu m : menus) {
+			for(FoodWithExtras fe : m.getMenuFoods()) {
+				
+				//fe.get // n7ader fil product model brb
+				
+			}
+		}
+		
+		return null;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

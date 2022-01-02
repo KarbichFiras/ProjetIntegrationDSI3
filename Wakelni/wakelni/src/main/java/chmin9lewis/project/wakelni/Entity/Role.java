@@ -32,7 +32,7 @@ public class Role implements Serializable{
 	@Column(name="enabled", columnDefinition = "boolean default true" )
 	private boolean isEnabled=true;
 	
-	@ManyToMany(cascade = CascadeType.ALL , fetch =FetchType.LAZY , mappedBy = "roles" )
+	@ManyToMany(cascade = CascadeType.ALL , fetch=FetchType.EAGER, mappedBy = "roles" )
 	@JsonIgnore
 	private Set<User> users = new HashSet<>();
 

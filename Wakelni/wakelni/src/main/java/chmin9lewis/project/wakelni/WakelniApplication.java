@@ -75,44 +75,6 @@ public class WakelniApplication implements CommandLineRunner{
 			//Adding client role into Data Base
 			roleMetier.addRole(clientRole);
 			
-			//Creatin admin User
-			User admin = new Employe();
-				//Initializin admin User
-				admin.setNom("Karbich");
-				admin.setPrenom("Firas");
-				admin.setUsername("zed");
-				admin.setAdresse("Bizerte");
-				admin.setTel("50262899");
-				admin.setEmail("firasKarbich@gmail.com");
-				admin.setPassword(password);
-				//Adding this admin user to the adminRole's users List
-				adminRole.getUsers().add(admin);
-			//Adding this admin user into Data Base
-				
-			userMetier.addUser(new Register(admin));
-			//Adding adminRole to this admin user Role's List
-			admin.getRoles().add(adminRole);
-			//Updating admin Role
-			roleMetier.updateRole(adminRole);
-			
-			//Creatin employe  User 
-			User user = new Employe();
-				//Initializin employe
-				user.setNom("Essaied");
-				user.setPrenom("Iheb");
-				user.setUsername("loco");
-				user.setPassword(password);
-				user.setAdresse("Bizerte");
-				user.setTel("32145698");
-				user.setEmail("loco@gmail.com");
-				//Adding this employe to the employeRole's users List
-				employeRole.getUsers().add(user);
-			//Adding this employe into Data Base
-			userMetier.addUser(new Register(admin));
-			//Adding employeRole to this employe Role's List
-			user.getRoles().add(employeRole);
-			//Updating employe Role
-			roleMetier.updateRole(employeRole);
 			*/
 		
 	}

@@ -230,4 +230,14 @@ public class RestaurantMetier implements IRestaurantMetier{
 		 
 	}
 
+	@Override
+	public Restaurant getRestaurantByName(String restaurantName) {
+		try {
+			return restaurantRepository.findByName(restaurantName); 			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

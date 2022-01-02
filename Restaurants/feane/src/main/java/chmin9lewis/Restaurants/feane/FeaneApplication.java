@@ -17,7 +17,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -80,6 +83,15 @@ public class FeaneApplication implements CommandLineRunner{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(FeaneApplication.class, args);
+	}
+	
+	@Bean
+	public WebClient getWebClient(){
+		
+		return WebClient.builder()
+		        .baseUrl("http://localhost:8080")
+		        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+		        .build();
 	}
 	
 	/*@Bean
