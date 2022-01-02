@@ -31,20 +31,20 @@ router.get('/:id', (req, res) => {
 });
 
 // Update user
-/*router.put('/:id',(req, res)=>{
+router.put('/:id',(req, res)=>{
   if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
       var user = {
-        email = req.body.email,
-        username = req.body.username,
-        password = req.body.password,
-        lastUpdate = Date.now(),
+        email : req.body.email,
+        username : req.body.username,
+        password : req.body.password,
+        lastUpdate : Date.now(),
       };
       User.findByIdAndUpdate(req.params.id, { $set: user }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in User Update :' + JSON.stringify(err, undefined, 2)); }
     });
-});*/
+});
 
 // Delete USer
 router.delete('/:id', (req,res) => {
