@@ -3,6 +3,6 @@ export class Food {
     code :  String;
     libelle : String ;
     prix  : Number;
-    image : String ;
+    desc : String ;
     
 }
