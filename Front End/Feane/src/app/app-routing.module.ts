@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeuserComponent } from './homeuser/homeuser.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersModule } from './users/users.module';
+import { UserComponent } from './user/user.component';
 import { AllComponent } from './users/all/all.component';
 const routes : Routes =[
 
@@ -24,6 +25,7 @@ const routes : Routes =[
   {path :"register" , component : RegisterComponent },
   {path :"user" , component : HomeuserComponent },
   {path :"users" , component :  AllComponent},
+  {path :"userr" , component :  UserComponent},
   {path :"**" , component: NotFoundComponent },
 ];
 

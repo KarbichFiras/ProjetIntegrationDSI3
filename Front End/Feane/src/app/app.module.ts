@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserService } from './shared/user.service';
 import { HomeuserComponent } from './homeuser/homeuser.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     RegisterComponent,
     HomeuserComponent,
     NotFoundComponent,
+    UserComponent,
 
     
   ],
