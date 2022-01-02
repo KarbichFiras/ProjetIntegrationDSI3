@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Update user
-router.put('/:id',(req, res)=>{
+/*router.put('/:id',(req, res)=>{
   if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
       var user = {
@@ -44,7 +44,7 @@ router.put('/:id',(req, res)=>{
         if (!err) { res.send(doc); }
         else { console.log('Error in User Update :' + JSON.stringify(err, undefined, 2)); }
     });
-});
+});*/
 
 // Delete USer
 router.delete('/:id', (req,res) => {
