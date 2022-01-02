@@ -1,8 +1,10 @@
 package chmin9lewis.Restaurants.feane.Model;
 
+import java.io.Serializable;
+
 import chmin9lewis.Restaurants.feane.Entity.Extras;
 
-public class ExtrasModel{
+public class ExtrasModel implements Serializable{
 
 	private String name;
 	private int quantiteExtras = 1 ;//lquantite ta3 lextra ili y7ebb 3leha lclient

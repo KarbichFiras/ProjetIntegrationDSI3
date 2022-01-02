@@ -1,6 +1,8 @@
 package chmin9lewis.Restaurants.feane.Model;
 
-public class LoginViewModel {
+import java.io.Serializable;
+
+public class LoginViewModel implements Serializable{
 
 	private String username;
     private String password;

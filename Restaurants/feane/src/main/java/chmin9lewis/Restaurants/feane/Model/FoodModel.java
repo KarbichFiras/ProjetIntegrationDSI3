@@ -1,8 +1,10 @@
 package chmin9lewis.Restaurants.feane.Model;
 
+import java.io.Serializable;
+
 import chmin9lewis.Restaurants.feane.Entity.Food;
 
-public class FoodModel {
+public class FoodModel implements Serializable{
 
 	private String libelle;
 	
