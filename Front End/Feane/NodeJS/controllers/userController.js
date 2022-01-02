@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var ObjectId = require('mongoose').Types.ObjectId;
 var passport = require('passport');
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -24,14 +25,14 @@ router.get('/:id', (req, res) => {
   if (!ObjectId.isValid(req.params.id))
       return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-      UUser.findById(req.params.id, (err, doc) => {
+      User.findById(req.params.id, (err, doc) => {
       if (!err) { res.send(doc); }
       else { console.log('Error in Retriving user :' + JSON.stringify(err, undefined, 2)); }
   });
 });
 
 // Update user
-router.put('update/:id',(req, res)=>{
+router.put('/:id',(req, res)=>{
   if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
       var user = {
@@ -47,7 +48,7 @@ router.put('update/:id',(req, res)=>{
 });
 
 // Delete USer
-router.delete('delete/:id', (req,res) => {
+router.delete('/:id', (req,res) => {
   if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 

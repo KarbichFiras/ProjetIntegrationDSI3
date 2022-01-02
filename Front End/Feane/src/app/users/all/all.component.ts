@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/user.model';
 import { UserService } from 'src/app/shared/user.service';
 
@@ -13,7 +13,7 @@ export class AllComponent implements OnInit {
   selectedUser: User;
   users: User[];
 
-  constructor(private router: ActivatedRoute, private userService:UserService) { }
+  constructor(private router: Router, private userService:UserService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -21,7 +21,20 @@ export class AllComponent implements OnInit {
 
   getAllUsers():any{
     return this.userService.getAllUsers().subscribe((data: any)=>{
-      console.log(data);
+      this.users = data;
+    });
+  }
+  deleteUser(usreId: string){
+    alert("Are you sure?");
+    this.userService.deleteUser(usreId).subscribe(data=>{
+      this.refreshUsersList();
+      console.log(data)
+    });
+  }
+
+  refreshUsersList(){
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.userService.users = res as User[];
     });
   }
 

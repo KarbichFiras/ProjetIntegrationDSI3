@@ -6,6 +6,8 @@ import { User } from './user.model';
 @Injectable()
 export class UserService {
   
+  users: User[];
+
   constructor(private _http:HttpClient) { }
   // Get all users 
   getAllUsers() {
@@ -21,13 +23,12 @@ export class UserService {
   // Update User
   updateUser(user: User){
     let p=new HttpParams().set('id',user._id);
-    return this._http.put(BASE_URL + "update", user, {params: p});;
+    return this._http.put(BASE_URL , user, {params: p});;
   }
 
   //Delete User 
   deleteUser(userId: string ){
-    let p=new HttpParams().set('id',userId);
-    return this._http.delete(BASE_URL + "delete", {params:p});
+    return this._http.delete(BASE_URL+ "/" + userId );
   }
   
   // Register User
