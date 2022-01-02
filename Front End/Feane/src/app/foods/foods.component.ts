@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Food } from '../shared/food.model';
 import { FoodService } from '../shared/food.service';
-declare var F: any;
+declare var F:any;
 @Component({
   selector: 'app-foods',
   templateUrl: './foods.component.html',
