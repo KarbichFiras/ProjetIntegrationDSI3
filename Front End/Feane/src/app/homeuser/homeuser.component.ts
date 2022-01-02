@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 
 @Component({
@@ -8,17 +9,20 @@ import { UserService } from '../shared/user.service';
   styleUrls: ['./homeuser.component.css']
 })
 export class HomeuserComponent implements OnInit {
-
+  
   constructor(private _user:UserService,private _router:Router) {
+
     this._user.user()
-    .subscribe(
-      data=>console.log(data),
-      error=>this._router.navigate(['/login'])
-    )
+      .subscribe(
+        data=>console.log(data),
+        error=>this._router.navigate(['/login'])
+      )
    }
 
   ngOnInit(): void {
+    
   }
+
   logout(){
     this._user.logout()
     .subscribe(
