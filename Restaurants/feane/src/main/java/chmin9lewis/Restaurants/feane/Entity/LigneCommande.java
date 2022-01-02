@@ -19,6 +19,7 @@ public class LigneCommande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long code;
 	private int quantite = 1; 
+	private String restaurantName;
 	
 	@ManyToOne
 	private Commande commande;
@@ -72,6 +73,14 @@ public class LigneCommande {
 
 	public void setLigne_commande_extras(Collection<LigneCommandeExtras> ligne_commande_extras) {
 		this.ligne_commande_extras = ligne_commande_extras;
+	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
 	}
 
 }

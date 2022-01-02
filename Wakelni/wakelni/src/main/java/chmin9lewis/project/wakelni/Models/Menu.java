@@ -10,19 +10,12 @@ public class Menu implements Serializable{
 	private Long code;
 	private String titre;
 	private Date createdAt;
-	//private Collection<FoodWithExtras> menuFoods = new ArrayList<FoodWithExtras>();
+	private String restaurantName;
+	private Collection<FoodWithExtras> menuFoods = new ArrayList<FoodWithExtras>();
 		
 	public Menu() {
 		super();
 	}
-	
-	/*public Collection<FoodWithExtras> getMenuFoods() {
-		return menuFoods;
-	}
-	
-	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
-		this.menuFoods = menuFoods;
-	}*/
 	
 	public Long getCode() {
 		return code;
@@ -46,6 +39,22 @@ public class Menu implements Serializable{
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public Collection<FoodWithExtras> getMenuFoods() {
+		return menuFoods;
+	}
+
+	public void setMenuFoods(Collection<FoodWithExtras> menuFoods) {
+		this.menuFoods = menuFoods;
+	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
 	}
 	
 }

@@ -4,9 +4,8 @@ import java.util.Collection;
 
 public class Order {
 
-	private String externalClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
-	private String restaurantName;
-	private Collection<Plat> plats;
+	private String ClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
+	private Collection<Product> products;
 	private double Totale;
 	private Long RestaurantCommandeCode;
 	
@@ -14,29 +13,6 @@ public class Order {
 		super();
 	}
 
-	public String getExternalClientUsername() {
-		return externalClientUsername;
-	}
-	
-	public void setExternalClientUsername(String externalClientUsername) {
-		this.externalClientUsername = externalClientUsername;
-	}
-
-	public String getRestaurantName() {
-		return restaurantName;
-	}
-
-	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
-	}
-
-	public Collection<Plat> getPlats() {
-		return plats;
-	}
-
-	public void setPlats(Collection<Plat> plats) {
-		this.plats = plats;
-	}
 	public double getTotale() {
 		return Totale;
 	}
@@ -52,6 +28,23 @@ public class Order {
 	public void setRestaurantCommandeCode(Long restaurantCommandeCode) {
 		RestaurantCommandeCode = restaurantCommandeCode;
 	}
+
+	public Collection<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
+	}
+
+	public String getClientUsername() {
+		return ClientUsername;
+	}
+
+	public void setClientUsername(String clientUsername) {
+		ClientUsername = clientUsername;
+	}
+
 	
 	/*
 	 * Order on json !! FROM WAKALNI !!

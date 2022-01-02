@@ -30,6 +30,7 @@ public class UserMetier implements IUserMetier {
 	
 	@Override
 	public User addUser(Register register) {
+		
 		try {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			
@@ -40,10 +41,10 @@ public class UserMetier implements IUserMetier {
 			Set<String> rolesInRegister = register.getRoles();
 			Set<Role> roles = new HashSet<Role>();
 			
-			if(rolesInRegister == null) {
+			
 				roles.add(roleRepository.findByName("CLIENT"));
 				user = new Client();
-			}else {
+			
 				rolesInRegister.forEach(role ->{
 					switch(role) {
 						case "EMPLOYE" :
@@ -60,7 +61,7 @@ public class UserMetier implements IUserMetier {
 								break;
 					}
 				});
-			}
+			
 			user.setUsername(register.getUsername());
 			user.setEmail(register.getEmail());
 			user.setPassword(register.getPassword());

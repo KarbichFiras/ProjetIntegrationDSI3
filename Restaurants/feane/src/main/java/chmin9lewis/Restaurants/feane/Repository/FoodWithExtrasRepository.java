@@ -19,5 +19,6 @@ public interface FoodWithExtrasRepository extends JpaRepository<FoodWithExtras, 
 	public Collection<FoodExtrasCategorieModel> findFooddeatildByRestaurant(Long code);
 	
 	public Collection<FoodWithExtras> findByFood(Food food);
+	public FoodWithExtras findTopByFood(Food food);// This will return 1st item
 	
 }

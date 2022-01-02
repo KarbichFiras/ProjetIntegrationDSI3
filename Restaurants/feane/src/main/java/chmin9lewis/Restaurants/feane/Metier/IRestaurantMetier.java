@@ -24,4 +24,5 @@ public interface IRestaurantMetier {
 	public boolean deleteRestaurantById(Long restaurantCode);
 	public boolean enableRestaurant(Long restaurantCode);
 	public boolean desableRestaurant(Long restaurantCode);
+	public Restaurant getRestaurantByName(String restaurantName);
 }

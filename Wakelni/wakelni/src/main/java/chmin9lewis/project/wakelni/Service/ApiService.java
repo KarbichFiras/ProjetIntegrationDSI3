@@ -40,9 +40,10 @@ public class ApiService {
 	
 	@Autowired
 	ICommandeMetier commandeMetier;
+	
 	@Autowired
 	WebClient webClient;
-	
+
 	
 	@RequestMapping(value="/getProduct", method=RequestMethod.GET)
 	public Mono<Product> getProduct(@RequestParam(name="libelle") String libelle) {
@@ -53,6 +54,7 @@ public class ApiService {
 				.bodyToMono(Product.class);
 	
 	}
+	
 	
 	@RequestMapping(value="/getFooddeatildByRestaurant", method=RequestMethod.GET)
 	public Flux<FoodExtrasCategorieModel> getFooddeatildByRestaurant(@RequestParam(name="code") Long code) {
@@ -129,8 +131,7 @@ public class ApiService {
 		User client;
 		try {
 			
-			o.setExternalClientUsername(userMetier.getLoggedUser().getUsername());
-			o.setRestaurantName("Feane");
+			o.setClientUsername(userMetier.getLoggedUser().getUsername());
 			
 			Order order = 	webClient.post()
 					.uri("/addCommande")

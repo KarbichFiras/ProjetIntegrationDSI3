@@ -1,6 +1,7 @@
 package chmin9lewis.project.wakelni.Models;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import chmin9lewis.project.wakelni.Entity.Role;
 import chmin9lewis.project.wakelni.Entity.User;
 
 public class Register implements Serializable{
@@ -29,7 +31,7 @@ public class Register implements Serializable{
 	@NotBlank
 	private String password;
 	
-	private Set<String> roles;
+	private Set<String> roles = new HashSet<String>();
 
 	public Register() {
 		super();
@@ -45,7 +47,16 @@ public class Register implements Serializable{
 		this.adresse=user.getAdresse();
 		this.tel=user.getTel();
 		this.password=user.getPassword();
-		//this.roles.add("CLIENT");
+
+		
+		try {
+			for(Role r : user.getRoles()) {
+				this.roles.add(r.getName());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 
