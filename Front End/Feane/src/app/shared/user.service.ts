@@ -6,6 +6,8 @@ import { User } from './user.model';
 @Injectable()
 export class UserService {
   
+  users: User[];
+
   constructor(private _http:HttpClient) { }
   // Get all users 
   getAllUsers() {
@@ -26,7 +28,7 @@ export class UserService {
 
   //Delete User 
   deleteUser(userId: string ){
-    return this._http.delete(BASE_URL + userId );
+    return this._http.delete(BASE_URL+ "/" + userId );
   }
   
   // Register User

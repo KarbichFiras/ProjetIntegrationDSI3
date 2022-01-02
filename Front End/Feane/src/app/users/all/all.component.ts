@@ -27,7 +27,15 @@ export class AllComponent implements OnInit {
   deleteUser(usreId: string){
     alert("Are you sure?");
     this.userService.deleteUser(usreId).subscribe(data=>{
+      this.refreshUsersList();
       console.log(data)
     });
   }
+
+  refreshUsersList(){
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.userService.users = res as User[];
+    });
+  }
+
 }
