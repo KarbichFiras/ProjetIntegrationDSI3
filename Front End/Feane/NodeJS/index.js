@@ -13,7 +13,7 @@ var userController = require('./controllers/userController');
 var app = express();
 app.use(bodyParser.json());
 app.use(cors({
-    origin:['http://localhost:54304','http://127.0.0.1:54304'],
+    origin:['http://localhost:4200','http://127.0.0.1:4200'],
     credentials:true
   }));
 app.listen(3000, () => console.log('Server started at port : 3000'));

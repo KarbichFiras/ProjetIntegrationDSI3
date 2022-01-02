@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddMenuComponent } from './add-menu/add-menu.component'; 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -34,12 +35,17 @@ import { HomeuserComponent } from './homeuser/homeuser.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    AppRoutingModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+function InMemoryDataService(InMemoryDataService: any): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
+  throw new Error('Function not implemented.');
+}
+

@@ -19,7 +19,7 @@ const routes : Routes =[
   {path :"editprofile" , component : EditprofileComponent },
   {path :"login" , component : LoginComponent },
   {path :"register" , component : RegisterComponent },
-  {path :"userhome" , component : HomeuserComponent },
+  {path :"user" , component : HomeuserComponent },
 ];
 
 @NgModule({
