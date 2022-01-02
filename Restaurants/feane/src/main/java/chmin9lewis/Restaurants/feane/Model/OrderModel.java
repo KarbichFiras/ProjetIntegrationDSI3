@@ -1,9 +1,10 @@
 package chmin9lewis.Restaurants.feane.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class OrderModel {
+public class OrderModel implements Serializable{
 
 	private String ClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
 	private Collection<Product> products = new ArrayList<Product>();
