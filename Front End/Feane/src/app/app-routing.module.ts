@@ -10,6 +10,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeuserComponent } from './homeuser/homeuser.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UsersModule } from './users/users.module';
+import { AllComponent } from './users/all/all.component';
 const routes : Routes =[
 
   { path: '',   redirectTo: 'homepage', pathMatch: 'full' },
@@ -21,6 +23,7 @@ const routes : Routes =[
   {path :"login" , component : LoginComponent },
   {path :"register" , component : RegisterComponent },
   {path :"user" , component : HomeuserComponent },
+  {path :"users" , component :  AllComponent},
   {path :"**" , component: NotFoundComponent },
 ];
 
