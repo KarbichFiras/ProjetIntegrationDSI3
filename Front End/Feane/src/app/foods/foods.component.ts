@@ -26,7 +26,7 @@ export class FoodsComponent implements OnInit {
       code: "",
       libelle: "",
       prix: 0.00,
-      image: "", 
+      desc: "", 
     }
   }
 

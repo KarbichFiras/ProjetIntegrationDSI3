@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
         code : req.body.code,
         libelle : req.body.libelle  ,
         prix :req.body.prix,
-        image : req.body.image,
+        desc : req.body.desc,
         
     });
 
@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
             code : req.body.code,
             libelle : req.body.libelle  ,
             prix :req.body.prix,
-            image : req.body.image,
+            desc : req.body.desc,
         };
     Food.findByIdAndUpdate(req.params.id, { $set: food }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
