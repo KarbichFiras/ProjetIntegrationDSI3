@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni;
+package firas.karbich.com.wakalni.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,18 +27,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import firas.karbich.com.wakalni.Models.JwtResponse;
+import firas.karbich.com.wakalni.ApisInterfaces.AuthInterface;
+import firas.karbich.com.wakalni.POJO.Auth.JwtResponse;
+import firas.karbich.com.wakalni.POJO.Auth.LoginViewModel;
+import firas.karbich.com.wakalni.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL = "http://10.0.2.2:8081/api/auth/login";
+    private static final String BASE_URL = "http://10.0.2.2:8081/";
+    private static final String LOGIN_URL = "api/auth/login";
     private final Context context = LoginActivity.this;
     public static final String SHARED_PREFS= "loginInfo";
     public static final String JWT= "jwt";
@@ -67,12 +72,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if( !pass.getText().toString().isEmpty() && ! login.getText().toString().isEmpty()){
                     // log in the user
-                    loginUser();
+                    authenticate();
 
-                    JwtResponse jwtResponse = loadJwtResponse();
+                   /*JwtResponse jwtResponse = loadJwtResponse();
                     if(jwtResponse != null){
                         Toast.makeText(context, "username : " + jwtResponse.getUsername(), Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
 
                 }else{
                     openAlertDialog("Alert","Bad credentials ! ");
@@ -92,6 +97,40 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    // login usnig Retrofit
+    private void authenticate(){
+        // 1st step : Builder
+        Retrofit retrofit = new Retrofit.Builder()
+                // base url
+                .baseUrl(BASE_URL)
+                // converter that we r goin to use
+                .addConverterFactory(GsonConverterFactory.create())
+                // build the retrofit "object"
+                .build();
+        // 2nd step : let retrofit knows wich interface his goin to use to make calls
+        // linterface qu'il va etre utiliser pour faire les communications avec les rest Api ( .create ==> pour retrofit implemnet the body of each method that declared in that interface
+                                                                                            // ==> houca ili bch yitkafil bil appel ta3 lapi wil convert ta3 response w async tasks etc... )
+        AuthInterface authInterface = retrofit.create(AuthInterface.class);
+
+        // 3rd and last step : make the call
+        Call<JwtResponse> call = authInterface.authenticate(new LoginViewModel(login.getText().toString(), pass.getText().toString()));
+        // add the call to the queue
+        call.enqueue(new Callback<JwtResponse>() {
+            @Override
+            public void onResponse(Call<JwtResponse> call, retrofit2.Response<JwtResponse> response) {
+                Toast.makeText(context, "Got Response :D" + response.body().getAuthorities() , Toast.LENGTH_LONG).show();
+            }
+
+            // Couldn't reach the server or Couldn't parse the response got from the server
+            @Override
+            public void onFailure(Call<JwtResponse> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println( "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + t.getMessage());
+            }
+        });
+    }
+
+    // login using volley
     private boolean loginUser() {
         requestQueue = Volley.newRequestQueue(context);
         try{
@@ -100,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
             params.put("password" , pass.getText().toString());
             // JSONOBJECT 5ATER BCH NAB3THOU LES DONNE FIL BODY TA3 REQUEST SOUS FORMAT JSON
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                    LOGIN_URL, new JSONObject(params),
+                    BASE_URL + LOGIN_URL, new JSONObject(params),
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

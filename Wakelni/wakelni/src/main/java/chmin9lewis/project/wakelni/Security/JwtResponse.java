@@ -1,15 +1,20 @@
 package chmin9lewis.project.wakelni.Security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown =  true)
 public class JwtResponse {
 
 	private String jwt;
 	private String username;
 	Collection<? extends GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+	
 	
 	public JwtResponse() {
 		super();
@@ -41,5 +46,6 @@ public class JwtResponse {
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
+
 	
 }

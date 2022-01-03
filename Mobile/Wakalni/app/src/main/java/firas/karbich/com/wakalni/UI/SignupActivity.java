@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni;
+package firas.karbich.com.wakalni.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,11 +26,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import firas.karbich.com.wakalni.Models.User;
+import firas.karbich.com.wakalni.ApisInterfaces.AuthInterface;
+import firas.karbich.com.wakalni.POJO.Auth.JwtResponse;
+import firas.karbich.com.wakalni.POJO.Auth.LoginViewModel;
+import firas.karbich.com.wakalni.POJO.User;
+import firas.karbich.com.wakalni.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
-
-    private static final String SUGNUP_URL = "http://10.0.2.2:8081/api/auth/register";
+    private static final String BASE_URL = "http://10.0.2.2:8081/";
+    private static final String SUGNUP_URL = "api/auth/register";
     private final Context context = SignupActivity.this;
 
 
@@ -55,16 +64,49 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validForm()){
                     // Register the user
-                    boolean registred = registerUser();
+                   register();
+                    /* boolean registred = registerUser();
 
                     if(registred){
                         Intent intent = new Intent(context, LoginActivity.class);
                         startActivity(intent);
-                    }
+                    }*/
 
                 }
             }
         });
+    }
+
+    // Retrofit register
+    private void register(){
+        // 1st step : Builder
+        Retrofit retrofit = new Retrofit.Builder()
+                // base url
+                .baseUrl(BASE_URL)
+                // converter that we r goin to use
+                .addConverterFactory(GsonConverterFactory.create())
+                // build the retrofit "object"
+                .build();
+        // 2nd step : let retrofit knows wich interface his goin to use to make calls
+        // linterface qu'il va etre utiliser pour faire les communications avec les rest Api ( .create ==> pour retrofit implemnet the body of each method that declared in that interface
+        // ==> houca ili bch yitkafil bil appel ta3 lapi wil convert ta3 response w async tasks etc... )
+        AuthInterface authInterface = retrofit.create(AuthInterface.class);
+
+        // 3rd and last step : make the call
+        Call<User> call = authInterface.register(new User(username.getText().toString(), email.getText().toString(), password.getText().toString()));
+        // add the call to the queue
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                Toast.makeText(context, "Got Response : " + response.body().getEmail() , Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(context, "Failed : " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        );
     }
 
     private boolean registerUser(){
@@ -76,7 +118,7 @@ public class SignupActivity extends AppCompatActivity {
                 params.put("password" , password.getText().toString());
             // JSONOBJECT 5ATER BCH NAB3THOU LES DONNE FIL BODY TA3 REQUEST SOUS FORMAT JSON
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                    SUGNUP_URL, new JSONObject(params),
+                    BASE_URL + SUGNUP_URL, new JSONObject(params),
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
