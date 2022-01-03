@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni.Models;
+package firas.karbich.com.wakalni.POJO.Auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,7 @@ public class JwtResponse {
 
     private String jwt;
     private String username;
-    private Collection<String> authorities = new ArrayList<String>();
+    private Collection<?> authorities = new ArrayList<>();
 
     public JwtResponse() {
     }
@@ -34,11 +34,11 @@ public class JwtResponse {
         this.username = username;
     }
 
-    public Collection<String> getAuthorities() {
+    public Collection<?> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<String> authorities) {
+    public void setAuthorities(Collection<?> authorities) {
         this.authorities = authorities;
     }
 }

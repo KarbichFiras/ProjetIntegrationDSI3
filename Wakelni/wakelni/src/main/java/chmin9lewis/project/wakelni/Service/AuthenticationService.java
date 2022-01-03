@@ -1,5 +1,8 @@
 package chmin9lewis.project.wakelni.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chmin9lewis.project.wakelni.Metier.IUserMetier;
@@ -62,13 +66,16 @@ public class AuthenticationService {
 	@RequestMapping(value="/login" , method = RequestMethod.POST)
 	public ResponseEntity<?> loginUser(@Valid @RequestBody LoginViewModel credentials){
 		
+		
 		Authentication authentication = authenticationManager.authenticate(
 																new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword())
 																);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtProvider.generateJwtToken(authentication);
 		UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-		return ResponseEntity.ok(new JwtResponse(jwt,userPrincipal.getUsername(),userPrincipal.getAuthorities()));
+		JwtResponse jwtResponse = new JwtResponse(jwt,userPrincipal.getUsername(),userPrincipal.getAuthorities());
+		
+		return ResponseEntity.ok(jwtResponse);
 	}
 	
 	
