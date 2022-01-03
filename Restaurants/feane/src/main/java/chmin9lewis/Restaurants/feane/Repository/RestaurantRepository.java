@@ -8,12 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 
-	public Restaurant findByName(String name);
+	public Restaurant findByName(String restaurantName);
 
 	public List<Restaurant> findByIsEnabled(boolean isEnabled);
 	 
@@ -36,4 +35,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 	@Query(nativeQuery = true ,value = "SELECT r.* FROM food_with_extras fwe INNER JOIN Menu m INNER JOIN Restaurant r"
 			+ " where fwe.menu_code = m.code AND m.restaurant_code =r.code AND fwe.code= :code")
 	public Collection<Restaurant> findRestaurantByFood(Long code);
+
 }

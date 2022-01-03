@@ -1,12 +1,13 @@
 package chmin9lewis.Restaurants.feane.Model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
-public class OrderModel {
+public class OrderModel implements Serializable{
 
-	private String externalClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
-	private String restaurantName;
-	private Collection<PlatModel> plats;
+	private String ClientUsername;//attribue qui contient le Username du client dans wakalni qui ordered this commande
+	private Collection<Product> products = new ArrayList<Product>();
 	private double Totale;
 	private Long RestaurantCommandeCode;
 	
@@ -14,29 +15,6 @@ public class OrderModel {
 		super();
 	}
 
-	public String getExternalClientUsername() {
-		return externalClientUsername;
-	}
-	
-	public void setExternalClientUsername(String externalClientUsername) {
-		this.externalClientUsername = externalClientUsername;
-	}
-
-	public String getRestaurantName() {
-		return restaurantName;
-	}
-
-	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
-	}
-
-	public Collection<PlatModel> getPlats() {
-		return plats;
-	}
-
-	public void setPlats(Collection<PlatModel> plats) {
-		this.plats = plats;
-	}
 	public double getTotale() {
 		return Totale;
 	}
@@ -52,4 +30,23 @@ public class OrderModel {
 	public void setRestaurantCommandeCode(Long restaurantCommandeCode) {
 		RestaurantCommandeCode = restaurantCommandeCode;
 	}
+
+	public String getClientUsername() {
+		return ClientUsername;
+	}
+
+	public void setClientUsername(String clientUsername) {
+		ClientUsername = clientUsername;
+	}
+
+	public Collection<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
+	}
+
+
+
 }

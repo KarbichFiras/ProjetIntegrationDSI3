@@ -19,7 +19,7 @@ public class Facture implements Serializable{
 	private Date dateFacturation;
 	private double total;
 	private String modePaiment;
-	private Long RestaurantCommandeCode;// najmou nesta3mlou lcode ta3 lcommande wbih nal9aw lrestaurant 
+	private Long RestaurantCommandeCode; 
 	
 	public Facture() {
 		super();
@@ -65,4 +65,5 @@ public class Facture implements Serializable{
 	public void setRestaurantCommandeCode(Long restaurantCommandeCode) {
 		RestaurantCommandeCode = restaurantCommandeCode;
 	}
+
 }

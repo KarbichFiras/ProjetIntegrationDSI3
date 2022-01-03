@@ -1,11 +1,13 @@
 package chmin9lewis.project.wakelni.Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class FoodWithExtras implements Serializable{
 	
 	private Long code;
-	private Extras extras;
+	private Collection<Extras> extras = new ArrayList<Extras>(); // hethi twali collection ta3 extras 
 	private Food food;
 	
 	public FoodWithExtras() {
@@ -19,17 +21,20 @@ public class FoodWithExtras implements Serializable{
 	public void setCode(Long code) {
 		this.code = code;
 	}
-	public Extras getExtras() {
-		return extras;
-	}
-	public void setExtras(Extras extras) {
-		this.extras = extras;
-	}
+
 	public Food getFood() {
 		return food;
 	}
 	public void setFood(Food food) {
 		this.food = food;
+	}
+
+	public Collection<Extras> getExtras() {
+		return extras;
+	}
+
+	public void setExtras(Collection<Extras> extras) {
+		this.extras = extras;
 	}
 
 }

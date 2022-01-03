@@ -1,7 +1,5 @@
 package chmin9lewis.project.wakelni.Security;
 
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -14,8 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import com.auth0.jwt.JWT;
 
 import chmin9lewis.project.wakelni.Entity.User;
 import chmin9lewis.project.wakelni.Repository.UserRepository;

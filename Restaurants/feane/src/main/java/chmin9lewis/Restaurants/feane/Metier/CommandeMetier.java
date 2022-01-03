@@ -6,18 +6,21 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import chmin9lewis.Restaurants.feane.Entity.Commande;
 import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.LigneCommande;
 import chmin9lewis.Restaurants.feane.Entity.LigneCommandeExtras;
+import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Entity.Extras;
 import chmin9lewis.Restaurants.feane.Model.ExtrasModel;
 import chmin9lewis.Restaurants.feane.Model.OrderModel;
-import chmin9lewis.Restaurants.feane.Model.PlatModel;
+import chmin9lewis.Restaurants.feane.Model.Product;
 import chmin9lewis.Restaurants.feane.Repository.CommandeRepository;
 import chmin9lewis.Restaurants.feane.Repository.ExtrasRepository;
 import chmin9lewis.Restaurants.feane.Repository.FoodRepository;
+import chmin9lewis.Restaurants.feane.Repository.FoodWithExtrasRepository;
 import chmin9lewis.Restaurants.feane.Repository.LigneCommandeExtrasRepository;
 import chmin9lewis.Restaurants.feane.Repository.LigneCommandeRepository;
 
@@ -42,33 +45,69 @@ public class CommandeMetier implements ICommandeMetier{
 	@Autowired
 	LigneCommandeExtrasRepository ligneCommandeExtrasRepository; 
 	
+	@Autowired
+	FoodWithExtrasRepository foodWithExtrasRepository;
+	
+	@Autowired
+	IRestaurantMetier restaurantMetier;
+	
+	@Autowired
+	WebClient webClient;
+	
+	private static final String PRODUCT_CODE_SEPARATOR = ".";
+	
 	@Override
 	public OrderModel addCommande(OrderModel order) {
 		
+		// TODO
 		// we need to do some logic here so Restaurant have choice weather to accept or decline the commande
 		
-		Collection<PlatModel> plats =  new ArrayList<PlatModel>();
+		
+		boolean validRestaurantName = true;
+		
+		Collection<Product> products =  new ArrayList<Product>();
+		
+		double extrasPrix = 0;
+		double foodPrix = 0;
 		double T=0;//Totalle
+		
 		try {
-			plats = order.getPlats();
-			for(PlatModel p : plats) {
-				for(ExtrasModel e : p.getExtras()) {
-					Extras extra = extrasRepository.findByName(e.getName().toUpperCase());
-					e.setPrixUnitaire(extra.getPrixUnitaire());
-					T += e.getPrixUnitaire() * e.getQuantiteExtras();
+			products = order.getProducts();
+			for(Product p : products) {
+				
+				// a3mil test 3la ism lRestaurant ili bch yjik mil barra blkchi yatl3 we7id blid ba3ethlk ism min rassou same shit tintabe9 3al be99ii but manech fi production so ...
+				if( restaurantMetier.getRestaurantByName(p.getRestaurantName()) == null ) {
+					throw new RuntimeException("No restaurant with this name");
 				}
-				p.getFood().setPrix(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getPrix());
-				p.getFood().setCategorie(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getCategorie().getName());
-				p.getFood().setImage(foodRepository.findByLibelle(p.getFood().getLibelle().toUpperCase()).getImage());
-				T += p.getFood().getPrix() * p.getQuantiteFood();
-			}
+				p.setRestaurantName(p.getRestaurantName());
+				
+				for(ExtrasModel e : p.getFoodWithExtras().getExtras()) {
+						Extras extra = extrasRepository.findByName(e.getName().toUpperCase());
+						e.setPrixUnitaire(extra.getPrixUnitaire());
+						extrasPrix += e.getPrixUnitaire() * e.getQuantiteExtras();
+					}
+					
+					Food f =foodRepository.findByLibelle(p.getFoodWithExtras().getFood().getLibelle().toUpperCase());
+					
+					p.getFoodWithExtras().getFood().setPrix(f.getPrix());
+						foodPrix = p.getFoodWithExtras().getFood().getPrix() * p.getQuantiteFoodWithExtras() + extrasPrix;
+						p.setPrixFinale(foodPrix);
+					p.getFoodWithExtras().getFood().setCategorie(f.getCategorie().getName());
+					p.getFoodWithExtras().getFood().setImage(f.getImage());
+					p.getFoodWithExtras().setCode( foodWithExtrasRepository.findTopByFood(f).getCode() );
+					
+					// le code du prouit est la concatination du restaurantName et food name separer par une "."
+					p.setCode( p.getRestaurantName() + PRODUCT_CODE_SEPARATOR + p.getFoodWithExtras().getFood().getLibelle() );
+					
+					T += p.getPrixFinale();
+				}
 			
-			order.setPlats(plats);
+			order.setProducts(products);
 			order.setTotale(T);
 			
 			Commande c = new Commande();
-				c.setClientUsername(order.getExternalClientUsername());
-				c.setRestaurantName(order.getRestaurantName());
+				c.setClientUsername(order.getClientUsername());
+				//c.setRestaurantName(order.());
 				c.setTotale(T);
 				c = commandeRepository.save(c);
 					LigneCommande ligneCommande;
@@ -76,36 +115,32 @@ public class CommandeMetier implements ICommandeMetier{
 					LigneCommandeExtras ligneCommandeExtras;
 					Extras extras;
 					
-					for(PlatModel p : order.getPlats()) {
-						f = foodRepository.findByLibelle(p.getFood().getLibelle());
+					for(Product p : order.getProducts()) {
+						f = foodRepository.findByLibelle(p.getFoodWithExtras().getFood().getLibelle());
 							
 							ligneCommande = new LigneCommande();
 							ligneCommande.setFood(f);
 							ligneCommande.setCommande(c);
 							ligneCommande = ligneCommandeRepository.save(ligneCommande);
 							
-								for(ExtrasModel e : p.getExtras()) {
+						for(ExtrasModel e : p.getFoodWithExtras().getExtras()) {
 							
-									ligneCommandeExtras = new LigneCommandeExtras();
+							ligneCommandeExtras = new LigneCommandeExtras();
 									
-									extras = new Extras();
-									extras = extrasRepository.findByName(e.getName());
-									extras.setQuantite(e.getQuantiteExtras());
-									
-									ligneCommandeExtras.setExtras(extras);
-									ligneCommandeExtras.setLigneCommande(ligneCommande);
-									
-									extras.getLigneCommandeExtras().add(ligneCommandeExtras);
-									extras = extrasRepository.save(extras);
-									
-									ligneCommande.getLigne_commande_extras().add(ligneCommandeExtras);
-									ligneCommande = ligneCommandeRepository.save(ligneCommande);
-									
-									
-									
-								}
+							extras = new Extras();
+							extras = extrasRepository.findByName(e.getName());
+							extras.setQuantite(e.getQuantiteExtras());
 							
-								
+							ligneCommandeExtras.setExtras(extras);
+							ligneCommandeExtras.setLigneCommande(ligneCommande);
+									
+							extras.getLigneCommandeExtras().add(ligneCommandeExtras);
+							extras = extrasRepository.save(extras);
+									
+							ligneCommande.getLigne_commande_extras().add(ligneCommandeExtras);
+							ligneCommande = ligneCommandeRepository.save(ligneCommande);
+							
+						}
 								
 					}
 			
@@ -116,8 +151,7 @@ public class CommandeMetier implements ICommandeMetier{
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
-		}
-		
+		}	
 	}
-
+		
 }

@@ -24,6 +24,7 @@ import chmin9lewis.project.wakelni.Models.Food;
 import chmin9lewis.project.wakelni.Models.FoodExtrasCategorieModel;
 import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
+import chmin9lewis.project.wakelni.Models.Product;
 import chmin9lewis.project.wakelni.Models.Restaurant;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -41,8 +42,21 @@ public class ApiService {
 	
 	@Autowired
 	ICommandeMetier commandeMetier;
+	
 	@Autowired
 	WebClient webClient;
+
+	
+	@RequestMapping(value="/getProduct", method=RequestMethod.GET)
+	public Mono<Product> getProduct(@RequestParam(name="libelle") String libelle) {
+		return webClient.get()
+				.uri("/product/getProduct?libelle="+libelle)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
+				.retrieve()
+				.bodyToMono(Product.class);
+	
+	}
+	
 	
 //add getAllFoods for consuming
 	@RequestMapping(value="/getAllFoods", method=RequestMethod.GET)
@@ -66,9 +80,6 @@ public class ApiService {
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
 				.bodyToFlux(FoodExtrasCategorieModel.class);
-		
-			 
-		
 	
 	}
 	
@@ -137,8 +148,7 @@ public class ApiService {
 		User client;
 		try {
 			
-			o.setExternalClientUsername(userMetier.getLoggedUser().getUsername());
-			o.setRestaurantName("Feane");
+			o.setClientUsername(userMetier.getLoggedUser().getUsername());
 			
 			Order order = 	webClient.post()
 					.uri("/addCommande")
