@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Wakalni"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UI.RestaurantsListActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.LoginActivity"
             android:exported="true" />
         <activity

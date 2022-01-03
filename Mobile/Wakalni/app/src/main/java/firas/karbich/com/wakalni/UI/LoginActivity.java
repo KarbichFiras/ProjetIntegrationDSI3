@@ -1,5 +1,7 @@
 package firas.karbich.com.wakalni.UI;
 
+import static firas.karbich.com.wakalni.Utils.AppCredentials.BASE_URL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -32,9 +34,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import firas.karbich.com.wakalni.ApisInterfaces.AuthInterface;
-import firas.karbich.com.wakalni.POJO.Auth.JwtResponse;
-import firas.karbich.com.wakalni.POJO.Auth.LoginViewModel;
+import firas.karbich.com.wakalni.ApisInterfaces.AuthApi;
+import firas.karbich.com.wakalni.Models.Auth.JwtResponse;
+import firas.karbich.com.wakalni.Models.Auth.LoginViewModel;
 import firas.karbich.com.wakalni.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +45,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://10.0.2.2:8081/";
     private static final String LOGIN_URL = "api/auth/login";
     private final Context context = LoginActivity.this;
     public static final String SHARED_PREFS= "loginInfo";
@@ -110,10 +111,10 @@ public class LoginActivity extends AppCompatActivity {
         // 2nd step : let retrofit knows wich interface his goin to use to make calls
         // linterface qu'il va etre utiliser pour faire les communications avec les rest Api ( .create ==> pour retrofit implemnet the body of each method that declared in that interface
                                                                                             // ==> houca ili bch yitkafil bil appel ta3 lapi wil convert ta3 response w async tasks etc... )
-        AuthInterface authInterface = retrofit.create(AuthInterface.class);
+        AuthApi authApi = retrofit.create(AuthApi.class);
 
         // 3rd and last step : make the call
-        Call<JwtResponse> call = authInterface.authenticate(new LoginViewModel(login.getText().toString(), pass.getText().toString()));
+        Call<JwtResponse> call = authApi.authenticate(new LoginViewModel(login.getText().toString(), pass.getText().toString()));
         // add the call to the queue
         call.enqueue(new Callback<JwtResponse>() {
             @Override

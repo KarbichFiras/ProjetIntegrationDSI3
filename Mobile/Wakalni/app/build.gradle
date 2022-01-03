@@ -40,14 +40,28 @@ dependencies {
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-
     // GSON Retrofit converter
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // Volley
     implementation 'com.android.volley:volley:1.2.1'
 
+    // Recycler
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
     //CardView
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    def lifecycle_version = "2.4.0"
+    def arch_version = "2.1.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    // Glide compiler
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 }

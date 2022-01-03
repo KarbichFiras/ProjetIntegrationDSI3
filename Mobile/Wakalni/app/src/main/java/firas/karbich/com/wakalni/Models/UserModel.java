@@ -1,9 +1,9 @@
-package firas.karbich.com.wakalni.POJO;
+package firas.karbich.com.wakalni.Models;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class User {
+public class UserModel {
 
     private Long id = null;
 
@@ -23,16 +23,16 @@ public class User {
 
     private Set<String> roles = new HashSet<>();
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String username, String email, String password) {
+    public UserModel(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public User(Long id, String username, String nom, String prenom, String email, String adresse, String tel, String password, Set<String> roles) {
+    public UserModel(Long id, String username, String nom, String prenom, String email, String adresse, String tel, String password, Set<String> roles) {
         this.id = id;
         this.username = username;
         this.nom = nom;
