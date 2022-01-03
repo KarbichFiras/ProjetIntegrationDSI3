@@ -41,6 +41,14 @@ public class Extras implements Serializable{
 		super();
 	}
 	
+	public Extras(Extras extras) {
+		this.code = extras.code;
+		this.name = extras.name;
+		this.quantite = extras.quantite;
+		this.prixUnitaire = extras.prixUnitaire;
+		this.isEnabled = extras.isEnabled;
+	}
+
 	public Long getCode() {
 		return code;
 	}

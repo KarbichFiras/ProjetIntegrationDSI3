@@ -25,7 +25,7 @@ import chmin9lewis.project.wakelni.Models.FoodExtrasCategorieModel;
 import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Product;
-import chmin9lewis.project.wakelni.Models.Android.Restaurant;
+import chmin9lewis.project.wakelni.Models.Android.RestaurantAndroidModel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -58,7 +58,7 @@ public class ApiService {
 	}
 	
 	
-	//add getAllFoods for consuming
+//add getAllFoods for consuming
 	@RequestMapping(value="/getAllFoods", method=RequestMethod.GET)
 	public Flux<Food> getAllFoods() {
 		return webClient.get()
@@ -85,19 +85,19 @@ public class ApiService {
 	
 	//search restaurant by any caracter in food libelle
 	@RequestMapping(value="/getRestaurantByFood", method = RequestMethod.GET)
-	public Flux<Restaurant> getRestaurantByFood(@RequestParam(name="partLibelleFood") String partLibelleFood){
+	public Flux<RestaurantAndroidModel> getRestaurantByFood(@RequestParam(name="partLibelleFood") String partLibelleFood){
 		
 		return 	webClient.get()
 				.uri("/RestaurantFoodService/getRestaurantByFood?partLibelleFood="+partLibelleFood)
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
-				.bodyToFlux(Restaurant.class);
+				.bodyToFlux(RestaurantAndroidModel.class);
 		
 	}
 	
 	//search restaurant by any caracter in restaurant name
 		@RequestMapping(value="/getSpecificRestaurant", method = RequestMethod.GET)
-		public Flux<Restaurant> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto){
+		public Flux<RestaurantAndroidModel> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto){
 			
 			
 			
@@ -105,7 +105,7 @@ public class ApiService {
 					.uri("/restaurants/getSpecificRestaurant?partnameResto="+partnameResto)
 					.header("Authorization", ApisKeys.MY_FEANE_KEY)
 					.retrieve()
-					.bodyToFlux(Restaurant.class);
+					.bodyToFlux(RestaurantAndroidModel.class);
 			
 		}
 	//cart
@@ -125,24 +125,34 @@ public class ApiService {
 		
 		
 	@RequestMapping(value="/getAllRestaurants", method = RequestMethod.GET)
-	public Flux<Restaurant> getAllRestaurants(){
+	public Flux<RestaurantAndroidModel> getAllRestaurants(){
 		
 		return 	webClient.get()
 				.uri("/restaurants/getAllRestaurants")
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
-				.bodyToFlux(Restaurant.class);
+				.bodyToFlux(RestaurantAndroidModel.class);
 		
 	}
 	
 	@RequestMapping(value="/getRestaurantByCode/{code}", method = RequestMethod.GET)
-	public Mono<Restaurant> getRestaurantByCode(@PathVariable(name="code") Long code){
+	public Mono<RestaurantAndroidModel> getRestaurantByCode(@PathVariable(name="code") Long code){
 		return 	webClient.get()
 				.uri("/restaurants/getRestaurantByCode/"+code)
 				.header("Authorization", ApisKeys.MY_FEANE_KEY)
 				.retrieve()
-				.bodyToMono(Restaurant.class);
+				.bodyToMono(RestaurantAndroidModel.class);
 		
+	}
+	
+	@RequestMapping(value="/getProductsByRestaurantName",method=RequestMethod.GET)
+	public Flux<Product> getProductsByRestaurantName(@RequestParam(name="restaurantName") String restaurantName){
+		
+		return webClient.get()
+				.uri("/product/getProductsByRestaurantName?restaurantName="+restaurantName)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
+				.retrieve()
+				.bodyToFlux(Product.class);
 	}
 	
 	@RequestMapping(value="/newOrder", method = RequestMethod.POST)

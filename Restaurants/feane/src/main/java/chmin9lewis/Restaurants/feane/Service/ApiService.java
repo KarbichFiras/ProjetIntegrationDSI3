@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import chmin9lewis.Restaurants.feane.Entity.Extras;
 import chmin9lewis.Restaurants.feane.Entity.Food;
 import chmin9lewis.Restaurants.feane.Entity.FoodWithExtras;
 import chmin9lewis.Restaurants.feane.Entity.Menu;
@@ -18,6 +19,7 @@ import chmin9lewis.Restaurants.feane.Entity.Restaurant;
 import chmin9lewis.Restaurants.feane.Metier.IFoodMetier;
 import chmin9lewis.Restaurants.feane.Metier.IFoodWithExtrasMetier;
 import chmin9lewis.Restaurants.feane.Metier.IMenuMetier;
+import chmin9lewis.Restaurants.feane.Metier.IProductMetier;
 import chmin9lewis.Restaurants.feane.Metier.IRestaurantMetier;
 import chmin9lewis.Restaurants.feane.Model.ExtrasModel;
 import chmin9lewis.Restaurants.feane.Model.FoodModel;
@@ -43,6 +45,9 @@ public class ApiService {
 	
 	@Autowired
 	WebClient webClient;
+	
+	@Autowired
+	IProductMetier productMetier;
 	
 	private static final String PRODUCT_CODE_SEPARATOR = ".";
 	
@@ -100,25 +105,35 @@ public class ApiService {
 	}
 	
 	
-	@RequestMapping(value="/getFoods",method=RequestMethod.GET)
-	public Collection<Product> getFoods(@RequestParam(name="restaurantName") String restaurantName){
-		Product product = new Product();
-		FoodModel foodModel ;
-		ExtrasModel extrasModel;
+	@RequestMapping(value="/getProductsByRestaurantName",method=RequestMethod.GET)
+	public Collection<Product> getProductsByRestaurantName(@RequestParam(name="restaurantName") String restaurantName){
+		Product product ;
 		
 		Restaurant restaurant = restaurantMetier.getRestaurantByName(restaurantName);
 		
 		Collection<Menu> menus = restaurant.getMenus();
+		Collection<Product> products = new ArrayList<Product>();
 		
 		for ( Menu m : menus) {
 			for(FoodWithExtras fe : m.getMenuFoods()) {
 				
-				//fe.get // n7ader fil product model brb
+				product = new Product();
+				
+				product = webClient.get()
+						.uri("/product/getProduct?libelle="+fe.getFood().getLibelle())
+						.retrieve()
+						.bodyToMono(Product.class)
+						.block();
+				
+ 
+				productMetier.calculPrix(product);
+				
+				products.add(product);
 				
 			}
 		}
 		
-		return null;
+		return products;
 	}
 	
 }
