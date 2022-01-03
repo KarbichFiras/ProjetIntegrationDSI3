@@ -39,9 +39,6 @@ public class CommandeMetier implements ICommandeMetier{
 	@Autowired
 	LigneCommandeRepository ligneCommandeRepository;
 	
-	@AutoConfigureOrder
-	FoodRepository FoodRepository;
-	
 	@Autowired
 	LigneCommandeExtrasRepository ligneCommandeExtrasRepository; 
 	

@@ -1,13 +1,13 @@
 package chmin9lewis.project.wakelni.Models.Android;
 
-public class Restaurant {
+public class RestaurantAndroidModel {
 
 	private Long code;
 	private String name;
 	private String adresse;
 	private String email;
 	private String description;
-	public Restaurant() {
+	public RestaurantAndroidModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
