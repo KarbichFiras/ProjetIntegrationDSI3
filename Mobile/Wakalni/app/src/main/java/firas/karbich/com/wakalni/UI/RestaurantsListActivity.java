@@ -41,22 +41,6 @@ public class RestaurantsListActivity extends AppCompatActivity {
 
     }
 
-    private void ConfigureRecyclerView(){
-        restaurantsRecyclerAdapter = new RestaurantsRecyclerAdapter(context, restaurants, new OnRestaurantListener() {
-            @Override
-            public void onRestaurantClick(int position) {
-                Toast.makeText(context, "Item clicked position : " + position , Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSeemoreClick(String seemore) {
-
-            }
-        });
-        restaurantsRecyclerView.setAdapter(restaurantsRecyclerAdapter);
-        restaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-    }
-
     private void getRestaurants() {
 
         RestaurantsApi restaurantsApi = RestaurantsClient.getRestaurantsApi();
@@ -75,10 +59,26 @@ public class RestaurantsListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Collection<RestaurantModel>> call, Throwable t) {
-                Toast.makeText(context, "Couldn't reach server or Coulsn't parse response " + t.getMessage() ,  Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Couldn't reach server or Couldn't parse response " + t.getMessage() ,  Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    private void ConfigureRecyclerView(){
+        restaurantsRecyclerAdapter = new RestaurantsRecyclerAdapter(context, restaurants, new OnRestaurantListener() {
+            @Override
+            public void onRestaurantClick(int position) {
+                Toast.makeText(context, "Item clicked position : " + position , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSeemoreClick(String seemore) {
+
+            }
+        });
+        restaurantsRecyclerView.setAdapter(restaurantsRecyclerAdapter);
+        restaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
 }
