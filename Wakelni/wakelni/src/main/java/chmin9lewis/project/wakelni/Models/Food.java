@@ -6,6 +6,7 @@ public class Food {
 	
 	private double prix;
 
+
 	private String image = "images/noFoodImage.jpg";
 
 	private String categorie;
@@ -29,6 +30,7 @@ public class Food {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+
 
 	public String getImage() {
 		return image;
