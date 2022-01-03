@@ -1,10 +1,11 @@
 package firas.karbich.com.wakalni.UI;
 
+import static firas.karbich.com.wakalni.Utils.AppCredentials.BASE_URL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +27,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import firas.karbich.com.wakalni.ApisInterfaces.AuthInterface;
-import firas.karbich.com.wakalni.POJO.Auth.JwtResponse;
-import firas.karbich.com.wakalni.POJO.Auth.LoginViewModel;
-import firas.karbich.com.wakalni.POJO.User;
+import firas.karbich.com.wakalni.ApisInterfaces.AuthApi;
+import firas.karbich.com.wakalni.Models.UserModel;
 import firas.karbich.com.wakalni.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +36,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
-    private static final String BASE_URL = "http://10.0.2.2:8081/";
+
     private static final String SUGNUP_URL = "api/auth/register";
     private final Context context = SignupActivity.this;
 
@@ -90,19 +89,19 @@ public class SignupActivity extends AppCompatActivity {
         // 2nd step : let retrofit knows wich interface his goin to use to make calls
         // linterface qu'il va etre utiliser pour faire les communications avec les rest Api ( .create ==> pour retrofit implemnet the body of each method that declared in that interface
         // ==> houca ili bch yitkafil bil appel ta3 lapi wil convert ta3 response w async tasks etc... )
-        AuthInterface authInterface = retrofit.create(AuthInterface.class);
+        AuthApi authApi = retrofit.create(AuthApi.class);
 
         // 3rd and last step : make the call
-        Call<User> call = authInterface.register(new User(username.getText().toString(), email.getText().toString(), password.getText().toString()));
+        Call<UserModel> call = authApi.register(new UserModel(username.getText().toString(), email.getText().toString(), password.getText().toString()));
         // add the call to the queue
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+            public void onResponse(Call<UserModel> call, retrofit2.Response<UserModel> response) {
                 Toast.makeText(context, "Got Response : " + response.body().getEmail() , Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Toast.makeText(context, "Failed : " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         }

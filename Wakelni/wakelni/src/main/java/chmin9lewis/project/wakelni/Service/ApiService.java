@@ -25,7 +25,7 @@ import chmin9lewis.project.wakelni.Models.FoodExtrasCategorieModel;
 import chmin9lewis.project.wakelni.Models.FoodWithExtras;
 import chmin9lewis.project.wakelni.Models.Order;
 import chmin9lewis.project.wakelni.Models.Product;
-import chmin9lewis.project.wakelni.Models.Restaurant;
+import chmin9lewis.project.wakelni.Models.Android.Restaurant;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -58,7 +58,7 @@ public class ApiService {
 	}
 	
 	
-//add getAllFoods for consuming
+	//add getAllFoods for consuming
 	@RequestMapping(value="/getAllFoods", method=RequestMethod.GET)
 	public Flux<Food> getAllFoods() {
 		return webClient.get()
@@ -98,6 +98,8 @@ public class ApiService {
 	//search restaurant by any caracter in restaurant name
 		@RequestMapping(value="/getSpecificRestaurant", method = RequestMethod.GET)
 		public Flux<Restaurant> getSpecificRestaurant(@RequestParam(name="partnameResto") String partnameResto){
+			
+			
 			
 			return 	webClient.get()
 					.uri("/restaurants/getSpecificRestaurant?partnameResto="+partnameResto)

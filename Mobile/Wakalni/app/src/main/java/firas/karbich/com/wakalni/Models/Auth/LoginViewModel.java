@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni.POJO.Auth;
+package firas.karbich.com.wakalni.Models.Auth;
 
 public class LoginViewModel {
     private String username;
