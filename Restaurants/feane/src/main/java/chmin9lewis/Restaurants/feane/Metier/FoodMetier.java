@@ -147,7 +147,19 @@ public class FoodMetier implements IFoodMetier{
 				return null;
 			}	
 	}
-	
+	@Override
+	public List<Food> getFoodByPartName(String partLibelleFood) {
+		
+		try {
+			
+		
+			return this.foodRepository.findBylibelleLikeIgnoreCase("%"+partLibelleFood+"%");
+
+			}catch(Exception e) {
+				System.out.println("Could not find resultfood   : " + e);
+				return null;
+			}	
+	}
 	
 	
 }

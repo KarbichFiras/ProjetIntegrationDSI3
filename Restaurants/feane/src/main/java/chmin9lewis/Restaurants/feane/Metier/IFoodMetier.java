@@ -11,6 +11,7 @@ public interface IFoodMetier {
 	public Food getFoodByLibelle(String libelle);
 	public List<Food> getAllFoods();
 	public List<Restaurant> getRestaurantByFood(String partLibelleFood);
+	public List<Food> getFoodByPartName(String partLibelleFood);
 	public Food addFood(Food food);
 	public Food updateFood(Food food);
 	public boolean deleteFood(Food food);

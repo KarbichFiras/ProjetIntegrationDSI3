@@ -35,7 +35,12 @@ public class FoodService {
 	public List<Food> getSpecificFood(@RequestParam(name="partLibelleFood") String partLibelleFood) {
 		return foodMetier.getSpecificFood(partLibelleFood);
 	}
-
+	
+	@RequestMapping(value="/getFoodByPartName", method=RequestMethod.GET)
+	public List<Food> getFoodByPartName(@RequestParam(name="partLibelleFood") String partLibelleFood) {
+		return foodMetier.getFoodByPartName(partLibelleFood);
+	}
+	
 	@RequestMapping(value="/addFood", method=RequestMethod.POST)
 	public Food addFood(@RequestBody Food food) {
 		return foodMetier.addFood(food);
