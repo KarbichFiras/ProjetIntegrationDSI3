@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Wakalni"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UI.ProductDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.ProductsListActivity"
             android:exported="true" />
         <activity

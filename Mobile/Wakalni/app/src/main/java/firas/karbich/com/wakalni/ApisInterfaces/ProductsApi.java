@@ -12,4 +12,6 @@ public interface ProductsApi {
     @GET("/api/restaurants/getProductsByRestaurantName")
     Call<Collection<ProductModel>> getProductsByRestaurantName(@Query("restaurantName") String restaurantName);
 
+    @GET("/api/restaurants/getProductByCode")
+    Call<ProductModel> getProductDetails(@Query("code")String code);
 }

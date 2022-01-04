@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni.Asapters;
+package firas.karbich.com.wakalni.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -64,7 +64,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name, foodPrix;
-        Button addToCart;
         ImageView image;
         OnProductListener onProductListener;
 
@@ -73,10 +72,11 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             this.onProductListener = onProductListener;
             name = itemView.findViewById(R.id.foodName);
             foodPrix = itemView.findViewById(R.id.foodPrix);
-            addToCart = itemView.findViewById(R.id.addToCartbtn);
+
             image =itemView.findViewById(R.id.foodImage);
 
             itemView.setOnClickListener(this);
+
         }
 
         @Override

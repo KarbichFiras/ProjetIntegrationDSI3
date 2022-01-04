@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,10 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import firas.karbich.com.wakalni.ApisInterfaces.ProductsApi;
-import firas.karbich.com.wakalni.Asapters.OnProductListener;
-import firas.karbich.com.wakalni.Asapters.OnRestaurantListener;
-import firas.karbich.com.wakalni.Asapters.ProductsRecyclerAdapter;
-import firas.karbich.com.wakalni.Asapters.RestaurantsRecyclerAdapter;
+import firas.karbich.com.wakalni.Adapters.OnProductListener;
+import firas.karbich.com.wakalni.Adapters.ProductsRecyclerAdapter;
 import firas.karbich.com.wakalni.Models.ProductModel;
 import firas.karbich.com.wakalni.R;
 import firas.karbich.com.wakalni.Resquests.ProductsClient;
@@ -38,7 +37,8 @@ public class ProductsListActivity extends AppCompatActivity {
         foodsRecyclerView = findViewById(R.id.foodsRecyclerView);
 
         // Normalment t3adih fil putExtra ta3 lintent min 3and RestaurantsActivity
-        String restaurantName = "Feane4";
+        Intent intent = getIntent();
+        String restaurantName = intent.getStringExtra("restaurantName");
 
         getProducts(restaurantName);
 
@@ -72,12 +72,11 @@ public class ProductsListActivity extends AppCompatActivity {
         productsRecyclerAdapter = new ProductsRecyclerAdapter(context, products, new OnProductListener() {
             @Override
             public void onProductClick(int position) {
-                Toast.makeText(context, "Product selected : " + position, Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onAddCartClick(ProductModel product) {
-                Toast.makeText(context, "Product selected : " + product.getPrixFinale(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("product", products.get(position));
+                startActivity(intent);
+
             }
         });
 

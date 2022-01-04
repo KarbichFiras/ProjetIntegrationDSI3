@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if( !pass.getText().toString().isEmpty() && ! login.getText().toString().isEmpty()){
                     // log in the user
-                    authenticate();
+                    loginUser();
 
                    /*JwtResponse jwtResponse = loadJwtResponse();
                     if(jwtResponse != null){
@@ -185,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openSharedPreferences() {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE);
     }
 
     public void closeSharedPreferences(){

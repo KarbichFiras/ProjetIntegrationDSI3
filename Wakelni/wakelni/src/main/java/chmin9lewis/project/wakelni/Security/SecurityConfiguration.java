@@ -113,8 +113,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers("/api/auth/**").permitAll()
 				.antMatchers("/api/restaurants/**").permitAll()
 				.antMatchers("/addUser").permitAll()
-				.antMatchers("/addRole").permitAll()
-				.antMatchers("/consultFacture").permitAll()
+				.antMatchers("/addRole").hasAuthority("ADMIN")
+				.antMatchers("/consultFacture").authenticated()
 				;
 			
 		}catch(Exception e) {

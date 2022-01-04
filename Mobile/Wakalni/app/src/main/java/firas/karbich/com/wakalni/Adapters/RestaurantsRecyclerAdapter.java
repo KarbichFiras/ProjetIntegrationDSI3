@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni.Asapters;
+package firas.karbich.com.wakalni.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
