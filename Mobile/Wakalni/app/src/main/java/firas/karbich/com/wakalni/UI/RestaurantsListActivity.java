@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import firas.karbich.com.wakalni.ApisInterfaces.RestaurantsApi;
-import firas.karbich.com.wakalni.Asapters.OnRestaurantListener;
-import firas.karbich.com.wakalni.Asapters.RestaurantsRecyclerAdapter;
+import firas.karbich.com.wakalni.Adapters.OnRestaurantListener;
+import firas.karbich.com.wakalni.Adapters.RestaurantsRecyclerAdapter;
 import firas.karbich.com.wakalni.Models.RestaurantModel;
 import firas.karbich.com.wakalni.R;
 import firas.karbich.com.wakalni.Resquests.RestaurantsClient;
@@ -41,22 +42,6 @@ public class RestaurantsListActivity extends AppCompatActivity {
 
     }
 
-    private void ConfigureRecyclerView(){
-        restaurantsRecyclerAdapter = new RestaurantsRecyclerAdapter(context, restaurants, new OnRestaurantListener() {
-            @Override
-            public void onRestaurantClick(int position) {
-                Toast.makeText(context, "Item clicked position : " + position , Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSeemoreClick(String seemore) {
-
-            }
-        });
-        restaurantsRecyclerView.setAdapter(restaurantsRecyclerAdapter);
-        restaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-    }
-
     private void getRestaurants() {
 
         RestaurantsApi restaurantsApi = RestaurantsClient.getRestaurantsApi();
@@ -75,10 +60,28 @@ public class RestaurantsListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Collection<RestaurantModel>> call, Throwable t) {
-                Toast.makeText(context, "Couldn't reach server or Coulsn't parse response " + t.getMessage() ,  Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Couldn't reach server or Couldn't parse response " + t.getMessage() ,  Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    private void ConfigureRecyclerView(){
+        restaurantsRecyclerAdapter = new RestaurantsRecyclerAdapter(context, restaurants, new OnRestaurantListener() {
+            @Override
+            public void onRestaurantClick(int position) {
+                Intent intent = new Intent(context, ProductsListActivity.class);
+                intent.putExtra("restaurantName", restaurants.get(position).getName());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onSeemoreClick(String seemore) {
+                // zeyda tw na7iha ba3ed
+            }
+        });
+        restaurantsRecyclerView.setAdapter(restaurantsRecyclerAdapter);
+        restaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
 }

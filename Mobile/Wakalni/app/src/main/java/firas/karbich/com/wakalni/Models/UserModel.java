@@ -1,9 +1,12 @@
 package firas.karbich.com.wakalni.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserModel {
+public class UserModel implements Parcelable {
 
     private Long id = null;
 
@@ -43,6 +46,33 @@ public class UserModel {
         this.password = password;
         this.roles = roles;
     }
+
+    protected UserModel(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        username = in.readString();
+        nom = in.readString();
+        prenom = in.readString();
+        email = in.readString();
+        adresse = in.readString();
+        tel = in.readString();
+        password = in.readString();
+    }
+
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel in) {
+            return new UserModel(in);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 
     public Set<String> getRoles() {
         return roles;
@@ -116,4 +146,25 @@ public class UserModel {
         this.password = password;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        dest.writeString(username);
+        dest.writeString(nom);
+        dest.writeString(prenom);
+        dest.writeString(email);
+        dest.writeString(adresse);
+        dest.writeString(tel);
+        dest.writeString(password);
+    }
 }

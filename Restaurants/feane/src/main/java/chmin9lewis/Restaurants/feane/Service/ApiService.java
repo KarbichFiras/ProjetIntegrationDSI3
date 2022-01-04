@@ -136,34 +136,41 @@ public class ApiService {
 		return products;
 	}
 	
+	
+	@RequestMapping(value="/getProductByCode",method=RequestMethod.GET) // code ==> restauName.foodName
+	public Product getProductByCode(@RequestParam(name="code") String code){
+		
+		if(code.contains(".")) {
+			
+			String restaurantName = code.substring(0 , code.indexOf(".")).trim();
+			String foodtName = code.substring(code.indexOf(".")+1 ).trim();
+			Product product;
+			
+			try {
+				
+				Restaurant res =  restaurantMetier.getRestaurantByName(restaurantName);
+				
+				if ( res.getName().equals(restaurantName) ) {
+					product = webClient.get()
+								.uri("/product/getProduct?libelle="+foodtName)
+								.retrieve()
+								.bodyToMono(Product.class)
+								.block();
+					
+					if(product != null) {
+						return productMetier.calculPrix(product);
+					}
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+		
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

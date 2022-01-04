@@ -1,6 +1,12 @@
 package firas.karbich.com.wakalni.Models;
 
-public class ProductModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.widget.TextView;
+
+public class ProductModel implements Parcelable {
+
+    private static final String PRODUCT_CODE_SEPARATOR = ".";
 
     private String code;
     private FoodWithExtrasModel foodWithExtras;
@@ -11,6 +17,30 @@ public class ProductModel {
     public ProductModel() {
         super();
     }
+
+    public ProductModel(String name) {// ma3tinehich extras ==> tous les extras wkol wa7da lquantite 1, 5alis baba 5alis hhh
+        this.foodWithExtras.getFood().setLibelle(name);
+        this.code = this.restaurantName + PRODUCT_CODE_SEPARATOR + this.foodWithExtras.getFood().getLibelle();
+    }
+
+    protected ProductModel(Parcel in) {
+        code = in.readString();
+        quantiteFoodWithExtras = in.readInt();
+        prixFinale = in.readDouble();
+        restaurantName = in.readString();
+    }
+
+    public static final Creator<ProductModel> CREATOR = new Creator<ProductModel>() {
+        @Override
+        public ProductModel createFromParcel(Parcel in) {
+            return new ProductModel(in);
+        }
+
+        @Override
+        public ProductModel[] newArray(int size) {
+            return new ProductModel[size];
+        }
+    };
 
     public String getCode() {
         return code;
@@ -52,4 +82,16 @@ public class ProductModel {
         this.quantiteFoodWithExtras = quantiteFoodWithExtras;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(code);
+        dest.writeInt(quantiteFoodWithExtras);
+        dest.writeDouble(prixFinale);
+        dest.writeString(restaurantName);
+    }
 }

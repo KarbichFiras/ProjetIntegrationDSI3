@@ -108,7 +108,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			http.authorizeRequests()
 				//.antMatchers(HttpMethod.GET, "/").permitAll()
 				//.antMatchers(HttpMethod.POST, "/login").permitAll()
-				.antMatchers(HttpMethod.GET, "/getAllUsers").permitAll()
+				.antMatchers(HttpMethod.GET, "/getAllUsers").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET, "/restaurants/getAllRestaurants").permitAll()
 				.antMatchers(HttpMethod.GET, "/getSpecificRestaurant").permitAll()
 				.antMatchers(HttpMethod.GET, "/getRestaurantByFood").permitAll()

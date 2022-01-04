@@ -155,6 +155,17 @@ public class ApiService {
 				.bodyToFlux(Product.class);
 	}
 	
+	@RequestMapping(value="/getProductByCode",method=RequestMethod.GET) // code ==> restauName.foodName
+	public Mono<Product> getProductByCode(@RequestParam(name="code") String code){
+		
+		return webClient.get()
+				.uri("/product/getProductByCode?code="+code)
+				.header("Authorization", ApisKeys.MY_FEANE_KEY)
+				.retrieve()
+				.bodyToMono(Product.class);
+	}
+		
+	
 	@RequestMapping(value="/newOrder", method = RequestMethod.POST)
 	public Order newOrder(@RequestBody Order o){
 		User client;

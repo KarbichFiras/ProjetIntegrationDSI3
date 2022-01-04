@@ -1,4 +1,4 @@
-package firas.karbich.com.wakalni.Asapters;
+package firas.karbich.com.wakalni.Adapters;
 
 public interface OnRestaurantListener {
 

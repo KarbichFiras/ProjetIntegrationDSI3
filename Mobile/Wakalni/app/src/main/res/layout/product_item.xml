@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,56 +20,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/restaurantLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="12dp"
-                android:text="Location"
-                app:layout_constraintStart_toEndOf="@+id/restaurantImage"
-                app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
-
             <ImageView
-                android:id="@+id/restaurantImage"
+                android:id="@+id/foodImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/restaurantName"
+                android:id="@+id/foodName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="16dp"
-                android:text="Name"
-                app:layout_constraintStart_toEndOf="@+id/restaurantImage"
+                android:text="Food Name"
+                app:layout_constraintStart_toEndOf="@+id/foodImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/restaurantServices"
+                android:id="@+id/foodRestaurantName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:text="Services"
-                app:layout_constraintStart_toStartOf="@+id/restaurantLocation"
-                app:layout_constraintTop_toBottomOf="@+id/restaurantLocation" />
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                android:text="RestaurantName"
+                app:layout_constraintStart_toEndOf="@+id/foodImage"
+                app:layout_constraintTop_toBottomOf="@+id/foodName" />
 
             <TextView
-                android:id="@+id/restaurantSeemore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="10dp"
-                android:text="See More"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:id="@+id/textView4"
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                android:text="DT"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/foodPrix"
+                android:layout_width="34dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Price"
+                app:layout_constraintEnd_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
